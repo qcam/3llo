@@ -1,41 +1,57 @@
-# Tr3llo
+# 3llo - Interactive CLI for Trello
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/trecli`. To experiment with that code, run `bin/console` for an interactive prompt.
+3llo is the terminal client for Trello, which helps you manage Trello cards without
+leaving your awesome terminal.
 
-TODO: Delete this and the text above, and describe your gem
+[![video](intro.gif)](https://asciinema.org/a/eu1q5el69kub7si79dubeyfn6)
+
+3llo was inspired by the awesome
+[rainbowstream](https://github.com/DTVD/rainbowstream) and
+[facy](https://github.com/huydx/facy).
+
+## Why this named 3llo?
+
+Good to know that `3 == "tre"` in Swedish.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
 ```ruby
-gem 'trecli'
+[sudo] gem install 3llo
 ```
 
-And then execute:
+You also need to have these environment variables set in your shell.
 
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install trecli
+```
+export TRELLO_USER=your_username
+export TRELLO_KEY=your_key
+export TRELLO_TOKEN=your_token
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+There are a couple of commands available in 3llo.
 
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+* `board list`: List your board
+* `board select <board_id>`: Select the active board.
+* `card list`: List all cards of the active board.
+* `card list mine`: List all your cards of the active board.
+* `card show <card_id>`: Show card information.
+* `card move <card_id> <list_id>`: Move card to a specified list.
+* `list list`: List all the lists of the active board.
+* `help`: Show help menu.
+* `exit`: Exit.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/trecli. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/qcam/3llo. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
+### Development Roadmap
+
+* Add card.
+* Archive card.
+* Show card member.
+* Archive all cards in list.
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
