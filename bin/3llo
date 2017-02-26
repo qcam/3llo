@@ -6,6 +6,7 @@ require 'readline'
 
 $interface = Tr3llo::Interface.new($stdin, $stdout)
 $interface.puts(Tr3llo::Presenter.help_menu)
+Tr3llo.load_me!
 
 while buffer = Readline.readline("\e[15;48;5;27m 3llo \e[0m > ", true)
   args = buffer.split(' ')
@@ -47,6 +48,11 @@ while buffer = Readline.readline("\e[15;48;5;27m 3llo \e[0m > ", true)
     when 'show'
       $interface.print_frame do
         $interface.puts Tr3llo::Presenter.present_card(Tr3llo.show_card(*args), true)
+      end
+    when 'self-assign'
+      card_id, _ = args
+      $interface.print_frame do
+        $interface.puts(Tr3llo.self_assign_card(card_id) && 'Card assigned to you.')
       end
     when 'move'
       card_id, list_id = args

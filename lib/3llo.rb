@@ -27,6 +27,19 @@ module Tr3llo
     $board_id = board_id
   end
 
+  def load_me!
+    url = "/members/#{USER_ID}"
+
+    $user = JSON.parse(
+      client.get(
+        url,
+        key: KEY,
+        token: TOKEN
+      ),
+      symbolize_names: true
+    )
+  end
+
   def list_cards(member_id = 'all')
     if member_id == 'mine'
       url = "/boards/#{$board_id}/members/#{USER_ID}/cards"
@@ -98,6 +111,18 @@ module Tr3llo
     )
   end
 
+  def self_assign_card(card_id)
+    url = "/cards/#{card_id}/idMembers"
+    JSON.parse(
+      client.put(
+        url,
+        key: KEY,
+        token: TOKEN,
+        value: $user[:id]
+      ),
+      symbolize_names: true
+    )
+  end
   private
 
   def client
