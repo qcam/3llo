@@ -84,5 +84,7 @@ while buffer = Readline.readline("\e[15;48;5;27m 3llo \e[0m > ", true)
     end
   rescue Tr3llo::BoardNotSelectedError => e
     $interface.print_frame { $interface.puts e.message }
+  rescue Tr3llo::Client::RequestError => e
+    $interface.print_frame { $interface.puts e.message }
   end
 end

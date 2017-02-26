@@ -8,6 +8,19 @@ module Tr3llo
 
     BASE_URL = "https://api.trello.com/1"
 
+    class RequestError < RuntimeError
+      attr_reader :response
+
+      def initialize(response)
+        @response = response
+        super()
+      end
+
+      def message
+        "Request error: #{response}"
+      end
+    end
+
     def get(path, params = {})
       uri = URI("#{BASE_URL}#{path}?#{query_string(params)}")
 
@@ -20,7 +33,7 @@ module Tr3llo
 
       case res
       when Net::HTTPSuccess then res.body
-      else raise(res.body)
+      else raise(RequestError.new(res.body))
       end
     end
 
@@ -36,7 +49,7 @@ module Tr3llo
 
       case res
       when Net::HTTPOK then res.body
-      else raise(res.body)
+      else raise(RequestError.new(res.body))
       end
     end
 
