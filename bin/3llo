@@ -9,76 +9,80 @@ $interface.puts(Tr3llo::Presenter.help_menu)
 Tr3llo.load_me!
 
 while buffer = Readline.readline("\e[15;48;5;27m 3llo \e[0m > ", true)
-  args = buffer.split(' ')
-  resource, command, *args = args
+  begin
+    args = buffer.split(' ')
+    resource, command, *args = args
 
-  case resource
-  when 'board'
-    $interface.print_frame do
-      case command
-      when 'list'
-        $interface.print_line(
-          Tr3llo::Presenter.present_boards(Tr3llo.list_boards)
-        )
-      when 'select'
-        if Tr3llo.select_board(*args)
-          $interface.puts("Board selected")
-        else
-          $interface.puts("Cannot select board")
-        end
-      end
-    end
-  when 'card'
-    case command
-    when 'list'
-      scope, _ = *args
+    case resource
+    when 'board'
       $interface.print_frame do
-        if scope
-          $interface.puts(Tr3llo::Presenter.present_cards(Tr3llo.list_cards('mine')))
-        else
-          lists = Tr3llo.list_lists
-          lists.each do |list|
-            list_id = list[:id]
-            $interface.puts("# #{list[:name]}".colorize(95))
-            $interface.puts(Tr3llo::Presenter.present_cards(Tr3llo.list_list_cards(list_id)))
-            $interface.puts("")
+        case command
+        when 'list'
+          $interface.print_line(
+            Tr3llo::Presenter.present_boards(Tr3llo.list_boards)
+          )
+        when 'select'
+          if Tr3llo.select_board(*args)
+            $interface.puts("Board selected")
+          else
+            $interface.puts("Cannot select board")
           end
         end
       end
-    when 'show'
-      $interface.print_frame do
-        $interface.puts Tr3llo::Presenter.present_card(Tr3llo.show_card(*args), true)
-      end
-    when 'self-assign'
-      card_id, _ = args
-      $interface.print_frame do
-        $interface.puts(Tr3llo.self_assign_card(card_id) && 'Card assigned to you.')
-      end
-    when 'move'
-      card_id, list_id = args
-      $interface.print_frame do
-        unless list_id
-          lists = Tr3llo.list_lists
-          $interface.puts Tr3llo::Presenter.present_lists(lists)
-          $interface.print("Enter ID of the list being moved to: ")
-          list_id = $stdin.gets.chomp
+    when 'card'
+      case command
+      when 'list'
+        scope, _ = *args
+        $interface.print_frame do
+          if scope
+            $interface.puts(Tr3llo::Presenter.present_cards(Tr3llo.list_cards('mine')))
+          else
+            lists = Tr3llo.list_lists
+            lists.each do |list|
+              list_id = list[:id]
+              $interface.puts("# #{list[:name]}".colorize(95))
+              $interface.puts(Tr3llo::Presenter.present_cards(Tr3llo.list_list_cards(list_id)))
+              $interface.puts("")
+            end
+          end
         end
-        $interface.puts(Tr3llo.move_card(card_id, list_id) && 'Card moved')
+      when 'show'
+        $interface.print_frame do
+          $interface.puts Tr3llo::Presenter.present_card(Tr3llo.show_card(*args), true)
+        end
+      when 'self-assign'
+        card_id, _ = args
+        $interface.print_frame do
+          $interface.puts(Tr3llo.self_assign_card(card_id) && 'Card assigned to you.')
+        end
+      when 'move'
+        card_id, list_id = args
+        $interface.print_frame do
+          unless list_id
+            lists = Tr3llo.list_lists
+            $interface.puts Tr3llo::Presenter.present_lists(lists)
+            $interface.print("Enter ID of the list being moved to: ")
+            list_id = $stdin.gets.chomp
+          end
+          $interface.puts(Tr3llo.move_card(card_id, list_id) && 'Card moved')
+        end
       end
-    end
-  when 'list'
-    case command
     when 'list'
-      $interface.puts Tr3llo::Presenter.present_lists(Tr3llo.list_lists(*args))
-    when 'list-cards'
-      $interface.puts Tr3llo::Presenter.present_cards(Tr3llo.list_list_cards(*args))
+      case command
+      when 'list'
+        $interface.puts Tr3llo::Presenter.present_lists(Tr3llo.list_lists(*args))
+      when 'list-cards'
+        $interface.puts Tr3llo::Presenter.present_cards(Tr3llo.list_list_cards(*args))
+      end
+    when 'exit' then
+      $interface.puts 'Bye bye'
+      exit
+    when 'help' then
+      $interface.puts(Tr3llo::Presenter.help_menu)
+    else
+      $interface.puts 'Invalid Command'.colorize(31)
     end
-  when 'exit' then
-    $interface.puts 'Bye bye'
-    exit
-  when 'help' then
-    $interface.puts(Tr3llo::Presenter.help_menu)
-  else
-    $interface.puts 'Invalid Command'.colorize(31)
+  rescue Tr3llo::BoardNotSelectedError => e
+    $interface.print_frame { $interface.puts e.message }
   end
 end

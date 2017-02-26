@@ -8,6 +8,12 @@ require 'json'
 module Tr3llo
   extend self
 
+  class BoardNotSelectedError < RuntimeError
+    def message
+      "Board has not been selected."
+    end
+  end
+
   USER_ID = ENV.fetch('TRELLO_USER') { raise "Have you set TRELLO_USER?" }
   KEY = ENV.fetch('TRELLO_KEY') { raise "Have you set TRELLO_KEY?" }
   TOKEN = ENV.fetch('TRELLO_TOKEN') { raise "Have you set TRELLO_TOKEN?" }
@@ -41,6 +47,7 @@ module Tr3llo
   end
 
   def list_cards(member_id = 'all')
+    validate_board!
     if member_id == 'mine'
       url = "/boards/#{$board_id}/members/#{USER_ID}/cards"
     else
@@ -86,6 +93,7 @@ module Tr3llo
   end
 
   def list_lists
+    validate_board!
     JSON.parse(
       client.get(
         "/boards/#{$board_id}/lists/",
@@ -123,7 +131,12 @@ module Tr3llo
       symbolize_names: true
     )
   end
+
   private
+
+  def validate_board!
+    raise BoardNotSelectedError unless $board_id
+  end
 
   def client
     Tr3llo::Client
