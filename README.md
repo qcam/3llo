@@ -37,6 +37,7 @@ There are a couple of commands available in 3llo.
 * `card list mine`: List all your cards of the active board.
 * `card show <card_id>`: Show card information.
 * `card move <card_id> <list_id>`: Move card to a specified list.
+* `card self-assign <card_id>`: Self-assign a card.
 * `list list`: List all the lists of the active board.
 * `help`: Show help menu.
 * `exit`: Exit.

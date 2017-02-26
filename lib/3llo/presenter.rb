@@ -67,6 +67,7 @@ module Tr3llo
     card list mine                  - Show list of my cards
     card show <card_id>             - Show card information
     card move <card_id> <list_id>   - Move card to a list
+    card self-assign <card_id>      - Self-assign a card
     list list                       - Show all lists
     help                            - Show help menu
     exit                            - Exit program
