@@ -2,89 +2,28 @@
 
 require "bundler/setup"
 require "3llo"
-require 'readline'
+require 'container'
 
-$interface = Tr3llo::Interface.new($stdin, $stdout)
-$interface.puts(Tr3llo::Presenter.help_menu)
-Tr3llo.load_me!
+$container = Container.new
+$container.register(:api_client, Tr3llo::Client)
+$container.register(:interface, Tr3llo::Interface.new($stdin, $stdout))
 
-while buffer = Readline.readline("\e[15;48;5;27m 3llo \e[0m > ", true)
-  begin
-    args = buffer.split(' ')
-    resource, command, *args = args
+configuration = Tr3llo::Configuration.new
+configuration.user_id = ENV.fetch('TRELLO_USER') { raise "Have you set TRELLO_USER?" }
+configuration.api_key = ENV.fetch('TRELLO_KEY') { raise "Have you set TRELLO_KEY?" }
+configuration.api_token = ENV.fetch('TRELLO_TOKEN') { raise "Have you set TRELLO_TOKEN?" }
+configuration.finalize!
 
-    case resource
-    when 'board'
-      $interface.print_frame do
-        case command
-        when 'list'
-          $interface.print_line(
-            Tr3llo::Presenter.present_boards(Tr3llo.list_boards)
-          )
-        when 'select'
-          if Tr3llo.select_board(*args)
-            $interface.puts("Board selected")
-          else
-            $interface.puts("Cannot select board")
-          end
-        end
-      end
-    when 'card'
-      case command
-      when 'list'
-        scope, _ = *args
-        $interface.print_frame do
-          if scope
-            $interface.puts(Tr3llo::Presenter.present_cards(Tr3llo.list_cards('mine')))
-          else
-            lists = Tr3llo.list_lists
-            lists.each do |list|
-              list_id = list[:id]
-              $interface.puts("# #{list[:name]}".colorize(95))
-              $interface.puts(Tr3llo::Presenter.present_cards(Tr3llo.list_list_cards(list_id)))
-              $interface.puts("")
-            end
-          end
-        end
-      when 'show'
-        $interface.print_frame do
-          $interface.puts Tr3llo::Presenter.present_card(Tr3llo.show_card(*args), true)
-        end
-      when 'self-assign'
-        card_id, _ = args
-        $interface.print_frame do
-          $interface.puts(Tr3llo.self_assign_card(card_id) && 'Card assigned to you.')
-        end
-      when 'move'
-        card_id, list_id = args
-        $interface.print_frame do
-          unless list_id
-            lists = Tr3llo.list_lists
-            $interface.puts Tr3llo::Presenter.present_lists(lists)
-            $interface.print("Enter ID of the list being moved to: ")
-            list_id = $stdin.gets.chomp
-          end
-          $interface.puts(Tr3llo.move_card(card_id, list_id) && 'Card moved')
-        end
-      end
-    when 'list'
-      case command
-      when 'list'
-        $interface.puts Tr3llo::Presenter.present_lists(Tr3llo.list_lists(*args))
-      when 'list-cards'
-        $interface.puts Tr3llo::Presenter.present_cards(Tr3llo.list_list_cards(*args))
-      end
-    when 'exit' then
-      $interface.puts 'Bye bye'
-      exit
-    when 'help' then
-      $interface.puts(Tr3llo::Presenter.help_menu)
-    else
-      $interface.puts 'Invalid Command'.colorize(31)
-    end
-  rescue Tr3llo::BoardNotSelectedError => e
-    $interface.print_frame { $interface.puts e.message }
-  rescue Tr3llo::Client::RequestError => e
-    $interface.print_frame { $interface.puts e.message }
-  end
-end
+$container.register(
+  :configuration,
+  configuration
+)
+
+user = Tr3llo::API::User.find($container.resolve(:configuration).user_id)
+$container.register(:user, user)
+
+Tr3llo::Presenter::HelpPresenter
+  .new($container.resolve(:interface))
+  .print!
+
+Tr3llo::Controller.new.start
