@@ -6,8 +6,9 @@ module Tr3llo
 
     def print_frame
       print_line("")
-      yield
+      data = yield
       print_line("")
+      data
     end
 
     def print_line(str)
@@ -17,6 +18,11 @@ module Tr3llo
 
     def print(str)
       output.print(str)
+    end
+
+    def prompt(message)
+      print("Enter list ID to be moved to: ")
+      input.gets.chomp
     end
 
     attr_reader :input, :output
