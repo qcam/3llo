@@ -19,7 +19,9 @@ module Tr3llo
         attr_reader :user_id, :card_id
 
         def assign_card
-          API::Card.assign_members(card_id, [user_id])
+          card = API::Card.find(card_id)
+          members = card[:idMembers] << user_id
+          API::Card.assign_members(card_id, members)
         end
 
         def interface
