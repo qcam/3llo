@@ -25,13 +25,19 @@ module Tr3llo
             label_str = ''
           end
 
+          if card.has_key?(:members)
+            members_str = card[:members].map { |member| "@#{member[:username]}".blue }.join(", ")
+          else
+            members_str = ''
+          end
+
           if card[:subscribed]
             subscribed_str = "[✓]"
           else
             subscribed_str = "[ ]"
           end
 
-          interface.puts "#{subscribed_str} #{card[:id].labelize}] - #{card[:name]} (#{label_str})"
+          interface.puts "#{subscribed_str} #{card[:id].labelize}] - #{card[:name]} (#{label_str}) [#{members_str}]"
         end
 
         def colorize_label(label)

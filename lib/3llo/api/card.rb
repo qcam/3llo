@@ -20,6 +20,8 @@ module Tr3llo
             "/lists/#{list_id}/cards",
             key: api_key,
             token: api_token,
+            members: 'true',
+            member_fields: "id,username"
           ),
           symbolize_names: true
         )
