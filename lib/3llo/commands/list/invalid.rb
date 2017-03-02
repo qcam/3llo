@@ -13,7 +13,7 @@ module Tr3llo
 
         def menu_text
           %q{
-    Available `board` commands
+    Available `list` commands
 
     list list                       - Show all lists
     list cards <list_id>            - Show all cards in list
