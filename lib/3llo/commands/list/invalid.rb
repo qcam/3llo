@@ -16,6 +16,7 @@ module Tr3llo
     Available `board` commands
 
     list list                       - Show all lists
+    list cards <list_id>            - Show all cards in list
           }
         end
 
