@@ -19,7 +19,17 @@ module Tr3llo
         attr_reader :interface
 
         def present_card(card)
-          interface.puts "[#{card[:id].labelize}] - #{card[:name]}"
+          if card.has_key?(:labels)
+            label_str = card[:labels].map { |label| colorize_label(label) }.join(", ")
+          else
+            label_str = ''
+          end
+
+          interface.puts "[#{card[:id].labelize}] - #{card[:name]} (#{label_str})"
+        end
+
+        def colorize_label(label)
+          "##{label[:name]}".paint(label[:color])
         end
       end
     end
