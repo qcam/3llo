@@ -7,9 +7,11 @@ module Tr3llo
         end
 
         def prompt_for_list_id(lists)
-          interface.puts("List of lists in this board")
-          lists.each(&method(:present_list))
-          interface.prompt("Select list ID")
+          choices = lists.reduce({}) do |result, list|
+            result.merge(list[:name] => list[:id])
+          end
+
+          interface.input.select('Choose the list to be moved to', choices)
         end
 
         private
