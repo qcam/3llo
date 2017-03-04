@@ -23,7 +23,7 @@ module Tr3llo
         end
       end
     rescue Interrupt
-      interface.print_frame { interface.puts('Bye Bye...') }
+      Command::ExitCommand.new.execute
     end
 
     private

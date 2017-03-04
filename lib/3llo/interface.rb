@@ -20,11 +20,6 @@ module Tr3llo
       output.print(str)
     end
 
-    def prompt(message)
-      print("Enter list ID to be moved to: ")
-      input.gets.chomp
-    end
-
     attr_reader :input, :output
   end
 end

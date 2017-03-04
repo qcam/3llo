@@ -3,10 +3,12 @@
 $:.unshift File.expand_path("../../lib", __FILE__)
 require "3llo"
 require 'container'
+require 'tty-prompt'
 
 $container = Container.new
 $container.register(:api_client, Tr3llo::Client)
-$container.register(:interface, Tr3llo::Interface.new($stdin, $stdout))
+prompt = TTY::Prompt.new
+$container.register(:interface, Tr3llo::Interface.new(prompt, $stdout))
 
 configuration = Tr3llo::Configuration.new
 configuration.user_id = ENV.fetch('TRELLO_USER') { raise "Have you set TRELLO_USER?" }
