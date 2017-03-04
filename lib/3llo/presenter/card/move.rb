@@ -7,11 +7,10 @@ module Tr3llo
         end
 
         def prompt_for_list_id(lists)
-          choices = lists.reduce({}) do |result, list|
-            result.merge(list[:name] => list[:id])
-          end
-
-          interface.input.select('Choose the list to be moved to', choices)
+          interface.input.select(
+            'Choose the list to be moved to',
+            lists.map { |list| [list[:name], list[:id]] }.to_h
+          )
         end
 
         private

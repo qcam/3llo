@@ -2,23 +2,22 @@ module Tr3llo
   module Command
     module Card
       class MoveCommand
-        def initialize(card_id, list_id, board_id)
+        def initialize(card_id, board_id)
           @card_id = card_id
-          @list_id = list_id
           @board_id = board_id
         end
 
         def execute
           interface.print_frame do
-            prompt_for_list_id!(board_id) unless list_id
-            move_card!
+            list_id = prompt_for_list_id!(board_id)
+            move_card!(list_id)
             interface.puts("Card has been moved.")
           end
         end
 
         private
 
-        attr_reader :list_id, :card_id, :board_id
+        attr_reader :card_id, :board_id
 
         def prompt_for_list_id!(board_id)
           board_id = $container.resolve(:board)[:id]
@@ -30,7 +29,7 @@ module Tr3llo
             .prompt_for_list_id(lists)
         end
 
-        def move_card!
+        def move_card!(list_id)
           API::Card.move_to_list(card_id, list_id)
         end
 

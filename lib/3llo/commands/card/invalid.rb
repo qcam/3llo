@@ -15,11 +15,11 @@ module Tr3llo
           %q{
     Available `card` commands
 
-    card list                       - Show list of cards grouped by list
-    card list mine                  - Show list of my cards
-    card show <card_id>             - Show card information
-    card move <card_id> <list_id>   - Move card to a list
-    card self-assign <card_id>      - Self-assign a card
+    card list                   - Show list of cards grouped by list
+    card list mine              - Show list of my cards
+    card show <card_id>         - Show card information
+    card move <card_id>         - Move card to a list
+    card self-assign <card_id>  - Self-assign a card
           }
         end
 

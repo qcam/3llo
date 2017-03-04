@@ -28,9 +28,9 @@ module Tr3llo
         card_id, _ = args
         Command::Card::ShowCommand.new(card_id)
       when 'move'
-        card_id, list_id = args
+        card_id, _ = args
         board_id = $container.resolve(:board)[:id]
-        Command::Card::MoveCommand.new(card_id, list_id, board_id)
+        Command::Card::MoveCommand.new(card_id, board_id)
       when 'self-assign'
         card_id, _ = args
         user_id = $container.resolve(:user)[:id]
