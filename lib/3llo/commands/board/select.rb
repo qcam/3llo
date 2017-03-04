@@ -2,12 +2,9 @@ module Tr3llo
   module Command
     module Board
       class SelectCommand
-        def initialize(board_id)
-          @board_id = board_id
-        end
-
         def execute
-          board = load_board
+          board = load_board(select_board)
+
           $container.register(:board, board)
           interface.print_frame do
             interface.puts("Board #{board[:name].labelize} selected")
@@ -16,9 +13,19 @@ module Tr3llo
 
         private
 
-        attr_reader :board_id
+        def select_board
+          interface.input.select("Board to select: ", board_choices)
+        end
 
-        def load_board
+        def board_choices
+          user_id = $container.resolve(:user)[:id]
+          API::Board
+            .find_all_by_user(user_id)
+            .map { |board| [board[:name], board[:id]] }
+            .to_h
+        end
+
+        def load_board(board_id)
           API::Board.find(board_id)
         end
 

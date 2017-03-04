@@ -21,7 +21,7 @@ module Tr3llo
 
     Usage:
     board list                      - Show list of board
-    board select <board_id>         - Select board
+    board select                    - Select board
     card list                       - Show list of cards grouped by list
     card list mine                  - Show list of my cards
     card show <card_id>             - Show card information

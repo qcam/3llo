@@ -15,8 +15,8 @@ module Tr3llo
           %q{
     Available `board` commands
 
-    board list                      - Show list of board
-    board select <board_id>         - Select board
+    board list    - Show list of board
+    board select  - Select board
           }
         end
 

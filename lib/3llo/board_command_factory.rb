@@ -15,8 +15,7 @@ module Tr3llo
         user_id = $container.resolve(:user)[:id]
         Command::Board::ListCommand.new(user_id)
       when :select
-        board_id, _ = args
-        Command::Board::SelectCommand.new(board_id)
+        Command::Board::SelectCommand.new
       else
         Command::Board::InvalidCommand.new
       end
