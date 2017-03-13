@@ -3,7 +3,7 @@
 3llo is the terminal client for Trello, which helps you manage Trello cards without
 leaving your awesome terminal.
 
-[![video](intro.gif)](https://asciinema.org/a/eu1q5el69kub7si79dubeyfn6)
+[![video](intro.gif)](https://asciinema.org/a/0z3l05hwph3vdq91gu7n1m3o4)
 
 3llo was inspired by the awesome
 [rainbowstream](https://github.com/DTVD/rainbowstream) and
@@ -16,7 +16,7 @@ Good to know that `3 == "tre"` in Swedish.
 ## Installation
 
 ```ruby
-[sudo] gem install 3llo
+gem install 3llo
 ```
 
 You also need to have these environment variables set in your shell.
@@ -35,9 +35,11 @@ There are a couple of commands available in 3llo.
 * `board select <board_id>`: Select the active board.
 * `card list`: List all cards of the active board.
 * `card list mine`: List all your cards of the active board.
+* `card add`: Create a card.
 * `card show <card_id>`: Show card information.
 * `card move <card_id> <list_id>`: Move card to a specified list.
 * `card self-assign <card_id>`: Self-assign a card.
+* `card comments <card_id>`: Show recent comments of a card.
 * `list list`: List all the lists of the active board.
 * `help`: Show help menu.
 * `exit`: Exit.
@@ -48,10 +50,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/qcam/3
 
 ### Development Roadmap
 
-* Add card.
-* Archive card.
-* Show card member.
-* Archive all cards in list.
+View in [Issues](https://github.com/qcam/3llo/issues)
 
 ## License
 
