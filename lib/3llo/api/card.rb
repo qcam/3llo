@@ -77,6 +77,19 @@ module Tr3llo
         )
       end
 
+      def find_comments(card_id)
+        url = "/cards/#{card_id}/actions"
+        JSON.parse(
+          client.get(
+            url,
+            key: api_key,
+            token: api_token,
+            filter: "commentCard",
+          ),
+          symbolize_names: true
+        )
+      end
+
       private
 
       def api_key
