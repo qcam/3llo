@@ -27,6 +27,12 @@ export TRELLO_KEY=your_key
 export TRELLO_TOKEN=your_token
 ```
 
+### Obtain Trello API key and token
+
+1. Go to [Get started](https://developers.trello.com/get-started/start-building).
+2. Click on **Get your Application Key**.
+3. Copy the Application Key and generate a Token using the instruction on the page.
+
 ## Usage
 
 There are a couple of commands available in 3llo.
