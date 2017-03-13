@@ -37,6 +37,23 @@ module Tr3llo
       end
     end
 
+    def post(path, params)
+      uri = URI("#{BASE_URL}#{path}")
+
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      request = Net::HTTP::Post.new(uri.request_uri, 'Content-Type' => 'application/json')
+      request.body = params.to_json
+
+      res = http.request(request)
+
+      case res
+      when Net::HTTPOK then res.body
+      else raise(RequestError.new(res.body))
+      end
+    end
+
     def put(path, params)
       uri = URI("#{BASE_URL}#{path}?#{query_string(params)}")
 

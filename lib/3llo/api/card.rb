@@ -39,6 +39,20 @@ module Tr3llo
         )
       end
 
+      def create(name:, description:, list_id:)
+        JSON.parse(
+          client.post(
+            "/cards",
+            key: api_key,
+            token: api_token,
+            name: name,
+            description: description,
+            idList: list_id
+          ),
+          symbolize_names: true
+        )
+      end
+
       def find(card_id)
         JSON.parse(
           client.get(

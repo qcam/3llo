@@ -5,6 +5,7 @@ require '3llo/commands/card/move'
 require '3llo/commands/card/self_assign'
 require '3llo/commands/card/invalid'
 require '3llo/commands/card/comments'
+require '3llo/commands/card/add'
 
 module Tr3llo
   class CardCommandFactory
@@ -25,6 +26,9 @@ module Tr3llo
         else
           Command::Card::ListCommand.new(board_id)
         end
+      when 'add'
+        board_id = $container.resolve(:board)[:id]
+        Command::Card::AddCommand.new(board_id)
       when 'show'
         card_id, _ = args
         Command::Card::ShowCommand.new(card_id)
