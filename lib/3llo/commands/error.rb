@@ -3,7 +3,7 @@ module Tr3llo
     class ErrorCommand
       def execute
         interface.print_frame do
-          command = "board select <board-id>".red
+          command = "board select".red
           interface.puts("You have not selected any board. Run #{command} to select one.")
         end
       end
