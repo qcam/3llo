@@ -39,7 +39,7 @@ module Tr3llo
         )
       end
 
-      def create(name:, description:, list_id:)
+      def create(name, description, list_id)
         JSON.parse(
           client.post(
             "/cards",

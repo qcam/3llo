@@ -26,12 +26,9 @@ module Tr3llo
 
         attr_reader :board_id
 
+        
         def create_card!(name, description, list_id)
-          API::Card.create(
-            name: name,
-            description: description,
-            list_id: list_id
-          )
+          API::Card.create(name, description, list_id)
         end
 
         def load_lists
