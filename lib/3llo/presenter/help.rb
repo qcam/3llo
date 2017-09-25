@@ -29,6 +29,7 @@ module Tr3llo
     card move <card_id>         - Move card to a list
     card self-assign <card_id>  - Self-assign a card
     card comments <card_id>     - Load recent comments of a card
+    card comment <card_id>      - Add a comment to a card
     list list                   - Show all lists
     list cards <list_id>        - Show all cards in list
     help                        - Show help menu

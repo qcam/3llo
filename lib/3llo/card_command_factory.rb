@@ -5,6 +5,7 @@ require '3llo/commands/card/move'
 require '3llo/commands/card/self_assign'
 require '3llo/commands/card/invalid'
 require '3llo/commands/card/comments'
+require '3llo/commands/card/comment'
 require '3llo/commands/card/add'
 
 module Tr3llo
@@ -35,6 +36,9 @@ module Tr3llo
       when 'comments'
         card_id, _ = args
         Command::Card::CommentsCommand.new(card_id)
+      when 'comment'
+        card_id, _ = args
+        Command::Card::CommentCommand.new(card_id)
       when 'move'
         card_id, _ = args
         board_id = $container.resolve(:board)[:id]

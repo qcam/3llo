@@ -26,6 +26,9 @@ module Tr3llo
             "Name: ".labelize + card[:name] + " (#{label_str})" "\n" +
             "Description: ".labelize + card[:desc] + "\n" +
             "List: ".labelize + card[:list][:name] + "\n" +
+            "Subscribed: ".labelize + (card[:badges][:subscribed] ? "Yes" : "No") + "\n" +
+            "Comments: ".labelize + card[:badges][:comments].to_s + "\n" +
+            "Attachments: ".labelize + card[:badges][:attachments].to_s + "\n" +
             "Link: ".labelize + card[:shortUrl] + "\n"
           )
         end

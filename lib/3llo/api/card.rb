@@ -104,6 +104,19 @@ module Tr3llo
         )
       end
 
+      def comment(card_id, text)
+        url = "/cards/#{card_id}/actions/comments"
+        JSON.parse(
+          client.post(
+            url,
+            key: api_key,
+            token: api_token,
+            text: text
+          ),
+          symbolize_names: true
+        )
+      end
+
       private
 
       def api_key
