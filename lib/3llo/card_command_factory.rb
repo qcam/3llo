@@ -3,6 +3,7 @@ require '3llo/commands/card/list_mine'
 require '3llo/commands/card/show'
 require '3llo/commands/card/move'
 require '3llo/commands/card/self_assign'
+require '3llo/commands/card/assign'
 require '3llo/commands/card/invalid'
 require '3llo/commands/card/comments'
 require '3llo/commands/card/comment'
@@ -47,6 +48,10 @@ module Tr3llo
         card_id, _ = args
         user_id = $container.resolve(:user)[:id]
         Command::Card::SelfAssignCommand.new(card_id, user_id)
+      when 'assign'
+        card_id, _ = args
+        board_id = $container.resolve(:board)[:id]
+        Command::Card::AssignCommand.new(card_id, board_id)
       else
         Command::Card::InvalidCommand.new
       end

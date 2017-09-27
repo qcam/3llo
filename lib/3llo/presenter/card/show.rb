@@ -21,6 +21,12 @@ module Tr3llo
             label_str = ''
           end
 
+          if card.has_key?(:members)
+            member_str = card[:members].map { |member| member[:username] }.join(", ")
+          else
+            member_str = ''
+          end
+
           interface.puts(
             "ID: ".labelize + card[:id] + "\n" +
             "Name: ".labelize + card[:name] + " (#{label_str})" "\n" +
@@ -29,7 +35,9 @@ module Tr3llo
             "Subscribed: ".labelize + (card[:badges][:subscribed] ? "Yes" : "No") + "\n" +
             "Comments: ".labelize + card[:badges][:comments].to_s + "\n" +
             "Attachments: ".labelize + card[:badges][:attachments].to_s + "\n" +
-            "Link: ".labelize + card[:shortUrl] + "\n"
+            "Link: ".labelize + card[:shortUrl] + "\n" +
+            "Labes: ".labelize + label_str + "\n" +
+            "Members: ".labelize + member_str + "\n"
           )
         end
 

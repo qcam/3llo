@@ -16,6 +16,19 @@ module Tr3llo
         )
       end
 
+      def find_all_by_board(board_id)
+        url = "/board/#{board_id}/members"
+
+        JSON.parse(
+          client.get(
+            url,
+            key: key,
+            token: token
+          ),
+          symbolize_names: true
+        )
+      end
+
       private
 
       def key

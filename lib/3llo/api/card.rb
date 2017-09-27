@@ -58,6 +58,7 @@ module Tr3llo
           client.get(
             "/cards/#{card_id}",
             list: true,
+            members: true,
             key: api_key,
             token: api_token,
           ),
