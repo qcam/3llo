@@ -8,7 +8,6 @@ require '3llo/commands/card/invalid'
 require '3llo/commands/card/comments'
 require '3llo/commands/card/comment'
 require '3llo/commands/card/add'
-require '3llo/commands/card/archive'
 
 module Tr3llo
   class CardCommandFactory
@@ -53,9 +52,6 @@ module Tr3llo
         card_id, _ = args
         board_id = $container.resolve(:board)[:id]
         Command::Card::AssignCommand.new(card_id, board_id)
-      when 'archive'
-        card_id, _ = args
-        Command::Card::ArchiveCommand.new(card_id)
       else
         Command::Card::InvalidCommand.new
       end
