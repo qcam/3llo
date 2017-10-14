@@ -9,8 +9,8 @@ module Tr3llo
 
         def execute
           interface.print_frame do
-            @user_id = prompt_for_user_id!(@board_id)
-            assign_card
+            user_id = prompt_for_user_id!(@board_id)
+            assign_card(user_id)
             interface.puts("Card has been assigned.")
           end
         end
@@ -19,9 +19,9 @@ module Tr3llo
 
         attr_reader :user_id, :card_id
 
-        def assign_card
+        def assign_card(user_id)
           card = API::Card.find(card_id)
-          members = card[:idMembers] << @user_id
+          members = card[:idMembers] << user_id
           API::Card.assign_members(card_id, members)
         end
 
