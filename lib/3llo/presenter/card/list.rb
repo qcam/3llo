@@ -37,7 +37,7 @@ module Tr3llo
             subscribed_str = "[ ]"
           end
 
-          interface.puts "#{subscribed_str} #{card[:id].labelize}] - #{card[:name]} (#{label_str}) [#{members_str}]"
+          interface.puts "[#{subscribed_str} #{card[:id].labelize}] - #{card[:name]} (#{label_str}) [#{members_str}]"
         end
 
         def colorize_label(label)
