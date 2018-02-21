@@ -41,7 +41,11 @@ module Tr3llo
         end
 
         def colorize_label(label)
-          "##{label[:name]}".paint(label[:color])
+          if label[:color]
+            "##{label[:name]}".paint(label[:color])
+          else
+            "##{label[:name]}"
+          end
         end
       end
     end
