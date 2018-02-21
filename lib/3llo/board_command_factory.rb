@@ -10,11 +10,11 @@ module Tr3llo
     end
 
     def factory
-      case subcommand.to_sym
-      when :list
+      case subcommand
+      when 'list'
         user_id = $container.resolve(:user)[:id]
         Command::Board::ListCommand.new(user_id)
-      when :select
+      when 'select'
         Command::Board::SelectCommand.new
       else
         Command::Board::InvalidCommand.new
