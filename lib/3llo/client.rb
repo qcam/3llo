@@ -26,7 +26,6 @@ module Tr3llo
 
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       request = Net::HTTP::Get.new(uri.request_uri)
 
       res = http.request(request)
@@ -42,9 +41,12 @@ module Tr3llo
 
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      request = Net::HTTP::Post.new(uri.request_uri, 'Content-Type' => 'application/json')
-      request.body = params.to_json
+      req_headers = {
+        'Accept' => 'application/json',
+        'Content-Type' => 'application/json',
+      }
+      request = Net::HTTP::Post.new(uri.request_uri, req_headers)
+      request.body = JSON.dump(params)
 
       res = http.request(request)
 
@@ -55,12 +57,16 @@ module Tr3llo
     end
 
     def put(path, params)
-      uri = URI("#{BASE_URL}#{path}?#{query_string(params)}")
+      uri = URI("#{BASE_URL}#{path}")
 
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      request = Net::HTTP::Put.new(uri.request_uri)
+      req_headers = {
+        'Accept' => 'application/json',
+        'Content-Type' => 'application/json',
+      }
+      request = Net::HTTP::Put.new(uri.request_uri, req_headers)
+      request.body = JSON.dump(params)
 
       res = http.request(request)
 
