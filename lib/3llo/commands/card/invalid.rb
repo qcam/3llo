@@ -24,6 +24,7 @@ module Tr3llo
     card assign <card_id>       - Assign a user to a card
     card comments <card_id>     - Load recent comments of a card
     card comment <card_id>      - Add a comment to a card
+    card archive <card_id>      - Archive a card
           }
         end
 
