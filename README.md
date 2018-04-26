@@ -48,6 +48,7 @@ There are a couple of commands available in 3llo.
 * `card comments <card_id>`: Show recent comments of a card.
 * `card comment <card_id>`: Add a comment to a card.
 * `list list`: List all the lists of the active board.
+* `list archive-cards <list_id>`: Archives all the cards on the specified list.
 * `help`: Show help menu.
 * `exit`: Exit.
 
