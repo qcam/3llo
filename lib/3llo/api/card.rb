@@ -118,6 +118,18 @@ module Tr3llo
         )
       end
 
+      def archive(card_id)
+        url = "/cards/#{card_id}?closed=true"
+        JSON.parse(
+          client.put(
+            url,
+            key: api_key,
+            token: api_token
+          ),
+          symbolize_names: true
+        )
+      end
+
       private
 
       def api_key
