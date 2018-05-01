@@ -15,6 +15,17 @@ module Tr3llo
         )
       end
 
+      def archive_cards(list_id)
+        JSON.parse(
+          client.post(
+            "/lists/#{list_id}/archiveAllCards",
+            key: api_key,
+            token: api_token
+          ),
+          symbolize_names: true
+        )
+      end
+
       private
 
       def client

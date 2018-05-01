@@ -1,6 +1,7 @@
 require '3llo/commands/list/list'
 require '3llo/commands/list/cards'
 require '3llo/commands/list/invalid'
+require '3llo/commands/list/archive_cards'
 
 module Tr3llo
   class ListCommandFactory
@@ -17,6 +18,9 @@ module Tr3llo
       when 'cards'
         list_id, _ = args
         Command::List::CardsCommand.new(list_id)
+      when 'archive-cards'
+        list_id, _ = args
+        Command::List::ArchiveCardsCommand.new(list_id)
       else
         Command::List::InvalidCommand.new
       end
