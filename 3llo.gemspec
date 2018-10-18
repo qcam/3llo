@@ -28,4 +28,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency 'tty-prompt', '~> 0.11.0'
+
+  spec.add_development_dependency 'rspec', '~> 3'
 end
