@@ -7,7 +7,7 @@ module Tr3llo
 
       def prompt_for_confirmation(message)
         answer = interface.input.select(message, ['No', 'Yes'])
-        answer == 'Yes' ? true : false
+        answer == 'Yes'
       end
 
       private
