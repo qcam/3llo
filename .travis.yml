@@ -14,7 +14,7 @@ before_install:
   - gem install bundler
 
 script:
-  - bundle exec rspsec --order random --format documentation
+  - bundle exec rspec --order random --format documentation
 
 matrix:
   allow_failures:
