@@ -4,9 +4,8 @@ require '3llo/commands/board/invalid'
 
 module Tr3llo
   class BoardCommandFactory
-    def initialize(subcommand, args)
+    def initialize(subcommand, _)
       @subcommand = subcommand
-      @args = args
     end
 
     def factory
@@ -23,6 +22,6 @@ module Tr3llo
 
     private
 
-    attr_reader :subcommand, :args
+    attr_reader :subcommand
   end
 end
