@@ -1,5 +1,22 @@
 sudo: false
 language: ruby
 rvm:
-  - 2.3.0
-before_install: gem install bundler -v 1.12.5
+  - 2.0
+  - 2.1
+  - 2.2
+  - 2.3
+  - 2.4
+  - 2.5
+  - ruby-head
+  - jruby
+
+before_install:
+  - gem install bundler
+
+script:
+  - bundle exec rspsec --order random --format documentation
+
+matrix:
+  allow_failures:
+    rvm:
+      - ruby-head
