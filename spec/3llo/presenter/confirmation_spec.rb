@@ -1,4 +1,4 @@
-require_relative '../../../lib/3llo/presenter/confirmation'
+require '3llo/presenter/confirmation'
 
 RSpec.describe Tr3llo::Presenter::ConfirmationPresenter do
   describe '#promt_for_confirmation' do
