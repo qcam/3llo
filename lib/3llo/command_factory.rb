@@ -22,7 +22,7 @@ module Tr3llo
         CardCommandFactory.new(subcommand, args).factory
       when 'list'
         ListCommandFactory.new(subcommand, args).factory
-      when 'help', ''
+      when 'help'
         Command::HelpCommand.new
       when 'exit'
         Command::ExitCommand.new
