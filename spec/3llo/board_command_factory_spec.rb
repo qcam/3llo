@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative '../../lib/3llo/board_command_factory'
+require '3llo/board_command_factory'
 
 RSpec.describe Tr3llo::BoardCommandFactory do
   describe '#factory' do
