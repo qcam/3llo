@@ -6,7 +6,7 @@ require 'container'
 require 'tty-prompt'
 
 $container = Container.new
-$container.register(:api_client, Tr3llo::Client)
+$container.register(:api_client, Tr3llo::HTTP::Client)
 prompt = TTY::Prompt.new
 $container.register(:interface, Tr3llo::Interface.new(prompt, $stdout))
 
