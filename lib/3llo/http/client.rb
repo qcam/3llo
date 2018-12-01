@@ -68,7 +68,7 @@ module Tr3llo
       private
 
       def query_string(params)
-        params.keys.map { |key| "#{key}=#{params[key]}" }.join("&")
+        URI.encode_www_form(params)
       end
     end
   end
