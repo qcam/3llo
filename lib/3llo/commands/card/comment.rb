@@ -8,7 +8,7 @@ module Tr3llo
 
         def execute
           interface.print_frame do
-            text = interface.input.ask("Comment:")
+            text = interface.input.multiline("Comment (press Ctrl+d to finish):").join("")
 
             interface.puts(
               create_comment!(text) &&
