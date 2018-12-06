@@ -18,7 +18,7 @@ module Tr3llo
             .new(command_buffer)
             .factory
             .execute
-        rescue Tr3llo::Client::RequestError => e
+        rescue Tr3llo::HTTP::Client::RequestError => e
           interface.print_frame { interface.puts(e.message) }
         end
       end
