@@ -10,10 +10,26 @@ $container.register(:api_client, Tr3llo::HTTP::Client)
 prompt = TTY::Prompt.new
 $container.register(:interface, Tr3llo::Interface.new(prompt, $stdout))
 
+def print_help(stripped = false)
+  Tr3llo::Presenter::HelpPresenter
+    .new($container.resolve(:interface), stripped)
+    .print!
+end
+
+if ARGV.size == 1 && (ARGV[0] == "-h" || ARGV[0] == "--help")
+  print_help(true)
+  exit
+end
+
 configuration = Tr3llo::Configuration.new
-configuration.user_id = ENV.fetch('TRELLO_USER') { raise "Have you set TRELLO_USER?" }
-configuration.api_key = ENV.fetch('TRELLO_KEY') { raise "Have you set TRELLO_KEY?" }
-configuration.api_token = ENV.fetch('TRELLO_TOKEN') { raise "Have you set TRELLO_TOKEN?" }
+begin
+  configuration.user_id = ENV.fetch('TRELLO_USER') { raise "Have you set TRELLO_USER?" }
+  configuration.api_key = ENV.fetch('TRELLO_KEY') { raise "Have you set TRELLO_KEY?" }
+  configuration.api_token = ENV.fetch('TRELLO_TOKEN') { raise "Have you set TRELLO_TOKEN?" }
+rescue => error
+  abort "Invalid configuration: \e[1m#{error.message}".colorize(31)
+end
+
 configuration.finalize!
 
 $container.register(
@@ -24,8 +40,6 @@ $container.register(
 user = Tr3llo::API::User.find($container.resolve(:configuration).user_id)
 $container.register(:user, user)
 
-Tr3llo::Presenter::HelpPresenter
-  .new($container.resolve(:interface))
-  .print!
+print_help(false)
 
 Tr3llo::Controller.new.start
