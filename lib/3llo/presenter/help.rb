@@ -1,13 +1,18 @@
 module Tr3llo
   module Presenter
     class HelpPresenter
-      def initialize(interface)
+      def initialize(interface, stripped = false)
         @interface = interface
+        @stripped = stripped
       end
 
       def print!
         interface.print_frame do
-          interface.puts menu_text
+          text = menu_text(@stripped)
+          if @stripped
+            text = text.split("\n").map(&:lstrip).drop(1).join("\n")
+          end
+          interface.puts text
         end
       end
 
@@ -15,10 +20,16 @@ module Tr3llo
 
       attr_reader :interface
 
-      def menu_text
-        %q{
+      def menu_text(cli_help = false)
+        cli_help_text = %q{
+          This is an interactive program for trello cards. To start, you
+          need to set `TRELLO_USER`, `TRELL_KEY` and `TRELLO_TOKEN` to access
+          your account. After that, the following commands are available in interactive
+          mode:
+        }
+        %Q{
     3llo - CLI for Trello
-
+    #{if cli_help then cli_help_text end}
     Usage:
     board list                   - Show list of board
     board select                 - Select board
