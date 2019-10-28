@@ -11,8 +11,7 @@ module Tr3llo
 
       Readline.completion_append_character = " "
       Readline.completion_proc = comp
-      loop do
-        command_buffer = Readline.readline("\e[15;48;5;27m 3llo \e[0m > ", true)
+      while command_buffer = Readline.readline("\e[15;48;5;27m 3llo \e[0m > ", true)
         begin
           Tr3llo::CommandFactory
             .new(command_buffer)
