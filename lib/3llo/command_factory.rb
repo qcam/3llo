@@ -9,7 +9,7 @@ require '3llo/commands/error'
 module Tr3llo
   class CommandFactory
     def initialize(command_buffer)
-      @command_buffer = command_buffer
+      @command_buffer = command_buffer.nil? ? "exit" : command_buffer
     end
 
     def factory
