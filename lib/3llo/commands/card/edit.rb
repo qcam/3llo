@@ -11,6 +11,15 @@ module Tr3llo
           Tr3llo::Presenter::Card::EditPresenter
             .new(interface)
             .print!(load_card)
+
+            name = interface.input.ask("New name:")
+            description = interface.input.ask("New description:")
+
+            interface.puts(
+              update_card!(name, description, card_id) &&
+              "Card updated"
+            )
+
         end
 
         private
@@ -19,6 +28,10 @@ module Tr3llo
 
         def load_card
           API::Card.find(card_id)
+        end
+
+        def update_card!(name, description, card_id)
+          API::Card.update(name, description, card_id)
         end
 
         def interface

@@ -53,6 +53,20 @@ module Tr3llo
         )
       end
 
+      def update(name, description, card_id)
+        JSON.parse(
+          client.put(
+            "/cards/#{card_id}",
+            key: api_key,
+            token: api_token,
+            name: name,
+            description: description,
+            card_id: card_id,
+          ),
+          symbolize_names: true
+        )
+      end
+
       def find(card_id)
         JSON.parse(
           client.get(
