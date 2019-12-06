@@ -28,7 +28,7 @@ module Tr3llo
           mode:
         }
         %Q{
-    3llo - CLI for Trello
+    3llo - CLI for Trello 1.1
     #{if cli_help then cli_help_text end}
     Usage:
     board list                   - Show list of board

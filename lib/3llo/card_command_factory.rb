@@ -1,6 +1,7 @@
 require '3llo/commands/card/list'
 require '3llo/commands/card/list_mine'
 require '3llo/commands/card/show'
+require '3llo/commands/card/edit'
 require '3llo/commands/card/move'
 require '3llo/commands/card/self_assign'
 require '3llo/commands/card/assign'
@@ -35,6 +36,9 @@ module Tr3llo
       when 'show'
         card_id, _ = args
         Command::Card::ShowCommand.new(card_id)
+      when 'edit'
+        card_id, _ = args
+        Command::Card::EditCommand.new(card_id)
       when 'comments'
         card_id, _ = args
         Command::Card::CommentsCommand.new(card_id)
