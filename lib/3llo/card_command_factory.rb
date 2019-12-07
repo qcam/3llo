@@ -34,8 +34,8 @@ module Tr3llo
         board_id = $container.resolve(:board)[:id]
         Command::Card::AddCommand.new(board_id)
       when 'show'
-        card_id, _ = args
-        Command::Card::ShowCommand.new(card_id)
+        board_id = $container.resolve(:board)[:id]
+        Command::Card::ShowCommand.new(board_id)
       when 'edit'
         board_id = $container.resolve(:board)[:id]
         Command::Card::EditCommand.new(board_id)

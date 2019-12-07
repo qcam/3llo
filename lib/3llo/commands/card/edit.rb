@@ -22,9 +22,8 @@ module Tr3llo
                 description, 
                 @card_id
                 ) &&
-              "Card updated"
+              "- Card updated - "
             )
-
         end
 
         private
