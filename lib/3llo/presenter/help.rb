@@ -36,8 +36,8 @@ module Tr3llo
     card list                    - Show list of cards grouped by list
     card list mine               - Show list of my cards
     card add                     - Create a card
-    card show <card_id>          - Show card information
-    card edit <card_id>          - Edit card information
+    card show <select>           - Show card information
+    card edit <select>           - Edit card information
     card move <card_id>          - Move card to a list
     card self-assign <card_id>   - Self-assign a card
     card assign <card_id>        - Assign a user to a card

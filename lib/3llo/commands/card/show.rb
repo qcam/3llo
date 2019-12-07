@@ -1,34 +1,3 @@
-# module Tr3llo
-#   module Command
-#     module Card
-#       class ShowCommand
-#         def initialize(card_id)
-#           @card_id = card_id
-#         end
-
-#         def execute
-#           Tr3llo::Presenter::Card::ShowPresenter
-#             .new(interface)
-#             .print!(load_card)
-#         end
-
-#         private
-
-#         attr_reader :card_id
-
-#         def load_card
-#           API::Card.find(card_id)
-#         end
-
-#         def interface
-#           $container.resolve(:interface)
-#         end
-#       end
-#     end
-#   end
-# end
-
-
 module Tr3llo
   module Command
     module Card
@@ -52,7 +21,7 @@ module Tr3llo
         def select_card
           puts '------------------'
           @card_id = interface.input.select(
-            "Select the card you want to see",
+            'Select the card you want to see',
             card_choices
           )
         end
@@ -63,7 +32,7 @@ module Tr3llo
             .map { |card| [card[:name], card[:id]] }
             .to_h
         end
-        
+
         def load_card(card_id)
           API::Card.find(card_id)
         end
