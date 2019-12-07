@@ -38,10 +38,7 @@ module Tr3llo
         Command::Card::ShowCommand.new(card_id)
       when 'edit'
         board_id = $container.resolve(:board)[:id]
-        Command::Card::ListCommand.new(board_id)
-      # when 'edit'
-      #   card_id, _ = args
-      #   Command::Card::EditCommand.new(card_id)
+        Command::Card::EditCommand.new(board_id)
       when 'comments'
         card_id, _ = args
         Command::Card::CommentsCommand.new(card_id)
