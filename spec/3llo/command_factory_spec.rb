@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require '3llo/command_factory'
 require 'spec_helper'
 
@@ -13,7 +15,7 @@ RSpec.describe Tr3llo::CommandFactory do
       before do
         sub_factory = instance_double('Tr3llo::BoardCommandFactory', factory: command_object)
         expect(Tr3llo::BoardCommandFactory).to receive(:new)
-          .with('something', ['arg1', 'arg2']).and_return(sub_factory)
+          .with('something', %w[arg1 arg2]).and_return(sub_factory)
       end
 
       it { is_expected.to eq command_object }
@@ -26,7 +28,7 @@ RSpec.describe Tr3llo::CommandFactory do
       before do
         sub_factory = instance_double('Tr3llo::CardCommandFactory', factory: command_object)
         expect(Tr3llo::CardCommandFactory).to receive(:new)
-          .with('something', ['arg1', 'arg2']).and_return(sub_factory)
+          .with('something', %w[arg1 arg2]).and_return(sub_factory)
       end
 
       it { is_expected.to eq command_object }
@@ -39,7 +41,7 @@ RSpec.describe Tr3llo::CommandFactory do
       before do
         sub_factory = instance_double('Tr3llo::ListCommandFactory', factory: command_object)
         expect(Tr3llo::ListCommandFactory).to receive(:new)
-          .with('something', ['arg1', 'arg2']).and_return(sub_factory)
+          .with('something', %w[arg1 arg2]).and_return(sub_factory)
       end
 
       it { is_expected.to eq command_object }
@@ -71,7 +73,7 @@ RSpec.describe Tr3llo::CommandFactory do
       before do
         sub_factory = instance_double('Tr3llo::BoardCommandFactory')
         expect(Tr3llo::BoardCommandFactory).to receive(:new)
-          .with('something', ['arg1', 'arg2']).and_return(sub_factory)
+          .with('something', %w[arg1 arg2]).and_return(sub_factory)
         expect(sub_factory).to receive(:factory)
           .and_raise(Container::KeyNotFoundError.new(:key))
       end

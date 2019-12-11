@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tr3llo
   module Command
     module List
@@ -11,7 +13,7 @@ module Tr3llo
             approved = prompt_for_approvement!
             if approved
               archive_cards
-              interface.puts("Cards have been archived.")
+              interface.puts('Cards have been archived.')
             end
           end
         end

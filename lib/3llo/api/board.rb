@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tr3llo
   module API
     module Board
@@ -8,7 +10,7 @@ module Tr3llo
           client.get(
             "/members/#{user_id}/boards",
             key: api_key,
-            token: api_token,
+            token: api_token
           ),
           symbolize_names: true
         )
@@ -19,7 +21,7 @@ module Tr3llo
           client.get(
             "/boards/#{board_id}",
             key: api_key,
-            token: api_token,
+            token: api_token
           ),
           symbolize_names: true
         )

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tr3llo
   module API
     module Card
@@ -8,7 +10,7 @@ module Tr3llo
           client.get(
             "/boards/#{board_id}/cards",
             key: api_key,
-            token: api_token,
+            token: api_token
           ),
           symbolize_names: true
         )
@@ -21,7 +23,7 @@ module Tr3llo
             key: api_key,
             token: api_token,
             members: 'true',
-            member_fields: "id,username"
+            member_fields: 'id,username'
           ),
           symbolize_names: true
         )
@@ -33,7 +35,7 @@ module Tr3llo
             "/boards/#{board_id}/members/#{user_id}/cards",
             list: true,
             key: api_key,
-            token: api_token,
+            token: api_token
           ),
           symbolize_names: true
         )
@@ -42,11 +44,11 @@ module Tr3llo
       def create(name, description, list_id)
         JSON.parse(
           client.post(
-            "/cards",
+            '/cards',
             key: api_key,
             token: api_token,
             name: name,
-            description: description,
+            desc: description,
             idList: list_id
           ),
           symbolize_names: true
@@ -60,8 +62,8 @@ module Tr3llo
             key: api_key,
             token: api_token,
             name: name,
-            description: description,
-            card_id: card_id,
+            desc: description,
+            card_id: card_id
           ),
           symbolize_names: true
         )
@@ -74,7 +76,7 @@ module Tr3llo
             list: true,
             members: true,
             key: api_key,
-            token: api_token,
+            token: api_token
           ),
           symbolize_names: true
         )
@@ -113,7 +115,7 @@ module Tr3llo
             url,
             key: api_key,
             token: api_token,
-            filter: "commentCard",
+            filter: 'commentCard'
           ),
           symbolize_names: true
         )

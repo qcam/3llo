@@ -1,8 +1,10 @@
-require "core_ext"
-require "3llo/version"
-require "3llo/http/client"
-require "3llo/presenter"
-require "3llo/interface"
+# frozen_string_literal: true
+
+require 'core_ext'
+require '3llo/version'
+require '3llo/http/client'
+require '3llo/presenter'
+require '3llo/interface'
 require 'container'
 require 'json'
 

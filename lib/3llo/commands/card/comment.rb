@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tr3llo
   module Command
     module Card
@@ -8,11 +10,11 @@ module Tr3llo
 
         def execute
           interface.print_frame do
-            text = interface.input.multiline("Comment (press Ctrl+d to finish):").join("")
+            text = interface.input.multiline('Comment (press Ctrl+d to finish):').join('')
 
             interface.puts(
               create_comment!(text) &&
-              "Comment created"
+              'Comment created'
             )
           end
         end

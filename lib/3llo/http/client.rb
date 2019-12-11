@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'uri'
 require 'net/http'
 require 'openssl'
@@ -8,7 +10,7 @@ module Tr3llo
     module Client
       extend self
 
-      BASE_URL = "https://api.trello.com/1"
+      BASE_URL = 'https://api.trello.com/1'
 
       def get(path, params = {})
         uri = URI("#{BASE_URL}#{path}?#{query_string(params)}")
@@ -21,7 +23,7 @@ module Tr3llo
 
         case res
         when Net::HTTPSuccess then res.body
-        else raise(RequestError.new(res.body))
+        else raise RequestError, res.body
         end
       end
 
@@ -32,7 +34,7 @@ module Tr3llo
         http.use_ssl = true
         req_headers = {
           'Accept' => 'application/json',
-          'Content-Type' => 'application/json',
+          'Content-Type' => 'application/json'
         }
         request = Net::HTTP::Post.new(uri.request_uri, req_headers)
         request.body = JSON.dump(params)
@@ -41,7 +43,7 @@ module Tr3llo
 
         case res
         when Net::HTTPOK then res.body
-        else raise(RequestError.new(res.body))
+        else raise RequestError, res.body
         end
       end
 
@@ -52,7 +54,7 @@ module Tr3llo
         http.use_ssl = true
         req_headers = {
           'Accept' => 'application/json',
-          'Content-Type' => 'application/json',
+          'Content-Type' => 'application/json'
         }
         request = Net::HTTP::Put.new(uri.request_uri, req_headers)
         request.body = JSON.dump(params)
@@ -61,7 +63,7 @@ module Tr3llo
 
         case res
         when Net::HTTPOK then res.body
-        else raise(RequestError.new(res.body))
+        else raise RequestError, res.body
         end
       end
 

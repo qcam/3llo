@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tr3llo
   module Command
     module Card
@@ -9,15 +11,15 @@ module Tr3llo
         def execute
           interface.print_frame do
             list_id = interface.input.select(
-              "Choose a list:",
+              'Choose a list:',
               load_lists
             )
-            name = interface.input.ask("Name:")
-            description = interface.input.ask("Description:")
+            name = interface.input.ask('Name:')
+            description = interface.input.ask('Description:')
 
             interface.puts(
               create_card!(name, description, list_id) &&
-              "Card created"
+              'Card created'
             )
           end
         end
@@ -26,7 +28,6 @@ module Tr3llo
 
         attr_reader :board_id
 
-        
         def create_card!(name, description, list_id)
           API::Card.create(name, description, list_id)
         end

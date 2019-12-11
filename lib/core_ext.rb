@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class String
   COLOR = {
     red: 31,
@@ -10,10 +12,10 @@ class String
   }.freeze
 
   def colorize(*code)
-    "\e[#{code.join(";")}m#{self}\e[0m"
+    "\e[#{code.join(';')}m#{self}\e[0m"
   end
 
-  def labelize(*code)
+  def labelize(*_code)
     colorize(93)
   end
 
@@ -32,8 +34,8 @@ class String
   end
 
   def short
-    if self.size > 50
-      self.truncate(50) + "..."
+    if size > 50
+      truncate(50) + '...'
     else
       self
     end

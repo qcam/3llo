@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Container
   class KeyNotFoundError < ::KeyError
     attr_reader :key
@@ -15,7 +17,7 @@ class Container
   def resolve(key)
     @data.fetch(key)
   rescue ::KeyError
-    raise KeyNotFoundError.new(key)
+    raise KeyNotFoundError, key
   end
 
   def register(key, value)

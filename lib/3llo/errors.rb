@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tr3llo
   class BoardNotSelectedError < RuntimeError
     def message

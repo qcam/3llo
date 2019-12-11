@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tr3llo
   module Command
     module Card
@@ -11,7 +13,7 @@ module Tr3llo
           interface.print_frame do
             user_id = prompt_for_user_id!(@board_id)
             assign_card(user_id)
-            interface.puts("Card has been assigned.")
+            interface.puts('Card has been assigned.')
           end
         end
 
@@ -42,4 +44,3 @@ module Tr3llo
     end
   end
 end
-

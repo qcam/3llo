@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tr3llo
   module Command
     module Board
@@ -7,14 +9,14 @@ module Tr3llo
 
           $container.register(:board, board)
           interface.print_frame do
-            interface.puts("Board #{board[:name].labelize} selected")
+            interface.puts("Board---- #{board[:name].labelize} selected")
           end
         end
 
         private
 
         def select_board
-          interface.input.select("Board to select: ", board_choices)
+          interface.input.select('Board to select: ', board_choices)
         end
 
         def board_choices

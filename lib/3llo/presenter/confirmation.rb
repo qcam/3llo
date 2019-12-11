@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tr3llo
   module Presenter
     class ConfirmationPresenter
@@ -6,7 +8,7 @@ module Tr3llo
       end
 
       def prompt_for_confirmation(message)
-        answer = interface.input.select(message, ['No', 'Yes'])
+        answer = interface.input.select(message, %w[No Yes])
         answer == 'Yes'
       end
 

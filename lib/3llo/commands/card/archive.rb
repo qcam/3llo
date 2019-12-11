@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tr3llo
   module Command
     module Card
@@ -9,7 +11,7 @@ module Tr3llo
         def execute
           interface.print_frame do
             archive_card
-            interface.puts("Card has been archived.")
+            interface.puts('Card has been archived.')
           end
         end
 

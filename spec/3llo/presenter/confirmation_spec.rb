@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require '3llo/presenter/confirmation'
 
 RSpec.describe Tr3llo::Presenter::ConfirmationPresenter do
@@ -10,7 +12,7 @@ RSpec.describe Tr3llo::Presenter::ConfirmationPresenter do
 
     before do
       expect(input).to receive(:select)
-        .with(message, ['No', 'Yes']).and_return(answer)
+        .with(message, %w[No Yes]).and_return(answer)
     end
 
     context 'when answer is yes' do

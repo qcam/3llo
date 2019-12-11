@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require '3llo/board_command_factory'
 require '3llo/card_command_factory'
 require '3llo/list_command_factory'
@@ -16,11 +18,11 @@ module Tr3llo
       command, subcommand, *args = command_buffer.strip.split(' ')
 
       case command
-      when 'board'
+      when 'b'
         BoardCommandFactory.new(subcommand, args).factory
-      when 'card'
+      when 'c'
         CardCommandFactory.new(subcommand, args).factory
-      when 'list'
+      when 'l'
         ListCommandFactory.new(subcommand, args).factory
       when 'help'
         Command::HelpCommand.new

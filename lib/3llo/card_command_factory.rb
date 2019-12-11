@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require '3llo/commands/card/list'
 require '3llo/commands/card/list_mine'
 require '3llo/commands/card/show'
@@ -20,8 +22,8 @@ module Tr3llo
 
     def factory
       case subcommand
-      when 'list'
-        is_mine, _ = *args
+      when 'l'
+        is_mine, = *args
         board_id = $container.resolve(:board)[:id]
 
         if is_mine == 'mine'
@@ -30,35 +32,35 @@ module Tr3llo
         else
           Command::Card::ListCommand.new(board_id)
         end
-      when 'add'
+      when 'a'
         board_id = $container.resolve(:board)[:id]
         Command::Card::AddCommand.new(board_id)
-      when 'show'
+      when 's'
         board_id = $container.resolve(:board)[:id]
         Command::Card::ShowCommand.new(board_id)
-      when 'edit'
+      when 'e'
         board_id = $container.resolve(:board)[:id]
         Command::Card::EditCommand.new(board_id)
       when 'comments'
-        card_id, _ = args
+        card_id, = args
         Command::Card::CommentsCommand.new(card_id)
       when 'comment'
-        card_id, _ = args
+        card_id, = args
         Command::Card::CommentCommand.new(card_id)
       when 'move'
-        card_id, _ = args
+        card_id, = args
         board_id = $container.resolve(:board)[:id]
         Command::Card::MoveCommand.new(card_id, board_id)
       when 'self-assign'
-        card_id, _ = args
+        card_id, = args
         user_id = $container.resolve(:user)[:id]
         Command::Card::SelfAssignCommand.new(card_id, user_id)
       when 'assign'
-        card_id, _ = args
+        card_id, = args
         board_id = $container.resolve(:board)[:id]
         Command::Card::AssignCommand.new(card_id, board_id)
       when 'archive'
-        card_id, _ = args
+        card_id, = args
         Command::Card::ArchiveCommand.new(card_id)
       else
         Command::Card::InvalidCommand.new

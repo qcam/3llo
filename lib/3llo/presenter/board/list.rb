@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tr3llo
   module Presenter
     module Board

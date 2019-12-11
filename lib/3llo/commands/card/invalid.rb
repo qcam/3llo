@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Tr3llo
   module Command
     module Card
       class InvalidCommand
         def execute
           interface.print_frame do
-            interface.puts("Invalid command".red)
+            interface.puts('Invalid command'.red)
             interface.puts(menu_text)
           end
         end
@@ -12,7 +14,7 @@ module Tr3llo
         private
 
         def menu_text
-          %q{
+          '
     Available `card` commands
 
     card list                   - Show list of cards grouped by list
@@ -25,7 +27,7 @@ module Tr3llo
     card comments <card_id>     - Load recent comments of a card
     card comment <card_id>      - Add a comment to a card
     card archive <card_id>      - Archive a card
-          }
+          '
         end
 
         def container

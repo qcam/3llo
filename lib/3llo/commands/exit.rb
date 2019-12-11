@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module Tr3llo
   module Command
     class ExitCommand
       def execute
-        interface.puts("Bye bye")
+        interface.puts('Bye bye')
         exit(0)
       end
 

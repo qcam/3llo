@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require '3llo/presenter/help'
 require '3llo/presenter/board/list'
 require '3llo/presenter/card/list'

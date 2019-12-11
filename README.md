@@ -9,6 +9,10 @@ leaving your awesome terminal.
 [rainbowstream](https://github.com/DTVD/rainbowstream) and
 [facy](https://github.com/huydx/facy).
 
+## Build locally
+gem build 3llo.gemspec
+gem install 3llo-VERSION-gem
+
 ## Why this named 3llo?
 
 Good to know that `3 == "tre"` in Swedish.

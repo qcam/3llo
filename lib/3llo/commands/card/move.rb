@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tr3llo
   module Command
     module Card
@@ -11,7 +13,7 @@ module Tr3llo
           interface.print_frame do
             list_id = prompt_for_list_id!(board_id)
             move_card!(list_id)
-            interface.puts("Card has been moved.")
+            interface.puts('Card has been moved.')
           end
         end
 

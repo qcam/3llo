@@ -1,15 +1,16 @@
+# frozen_string_literal: true
+
 require 'readline'
 
 module Tr3llo
   class Controller
-    def initialize
-    end
+    def initialize; end
 
     def start
-      list = %w(board card help list mine move select self-assign show)
-      comp = proc { |s| list.grep( /^#{Regexp.escape(s)}/ ) }
+      list = %w[board card help list mine move select self-assign show]
+      comp = proc { |s| list.grep(/^#{Regexp.escape(s)}/) }
 
-      Readline.completion_append_character = " "
+      Readline.completion_append_character = ' '
       Readline.completion_proc = comp
       while command_buffer = Readline.readline("\e[15;48;5;27m 3llo \e[0m > ", true)
         begin

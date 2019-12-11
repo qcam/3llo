@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
-$:.unshift File.expand_path("../../lib", __FILE__)
-require "3llo"
+$LOAD_PATH.unshift File.expand_path('../lib', __dir__)
+require '3llo'
 require 'container'
 require 'tty-prompt'
 
@@ -16,18 +17,18 @@ def print_help(stripped = false)
     .print!
 end
 
-if ARGV.size == 1 && (ARGV[0] == "-h" || ARGV[0] == "--help")
+if ARGV.size == 1 && (ARGV[0] == '-h' || ARGV[0] == '--help')
   print_help(true)
   exit
 end
 
 configuration = Tr3llo::Configuration.new
 begin
-  configuration.user_id = ENV.fetch('TRELLO_USER') { raise "Have you set TRELLO_USER?" }
-  configuration.api_key = ENV.fetch('TRELLO_KEY') { raise "Have you set TRELLO_KEY?" }
-  configuration.api_token = ENV.fetch('TRELLO_TOKEN') { raise "Have you set TRELLO_TOKEN?" }
-rescue => error
-  abort "Invalid configuration: \e[1m#{error.message}".colorize(31)
+  configuration.user_id = ENV.fetch('TRELLO_USER') { raise 'Have you set TRELLO_USER?' }
+  configuration.api_key = ENV.fetch('TRELLO_KEY') { raise 'Have you set TRELLO_KEY?' }
+  configuration.api_token = ENV.fetch('TRELLO_TOKEN') { raise 'Have you set TRELLO_TOKEN?' }
+rescue StandardError => e
+  abort "Invalid configuration: \e[1m#{e.message}".colorize(31)
 end
 
 configuration.finalize!

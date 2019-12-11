@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Tr3llo
   module Command
     module Board
       class InvalidCommand
         def execute
           interface.print_frame do
-            interface.puts("Invalid command".red)
+            interface.puts('Invalid command'.red)
             interface.puts(menu_text)
           end
         end
@@ -12,12 +14,12 @@ module Tr3llo
         private
 
         def menu_text
-          %q{
+          '
     Available `board` commands
 
     board list    - Show list of board
     board select  - Select board
-          }
+          '
         end
 
         def container

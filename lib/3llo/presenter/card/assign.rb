@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tr3llo
   module Presenter
     module Card
@@ -16,9 +18,7 @@ module Tr3llo
         private
 
         attr_reader :interface
-
       end
     end
   end
 end
-
