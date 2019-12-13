@@ -30,7 +30,7 @@ module Tr3llo
                 description,
                 @card_id
               ) &&
-              'The card is updated.'
+              "The card #{card[:name].labelize} has been editted."
             )
           end
         end

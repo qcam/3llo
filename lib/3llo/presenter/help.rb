@@ -28,7 +28,7 @@ module Tr3llo
           mode:
         '
         %(
-    3llo - CLI for Trello 1.1x
+    3llo - CLI for Trello 1.1y
     #{cli_help_text if cli_help}
     Usage:
     board list or b l            - Show list of board
@@ -39,7 +39,7 @@ module Tr3llo
     card show or c s             - Show card information
     card edit or c e             - Edit card information
     card move or c m             - Move card to a list
-    card self-assign <card_id>   - Self-assign a card
+    card self-assign or c sa     - Self-assign a card
     card assign <card_id>        - Assign a user to a card
     card comments <card_id>      - Load recent comments of a card
     card comment <card_id>       - Add a comment to a card

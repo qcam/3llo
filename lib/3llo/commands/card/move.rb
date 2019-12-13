@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require_relative './shared_card_functions.rb'
 
 module Tr3llo
   module Command
@@ -16,7 +17,7 @@ module Tr3llo
 
             list_id = SharedFunctions.load_lists(@board_id)
             move_card!(card_id, list_id)
-            interface.puts('The card has been moved.')
+            interface.puts("The card #{card[:name].labelize} has been moved.")
           end
         end
 

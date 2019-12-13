@@ -1,18 +1,23 @@
 # frozen_string_literal: true
+require_relative './shared_card_functions.rb'
 
 module Tr3llo
   module Command
     module Card
       class SelfAssignCommand
-        def initialize(card_id, user_id)
-          @card_id = card_id
+        def initialize(user_id, board_id)
           @user_id = user_id
+          @board_id = board_id
         end
 
         def execute
-          card = assign_card
           interface.print_frame do
-            interface.puts("Card #{card[:name].labelize} self-assigned")
+            SharedFunctions.load_lists(@board_id)
+            card = SharedFunctions.load_card(SharedFunctions.select_card)
+            @card_id = card[:id]
+            assign_card
+            interface.puts("The card #{card[:name].labelize} is now assigned to you.")
+
           end
         end
 
