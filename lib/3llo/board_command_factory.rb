@@ -12,10 +12,10 @@ module Tr3llo
 
     def factory
       case subcommand
-      when 'l'
+      when 'list', 'l'
         user_id = $container.resolve(:user)[:id]
         Command::Board::ListCommand.new(user_id)
-      when 's'
+      when 'select', 's'
         Command::Board::SelectCommand.new
       else
         Command::Board::InvalidCommand.new

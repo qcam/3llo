@@ -18,11 +18,11 @@ module Tr3llo
       command, subcommand, *args = command_buffer.strip.split(' ')
 
       case command
-      when 'b'
+      when 'board', 'b'
         BoardCommandFactory.new(subcommand, args).factory
-      when 'c'
+      when 'card', 'c'
         CardCommandFactory.new(subcommand, args).factory
-      when 'l'
+      when 'list', 'l'
         ListCommandFactory.new(subcommand, args).factory
       when 'help'
         Command::HelpCommand.new

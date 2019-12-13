@@ -18,7 +18,7 @@ module Tr3llo
         # Ask for the card to be selected
         def self.select_card
           @card_id = interface.input.select(
-            'Select the card you want to see',
+            'Select the card:',
             card_choices(@list_id)
           )
         end

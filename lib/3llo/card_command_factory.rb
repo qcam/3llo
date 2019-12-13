@@ -22,7 +22,7 @@ module Tr3llo
 
     def factory
       case subcommand
-      when 'l'
+      when 'list', 'l'
         is_mine, = *args
         board_id = $container.resolve(:board)[:id]
 
@@ -32,13 +32,13 @@ module Tr3llo
         else
           Command::Card::ListCommand.new(board_id)
         end
-      when 'a'
+      when 'add', 'a'
         board_id = $container.resolve(:board)[:id]
         Command::Card::AddCommand.new(board_id)
-      when 's'
+      when 'show', 's'
         board_id = $container.resolve(:board)[:id]
         Command::Card::ShowCommand.new(board_id)
-      when 'e'
+      when 'edit', 'e'
         board_id = $container.resolve(:board)[:id]
         Command::Card::EditCommand.new(board_id)
       when 'comments'
@@ -47,10 +47,10 @@ module Tr3llo
       when 'comment'
         card_id, = args
         Command::Card::CommentCommand.new(card_id)
-      when 'move'
+      when 'move', 'm'
         card_id, = args
         board_id = $container.resolve(:board)[:id]
-        Command::Card::MoveCommand.new(card_id, board_id)
+        Command::Card::MoveCommand.new(board_id)
       when 'self-assign'
         card_id, = args
         user_id = $container.resolve(:user)[:id]

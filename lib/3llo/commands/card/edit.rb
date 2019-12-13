@@ -30,7 +30,7 @@ module Tr3llo
                 description,
                 @card_id
               ) &&
-              '- Card updated - '
+              'The card is updated.'
             )
           end
         end

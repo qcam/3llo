@@ -28,17 +28,17 @@ module Tr3llo
           mode:
         '
         %(
-    3llo - CLI for Trello 1.1
+    3llo - CLI for Trello 1.1x
     #{cli_help_text if cli_help}
     Usage:
-    b l                          - Show list of board
-    b s                          - Select board from a list
-    c l                          - Show list of cards grouped by list
+    board list or b l            - Show list of board
+    board select or b s          - Select board from a list
+    card list or c l             - Show list of cards grouped by list
     card list mine               - Show list of my cards
-    c a                          - Create a card
-    c s                          - Show card information
-    c e                          - Edit card information
-    card move <card_id>          - Move card to a list
+    card add or c a              - Create a card
+    card show or c s             - Show card information
+    card edit or c e             - Edit card information
+    card move or c m             - Move card to a list
     card self-assign <card_id>   - Self-assign a card
     card assign <card_id>        - Assign a user to a card
     card comments <card_id>      - Load recent comments of a card

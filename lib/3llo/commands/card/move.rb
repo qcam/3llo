@@ -4,34 +4,27 @@ module Tr3llo
   module Command
     module Card
       class MoveCommand
-        def initialize(card_id, board_id)
-          @card_id = card_id
+        def initialize(board_id)
           @board_id = board_id
         end
 
         def execute
           interface.print_frame do
-            list_id = prompt_for_list_id!(board_id)
-            move_card!(list_id)
-            interface.puts('Card has been moved.')
+            SharedFunctions.load_lists(@board_id)
+            card = SharedFunctions.load_card(SharedFunctions.select_card)
+            card_id = card[:id]
+
+            list_id = SharedFunctions.load_lists(@board_id)
+            move_card!(card_id, list_id)
+            interface.puts('The card has been moved.')
           end
         end
 
         private
 
-        attr_reader :card_id, :board_id
+        attr_reader :board_id
 
-        def prompt_for_list_id!(board_id)
-          board_id = $container.resolve(:board)[:id]
-          lists = Tr3llo::API::List.find_all_by_board(board_id)
-
-          @list_id =
-            Tr3llo::Presenter::Card::MovePresenter
-            .new(interface)
-            .prompt_for_list_id(lists)
-        end
-
-        def move_card!(list_id)
+        def move_card!(card_id, list_id)
           API::Card.move_to_list(card_id, list_id)
         end
 
