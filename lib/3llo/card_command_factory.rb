@@ -55,7 +55,7 @@ module Tr3llo
         user_id = $container.resolve(:user)[:id]
         board_id = $container.resolve(:board)[:id]
         Command::Card::SelfAssignCommand.new(user_id, board_id)
-      when 'assign'
+      when 'assign', 'asg'
         card_id, = args
         board_id = $container.resolve(:board)[:id]
         Command::Card::AssignCommand.new(card_id, board_id)
