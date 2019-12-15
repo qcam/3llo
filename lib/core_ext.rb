@@ -1,12 +1,23 @@
 class String
+
+  # Trello label color names:
+  #   https://trello.com/c/ZAvI05TG/94-label-color-names-sticker-names
+  #
+  # Terminal color codes:
+  #   https://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html
   COLOR = {
     red: 31,
+    pink: 31,
     blue: 34,
     green: 32,
+    lime: 32,
     black: 37,
+    white: 37,
     purple: 35,
     yellow: 33,
-    orange: 33
+    orange: 33,
+    cyan: 36,
+    sky: 36
   }.freeze
 
   def colorize(*code)
