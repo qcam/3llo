@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require_relative '../shared_functions.rb'
 
 module Tr3llo
   module Command
@@ -9,26 +10,16 @@ module Tr3llo
         end
 
         def execute
-          load_lists(@board_id)
-          Tr3llo::Presenter::List::CardsPresenter
-            .new(interface)
-            .print!(list_cards)
+          interface.print_frame do
+            SharedFunctions.load_lists(@board_id)
+
+            Tr3llo::Presenter::List::CardsPresenter
+              .new(interface)
+              .print!(list_cards)
+          end
         end
 
         private
-
-        attr_reader :list_id
-
-        # load all lists of a certain board
-        def load_lists(board_id)
-          @list_id = interface.input.select(
-            'Choose a list:',
-            API::List
-              .find_all_by_board(board_id)
-              .map { |list| [list[:name], list[:id]] }
-              .to_h
-          )
-        end
 
         def list_cards
           API::Card.find_all_by_list(@list_id)
