@@ -41,12 +41,12 @@ module Tr3llo
       when 'edit', 'e'
         board_id = $container.resolve(:board)[:id]
         Command::Card::EditCommand.new(board_id)
-      when 'comments'
-        card_id, = args
-        Command::Card::CommentsCommand.new(card_id)
-      when 'comment'
-        card_id, = args
-        Command::Card::CommentCommand.new(card_id)
+      when 'comments', 'cs'
+        board_id = $container.resolve(:board)[:id]
+        Command::Card::CommentsCommand.new(board_id)
+      when 'comment', 'c'
+        board_id = $container.resolve(:board)[:id]
+        Command::Card::CommentCommand.new(board_id)
       when 'move', 'm'
         card_id, = args
         board_id = $container.resolve(:board)[:id]

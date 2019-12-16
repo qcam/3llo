@@ -40,9 +40,9 @@ module Tr3llo
     card edit or c e             - Edit card information
     card move or c m             - Move card to a list
     card self-assign or c sa     - Self-assign a card
-    card assign c asg            - Assign a user to a card
-    card comments <card_id>      - Load recent comments of a card
-    card comment <card_id>       - Add a comment to a card
+    card assign or c asg         - Assign a user to a card
+    card comments or c cm        - Load recent comments of a card
+    card comment or c c          - Add a comment to a card
     card archive <card_id>       - Archive a card
     list list                    - Show all lists
     list cards <list_id>         - Show all cards in list

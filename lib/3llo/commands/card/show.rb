@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 require_relative './shared_card_functions.rb'
 
 module Tr3llo
@@ -23,8 +22,6 @@ module Tr3llo
         end
 
         private
-
-        attr_reader :board_id
 
         def interface
           $container.resolve(:interface)
