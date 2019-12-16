@@ -14,12 +14,12 @@ module Tr3llo
 
     def factory
       case subcommand
-      when 'l'
+      when 'list', 'l'
         board_id = $container.resolve(:board)[:id]
         Command::List::ListCommand.new(board_id)
-      when 'c'
-        list_id, = args
-        Command::List::CardsCommand.new(list_id)
+      when 'cards', 'cs'
+        board_id = $container.resolve(:board)[:id]
+        Command::List::CardsCommand.new(board_id)
       when 'archive-cards'
         list_id, = args
         Command::List::ArchiveCardsCommand.new(list_id)

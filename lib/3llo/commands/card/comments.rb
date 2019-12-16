@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require_relative './shared_card_functions.rb'
+require_relative '../shared_functions.rb'
 
 module Tr3llo
   module Command

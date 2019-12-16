@@ -43,9 +43,9 @@ module Tr3llo
     card assign or c asg         - Assign a user to a card
     card comments or c cs        - Load recent comments of a card
     card comment or c c          - Add a comment to a card
-    card archive <card_id>       - Archive a card
-    list list                    - Show all lists
-    list cards <list_id>         - Show all cards in list
+    card archive or c ar         - Archive a card
+    list list or l l             - Show all lists
+    list cards or l cs           - Show all cards in list
     list archive-cards <list_id> - Archive all cards in list
     help                         - Show help menu
     exit                         - Exit program

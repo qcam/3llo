@@ -1,27 +1,30 @@
 # frozen_string_literal: true
+require_relative '../shared_functions.rb'
 
 module Tr3llo
   module Command
     module Card
       class ArchiveCommand
-        def initialize(card_id)
-          @card_id = card_id
+        def initialize(board_id)
+          @board_id = board_id
         end
 
         def execute
           interface.print_frame do
+            SharedFunctions.load_lists(@board_id)
+            @card = SharedFunctions.load_card(SharedFunctions.select_card)
+            @card_id = @card[:id]
+
             archive_card
-            interface.puts('Card has been archived.')
+            interface.puts("The card #{@card[:name].labelize} has been archived.")
           end
         end
 
         private
 
-        attr_reader :card_id
-
         def archive_card
-          card = API::Card.find(card_id)
-          API::Card.archive(card_id)
+          card = API::Card.find(@card_id)
+          API::Card.archive(@card_id)
         end
 
         def interface

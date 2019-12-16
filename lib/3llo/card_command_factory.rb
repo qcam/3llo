@@ -59,9 +59,9 @@ module Tr3llo
         card_id, = args
         board_id = $container.resolve(:board)[:id]
         Command::Card::AssignCommand.new(card_id, board_id)
-      when 'archive'
-        card_id, = args
-        Command::Card::ArchiveCommand.new(card_id)
+      when 'archive', 'ar'
+        board_id = $container.resolve(:board)[:id]
+        Command::Card::ArchiveCommand.new(board_id)
       else
         Command::Card::InvalidCommand.new
       end
