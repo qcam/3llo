@@ -23,11 +23,9 @@ module Tr3llo
 
         private
 
-        attr_reader :user_id, :card_id
-
         def assign_card(user_id)
           members = @card[:idMembers] << user_id
-          API::Card.assign_members(card_id, members)
+          API::Card.assign_members(@card_id, members)
         end
 
         def prompt_for_user_id!(board_id)

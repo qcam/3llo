@@ -26,8 +26,6 @@ module Tr3llo
 
         private
 
-        attr_reader :card_id
-
         def create_comment!(text)
           API::Card.comment(@card_id, text)
         end

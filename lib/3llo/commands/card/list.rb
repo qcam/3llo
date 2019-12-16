@@ -20,10 +20,8 @@ module Tr3llo
 
         private
 
-        attr_reader :board_id
-
         def load_lists
-          API::List.find_all_by_board(board_id)
+          API::List.find_all_by_board(@board_id)
         end
 
         def load_cards(list_id)

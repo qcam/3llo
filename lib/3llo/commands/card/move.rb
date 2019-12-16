@@ -23,8 +23,6 @@ module Tr3llo
 
         private
 
-        attr_reader :board_id
-
         def move_card!(card_id, list_id)
           API::Card.move_to_list(card_id, list_id)
         end

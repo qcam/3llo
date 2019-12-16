@@ -21,8 +21,6 @@ module Tr3llo
 
         private
 
-        attr_reader :card_id
-
         def load_comments
           API::Card.find_comments(@card_id)
         end

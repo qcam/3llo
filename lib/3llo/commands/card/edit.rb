@@ -36,8 +36,6 @@ module Tr3llo
 
         private
 
-        attr_reader :board_id
-
         def update_card!(name, description, card_id)
           API::Card.update(name, description, card_id)
         end

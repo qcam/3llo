@@ -26,15 +26,13 @@ module Tr3llo
 
         private
 
-        attr_reader :board_id
-
         def create_card!(name, description, list_id)
           API::Card.create(name, description, list_id)
         end
 
         def load_lists
           API::List
-            .find_all_by_board(board_id)
+            .find_all_by_board(@board_id)
             .map { |list| [list[:name], list[:id]] }
             .to_h
         end

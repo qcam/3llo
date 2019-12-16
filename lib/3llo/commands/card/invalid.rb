@@ -17,15 +17,15 @@ module Tr3llo
           '
     Available `card` commands
 
-    card list                   - Show list of cards grouped by list
+    card list or c l            - Show list of cards grouped by list
     card list mine              - Show list of my cards
-    card add                    - Create a card
-    card show <card_id>         - Show card information
-    card move <card_id>         - Move card to a list
-    card self-assign <card_id>  - Self-assign a card
-    card assign <card_id>       - Assign a user to a card
-    card comments <card_id>     - Load recent comments of a card
-    card comment <card_id>      - Add a comment to a card
+    card add  or c a            - Create a card
+    card show or c s            - Show card information
+    card move or c m            - Move card to a list
+    card self-assign or c sa    - Self-assign a card
+    card assign or c asg        - Assign a user to a card
+    card comments or c cs       - Load recent comments of a card
+    card comment or c c         - Add a comment to a card
     card archive <card_id>      - Archive a card
           '
         end
