@@ -20,8 +20,8 @@ module Tr3llo
 
             @card_id = card[:id]
 
-            name = interface.input.ask('Change the name:')
-            description = interface.input.ask('Change the description:')
+            name = interface.input.ask('Change the name (leave blank if you do not want to change it):')
+            description = interface.input.ask('Change the description (leave blank if you do not want to change it):')
 
             interface.puts(
               update_card!(
