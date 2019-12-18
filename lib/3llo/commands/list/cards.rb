@@ -22,6 +22,8 @@ module Tr3llo
         private
 
         def list_cards
+          puts '------'
+          puts @list_id
           API::Card.find_all_by_list(@list_id)
         end
 
