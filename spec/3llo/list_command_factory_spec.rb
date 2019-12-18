@@ -14,8 +14,18 @@ RSpec.describe Tr3llo::ListCommandFactory do
       it { is_expected.to be_a(Tr3llo::Command::List::ListCommand) }
     end
 
+    context 'when subcommand is l' do
+      let(:subcommand) { 'l' }
+      it { is_expected.to be_a(Tr3llo::Command::List::ListCommand) }
+    end
+
     context 'when subcommand is cards' do
       let(:subcommand) { 'cards' }
+      it { is_expected.to be_a(Tr3llo::Command::List::CardsCommand) }
+    end
+
+    context 'when subcommand is cs' do
+      let(:subcommand) { 'cs' }
       it { is_expected.to be_a(Tr3llo::Command::List::CardsCommand) }
     end
 

@@ -14,8 +14,18 @@ RSpec.describe Tr3llo::BoardCommandFactory do
       it { is_expected.to be_a(Tr3llo::Command::Board::ListCommand) }
     end
 
+    context 'when subcommand is l' do
+      let(:subcommand) { 'l' }
+      it { is_expected.to be_a(Tr3llo::Command::Board::ListCommand) }
+    end
+
     context 'when subcommand is select' do
       let(:subcommand) { 'select' }
+      it { is_expected.to be_a(Tr3llo::Command::Board::SelectCommand) }
+    end
+
+    context 'when subcommand is s' do
+      let(:subcommand) { 's' }
       it { is_expected.to be_a(Tr3llo::Command::Board::SelectCommand) }
     end
 
