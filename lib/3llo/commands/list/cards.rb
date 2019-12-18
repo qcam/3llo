@@ -11,7 +11,7 @@ module Tr3llo
 
         def execute
           interface.print_frame do
-            SharedFunctions.load_lists(@board_id)
+            @list_id = SharedFunctions.load_lists(@board_id)
 
             Tr3llo::Presenter::List::CardsPresenter
               .new(interface)
@@ -22,8 +22,6 @@ module Tr3llo
         private
 
         def list_cards
-          puts '------'
-          puts @list_id
           API::Card.find_all_by_list(@list_id)
         end
 
