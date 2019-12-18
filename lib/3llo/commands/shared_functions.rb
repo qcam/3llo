@@ -2,7 +2,6 @@
 
 module Tr3llo
   module Command
-    module Card
       class SharedFunctions
         # load all lists of a certain board
         def self.load_lists(board_id)
@@ -41,6 +40,5 @@ module Tr3llo
           $container.resolve(:interface)
         end
       end
-    end
   end
 end
