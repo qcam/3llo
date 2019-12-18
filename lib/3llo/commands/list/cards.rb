@@ -11,7 +11,7 @@ module Tr3llo
 
         def execute
           interface.print_frame do
-            load_lists(@board_id)
+            SharedFunctions.load_lists(@board_id)
 
             Tr3llo::Presenter::List::CardsPresenter
               .new(interface)
