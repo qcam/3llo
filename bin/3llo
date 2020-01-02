@@ -4,6 +4,7 @@ $:.unshift File.expand_path("../../lib", __FILE__)
 require "3llo"
 require 'container'
 require 'tty-prompt'
+require 'optparse'
 
 $container = Container.new
 $container.register(:api_client, Tr3llo::HTTP::Client)
@@ -16,10 +17,20 @@ def print_help(stripped = false)
     .print!
 end
 
-if ARGV.size == 1 && (ARGV[0] == "-h" || ARGV[0] == "--help")
-  print_help(true)
-  exit
-end
+options = {}
+OptionParser.new do |opts|
+
+  opts.on("-h", "--help", "Display this help message") do
+    print_help(true)
+    puts opts
+    exit
+  end
+
+  opts.on("-b", "--board BOARD", "Set default board") do |b|
+    options[:board] = b
+  end
+
+end.parse!
 
 configuration = Tr3llo::Configuration.new
 begin
@@ -40,6 +51,10 @@ $container.register(
 user = Tr3llo::API::User.find($container.resolve(:configuration).user_id)
 $container.register(:user, user)
 
+if options.key?(:board)
+  board = Tr3llo::API::Board.find(options[:board])
+  $container.register(:board, board)
+end
 print_help(false)
 
 Tr3llo::Controller.new.start
