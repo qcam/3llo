@@ -7,12 +7,16 @@ require '3llo/commands/invalid'
 require '3llo/commands/error'
 
 module Tr3llo
-  class CommandFactory
-    def initialize(command_buffer)
-      @command_buffer = command_buffer
+  module CommandFactory
+    extend self
+
+    def execute(command_buffer)
+      build_command(command_buffer).execute()
     end
 
-    def factory
+    private
+
+    def build_command(command_buffer)
       command, subcommand, *args = command_buffer.strip.split(' ')
 
       case command
@@ -32,9 +36,5 @@ module Tr3llo
     rescue Container::KeyNotFoundError
       Command::ErrorCommand.new
     end
-
-    private
-
-    attr_reader :command_buffer
   end
 end
