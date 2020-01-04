@@ -57,4 +57,4 @@ if options.key?(:board)
 end
 print_help(false)
 
-Tr3llo::Controller.new.start
+Tr3llo::Controller.start

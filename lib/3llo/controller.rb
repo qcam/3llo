@@ -1,9 +1,8 @@
 require 'readline'
 
 module Tr3llo
-  class Controller
-    def initialize
-    end
+  module Controller
+    extend self
 
     def start
       list = %w(board card help list mine move select self-assign show)
