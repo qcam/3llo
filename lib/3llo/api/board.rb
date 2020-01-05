@@ -9,38 +9,45 @@ module Tr3llo
             "/members/#{user_id}/boards",
             key: api_key,
             token: api_token,
-          ),
-          symbolize_names: true
-        )
+            filter: "open"
+          )
+        ).map do |board_payload|
+          make_struct(board_payload)
+        end
       end
 
       def find(board_id)
-        JSON.parse(
-          client.get(
-            "/boards/#{board_id}",
-            key: api_key,
-            token: api_token,
-          ),
-          symbolize_names: true
-        )
+        payload =
+          JSON.parse(
+            client.get(
+              "/boards/#{board_id}",
+              key: api_key,
+              token: api_token,
+            )
+          )
+
+        make_struct(payload)
       end
 
       private
 
       def client
-        container.resolve(:api_client)
+        Application.fetch_client!()
       end
 
       def api_key
-        container.resolve(:configuration).api_key
+        Application.fetch_configuration!().api_key
       end
 
       def api_token
-        container.resolve(:configuration).api_token
+        Application.fetch_configuration!().api_token
       end
 
-      def container
-        $container
+      def make_struct(payload)
+        id, name = payload.fetch_values("id", "name")
+        shortcut = Entities.make_shortcut(:board, id)
+
+        Entities::Board.new(id, shortcut, name)
       end
     end
   end

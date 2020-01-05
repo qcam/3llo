@@ -11,21 +11,17 @@ module Tr3llo
       Readline.completion_append_character = " "
       Readline.completion_proc = auto_completion
 
+      interface = Application.fetch_interface!()
+
       while command_buffer = Readline.readline("\e[15;48;5;27m 3llo \e[0m > ", true)
         begin
-          Tr3llo::CommandFactory.execute(command_buffer)
+          Tr3llo::CommandFactory.execute(command_buffer.strip)
         rescue Tr3llo::HTTP::Client::RequestError => e
           interface.print_frame { interface.puts(e.message) }
         end
       end
     rescue Interrupt
-      Command::ExitCommand.new.execute
-    end
-
-    private
-
-    def interface
-      $container.resolve(:interface)
+      Command::ExitCommand.execute()
     end
   end
 end

@@ -1,14 +1,10 @@
 module Tr3llo
   module Command
-    class HelpCommand
+    module HelpCommand
+      extend self
+
       def execute
-        Presenter::HelpPresenter.new(interface).print!
-      end
-
-      private
-
-      def interface
-        $container.resolve(:interface)
+        Presenter::HelpPresenter.print!(Application.fetch_interface!())
       end
     end
   end

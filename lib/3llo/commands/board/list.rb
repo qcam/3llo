@@ -1,27 +1,25 @@
 module Tr3llo
   module Command
     module Board
-      class ListCommand
-        def initialize(user_id)
-          @user_id = user_id
-        end
+      module ListCommand
+        extend self
 
-        def execute
+        def execute(user_id)
+          boards = get_boards(user_id)
+
           Tr3llo::Presenter::Board::ListPresenter
             .new(interface)
-            .print!(list_boards)
+            .print!(boards)
         end
 
         private
 
-        attr_reader :user_id
-
-        def list_boards
+        def get_boards(user_id)
           API::Board.find_all_by_user(user_id)
         end
 
         def interface
-          $container.resolve(:interface)
+          Application.fetch_interface!()
         end
       end
     end

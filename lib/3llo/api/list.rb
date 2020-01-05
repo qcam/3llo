@@ -10,9 +10,10 @@ module Tr3llo
             list: true,
             key: api_key,
             token: api_token
-          ),
-          symbolize_names: true
-        )
+          )
+        ).map do |list_payload|
+          make_struct(list_payload)
+        end
       end
 
       def archive_cards(list_id)
@@ -21,27 +22,29 @@ module Tr3llo
             "/lists/#{list_id}/archiveAllCards",
             key: api_key,
             token: api_token
-          ),
-          symbolize_names: true
+          )
         )
       end
 
       private
 
+      def make_struct(payload)
+        id, name = payload.fetch_values("id", "name")
+        shortcut = Entities.make_shortcut(:list, id)
+
+        Entities::List.new(id, shortcut, name)
+      end
+
       def client
-        container.resolve(:api_client)
+        Application.fetch_client!()
       end
 
       def api_key
-        container.resolve(:configuration).api_key
+        Application.fetch_configuration!().api_key
       end
 
       def api_token
-        container.resolve(:configuration).api_token
-      end
-
-      def container
-        $container
+        Application.fetch_configuration!().api_token
       end
     end
   end

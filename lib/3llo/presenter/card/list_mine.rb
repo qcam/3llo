@@ -17,7 +17,7 @@ module Tr3llo
         attr_reader :interface
 
         def present_card(card)
-          interface.puts "[#{card[:id].labelize}] - (#{card[:list][:name].purple}) - #{card[:name]}"
+          interface.puts "#{Utils.format_key_tag(card.id, card.shortcut)} (#{card.list.name.purple}) #{card.name}"
         end
       end
     end

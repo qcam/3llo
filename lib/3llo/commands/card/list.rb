@@ -1,18 +1,18 @@
 module Tr3llo
   module Command
     module Card
-      class ListCommand
-        def initialize(board_id)
-          @board_id = board_id
-        end
+      module ListCommand
+        extend self
 
-        def execute
-          lists = load_lists
+        def execute(board_id)
+          lists = get_lists(board_id)
 
           lists.each do |list|
+            cards = get_cards(list[:id])
+
             Tr3llo::Presenter::Card::ListPresenter
               .new(interface)
-              .print!(list, load_cards(list[:id]))
+              .print!(list, cards)
           end
         end
 
@@ -20,16 +20,16 @@ module Tr3llo
 
         attr_reader :board_id
 
-        def load_lists
+        def get_lists(board_id)
           API::List.find_all_by_board(board_id)
         end
 
-        def load_cards(list_id)
+        def get_cards(list_id)
           API::Card.find_all_by_list(list_id)
         end
 
         def interface
-          $container.resolve(:interface)
+          Application.fetch_interface!()
         end
       end
     end
