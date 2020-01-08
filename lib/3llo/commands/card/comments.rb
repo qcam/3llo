@@ -1,27 +1,32 @@
 module Tr3llo
   module Command
     module Card
-      class CommentsCommand
-        def initialize(card_id)
-          @card_id = card_id
-        end
+      module CommentsCommand
+        extend self
 
-        def execute
+        def execute(key)
+          card_id = Entities.parse_id(:card, key)
+          assert_card_id!(card_id, key)
+
+          comments = list_comments(card_id)
+
           Tr3llo::Presenter::Card::CommentsPresenter
             .new(interface)
-            .print!(load_comments)
+            .print!(comments)
         end
 
         private
 
-        attr_reader :card_id
-
-        def load_comments
-          API::Card.find_comments(card_id)
+        def list_comments(card_id)
+          API::Card.list_comments(card_id)
         end
 
         def interface
-          $container.resolve(:interface)
+          Application.fetch_interface!()
+        end
+
+        def assert_card_id!(card_id, key)
+          raise InvalidArgumentError.new("#{key.inspect} is not a valid list key") unless card_id
         end
       end
     end

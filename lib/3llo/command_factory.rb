@@ -11,30 +11,38 @@ module Tr3llo
     extend self
 
     def execute(command_buffer)
-      build_command(command_buffer).execute()
+      build_command(command_buffer)
     end
 
     private
 
-    def build_command(command_buffer)
-      command, subcommand, *args = command_buffer.strip.split(' ')
+    def build_command(command_string)
+      command, subcommand, *args = parse_command(command_string)
 
       case command
       when 'board'
-        BoardCommandFactory.new(subcommand, args).factory
+        BoardCommandFactory.execute(subcommand, args)
       when 'card'
-        CardCommandFactory.new(subcommand, args).factory
+        CardCommandFactory.execute(subcommand, args)
       when 'list'
-        ListCommandFactory.new(subcommand, args).factory
+        ListCommandFactory.execute(subcommand, args)
       when 'help'
-        Command::HelpCommand.new
+        Command::HelpCommand.execute()
       when 'exit'
-        Command::ExitCommand.new
+        Command::ExitCommand.execute()
       else
-        Command::InvalidCommand.new
+        if command
+          raise InvalidCommandError.new("#{command} is not a valid command")
+        else
+          raise InvalidCommandError.new("command is missing")
+        end
       end
-    rescue Container::KeyNotFoundError
-      Command::ErrorCommand.new
+    rescue InvalidCommandError => exception
+      Command::InvalidCommand.execute(exception.message)
+    end
+
+    def parse_command(command_string)
+      command_string.strip.split(' ')
     end
   end
 end

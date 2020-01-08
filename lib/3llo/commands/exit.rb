@@ -1,15 +1,11 @@
 module Tr3llo
   module Command
-    class ExitCommand
+    module ExitCommand
+      extend self
+
       def execute
-        interface.puts("Bye bye")
-        exit(0)
-      end
-
-      private
-
-      def interface
-        $container.resolve(:interface)
+        Application.fetch_interface!().puts("Bye bye")
+        exit
       end
     end
   end

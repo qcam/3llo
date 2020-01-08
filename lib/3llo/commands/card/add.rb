@@ -1,17 +1,23 @@
 module Tr3llo
   module Command
     module Card
-      class AddCommand
-        def initialize(board_id)
-          @board_id = board_id
-        end
+      module AddCommand
+        extend self
 
-        def execute
+        def execute(board_id)
+          lists = get_lists(board_id)
+
+          list_options =
+            lists
+            .map { |list| [list[:name], list[:id]] }
+            .to_h
+
           interface.print_frame do
             list_id = interface.input.select(
               "Choose a list:",
-              load_lists
+              list_options
             )
+
             name = interface.input.ask("Name:")
             description = interface.input.ask("Description:")
 
@@ -24,22 +30,16 @@ module Tr3llo
 
         private
 
-        attr_reader :board_id
-
-        
         def create_card!(name, description, list_id)
           API::Card.create(name, description, list_id)
         end
 
-        def load_lists
-          API::List
-            .find_all_by_board(board_id)
-            .map { |list| [list[:name], list[:id]] }
-            .to_h
+        def get_lists(board_id)
+          API::List.find_all_by_board(board_id)
         end
 
         def interface
-          $container.resolve(:interface)
+          Application.fetch_interface!()
         end
       end
     end

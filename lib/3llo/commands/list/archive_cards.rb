@@ -1,16 +1,17 @@
 module Tr3llo
   module Command
     module List
-      class ArchiveCardsCommand
-        def initialize(list_id)
-          @list_id = list_id
-        end
+      module ArchiveCardsCommand
+        extend self
 
-        def execute
+        def execute(key)
+          list_id = Entities.parse_id(:list, key)
+
           interface.print_frame do
             approved = prompt_for_approvement!
+
             if approved
-              archive_cards
+              archive_cards(list_id)
               interface.puts("Cards have been archived.")
             end
           end
@@ -18,20 +19,18 @@ module Tr3llo
 
         private
 
-        attr_reader :list_id
-
         def prompt_for_approvement!
           Tr3llo::Presenter::ConfirmationPresenter
             .new(interface)
             .prompt_for_confirmation('Are you sure you want to archive all cards?')
         end
 
-        def archive_cards
+        def archive_cards(list_id)
           API::List.archive_cards(list_id)
         end
 
         def interface
-          $container.resolve(:interface)
+          Application.fetch_interface!()
         end
       end
     end

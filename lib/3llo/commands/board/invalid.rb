@@ -1,10 +1,14 @@
 module Tr3llo
   module Command
     module Board
-      class InvalidCommand
-        def execute
+      module InvalidCommand
+        extend self
+
+        def execute(message = "invalid command")
+          interface = Application.fetch_interface!()
+
           interface.print_frame do
-            interface.puts("Invalid command".red)
+            interface.puts(message.red)
             interface.puts(menu_text)
           end
         end
@@ -13,19 +17,11 @@ module Tr3llo
 
         def menu_text
           %q{
-    Available `board` commands
+    Available `board` commands:
 
-    board list    - Show list of board
-    board select  - Select board
+    board list         - Show list of boards
+    board select <key> - Select board
           }
-        end
-
-        def container
-          $container
-        end
-
-        def interface
-          container.resolve(:interface)
         end
       end
     end

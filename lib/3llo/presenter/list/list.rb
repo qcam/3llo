@@ -17,7 +17,9 @@ module Tr3llo
         attr_reader :interface
 
         def present_list(list)
-          interface.puts "[#{list[:id].labelize}] - #{list[:name]}"
+          interface.puts(
+            "#{Utils.format_key_tag(list.id, list.shortcut)} #{list.name}"
+          )
         end
       end
     end

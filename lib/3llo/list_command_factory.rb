@@ -4,30 +4,45 @@ require '3llo/commands/list/invalid'
 require '3llo/commands/list/archive_cards'
 
 module Tr3llo
-  class ListCommandFactory
-    def initialize(subcommand, args)
-      @subcommand = subcommand
-      @args = args
-    end
+  module ListCommandFactory
+    extend self
 
-    def factory
+    def execute(subcommand, args)
       case subcommand
       when 'list'
-        board_id = $container.resolve(:board)[:id]
-        Command::List::ListCommand.new(board_id)
+        board = Application.fetch_board!()
+
+        Command::List::ListCommand.execute(board[:id])
       when 'cards'
-        list_id, _ = args
-        Command::List::CardsCommand.new(list_id)
+        list_key, _ = args
+        Utils.assert_string!(list_key, "list key is missing")
+
+        Command::List::CardsCommand.execute(list_key)
       when 'archive-cards'
-        list_id, _ = args
-        Command::List::ArchiveCardsCommand.new(list_id)
+        list_key, _ = args
+        Utils.assert_string!(list_key, "list key is missing")
+
+        Command::List::ArchiveCardsCommand.execute(list_key)
       else
-        Command::List::InvalidCommand.new
+        handle_invalid_subcommand(subcommand, args)
       end
+    rescue InvalidArgumentError => exception
+      Command::List::InvalidCommand.execute(exception.message)
+    rescue InvalidCommandError => exception
+      Command::List::InvalidCommand.execute(exception.message)
+    rescue BoardNotSelectedError => exception
+      Command::List::InvalidCommand.execute(exception.message)
     end
 
     private
 
-    attr_reader :subcommand, :args
+    def handle_invalid_subcommand(subcommand, _args)
+      case subcommand
+      when String
+        raise InvalidCommandError.new("#{subcommand.inspect} is not a valid command")
+      when NilClass
+        raise InvalidCommandError.new("command is missing")
+      end
+    end
   end
 end

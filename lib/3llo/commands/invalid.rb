@@ -1,17 +1,15 @@
 module Tr3llo
   module Command
-    class InvalidCommand
-      def execute
+    module InvalidCommand
+      extend self
+
+      def execute(message)
+        interface = Application.fetch_interface!()
+
         interface.print_frame do
-          interface.puts("Invalid command!".red)
-          Presenter::HelpPresenter.new(interface).print!
+          interface.puts(message.red)
+          Presenter::HelpPresenter.print!(interface)
         end
-      end
-
-      private
-
-      def interface
-        $container.resolve(:interface)
       end
     end
   end

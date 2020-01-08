@@ -3,17 +3,6 @@ module Tr3llo
     module Card
       extend self
 
-      def find_all_by_board(board_id)
-        JSON.parse(
-          client.get(
-            "/boards/#{board_id}/cards",
-            key: api_key,
-            token: api_token,
-          ),
-          symbolize_names: true
-        )
-      end
-
       def find_all_by_list(list_id)
         JSON.parse(
           client.get(
@@ -22,9 +11,10 @@ module Tr3llo
             token: api_token,
             members: 'true',
             member_fields: "id,username"
-          ),
-          symbolize_names: true
-        )
+          )
+        ).map do |card_payload|
+          make_struct(card_payload)
+        end
       end
 
       def find_all_by_user(board_id, user_id)
@@ -33,10 +23,11 @@ module Tr3llo
             "/boards/#{board_id}/members/#{user_id}/cards",
             list: true,
             key: api_key,
-            token: api_token,
-          ),
-          symbolize_names: true
-        )
+            token: api_token
+          )
+        ).map do |card_payload|
+          make_struct(card_payload)
+        end
       end
 
       def create(name, description, list_id)
@@ -46,24 +37,25 @@ module Tr3llo
             key: api_key,
             token: api_token,
             name: name,
-            description: description,
+            desc: description,
             idList: list_id
-          ),
-          symbolize_names: true
+          )
         )
       end
 
       def find(card_id)
-        JSON.parse(
-          client.get(
-            "/cards/#{card_id}",
-            list: true,
-            members: true,
-            key: api_key,
-            token: api_token,
-          ),
-          symbolize_names: true
-        )
+        card_payload =
+          JSON.parse(
+            client.get(
+              "/cards/#{card_id}",
+              list: true,
+              members: true,
+              key: api_key,
+              token: api_token
+            )
+          )
+
+        make_struct(card_payload)
       end
 
       def move_to_list(card_id, list_id)
@@ -74,8 +66,7 @@ module Tr3llo
             key: api_key,
             token: api_token,
             value: list_id
-          ),
-          symbolize_names: true
+          )
         )
       end
 
@@ -87,22 +78,33 @@ module Tr3llo
             key: api_key,
             token: api_token,
             value: members.join(',')
-          ),
-          symbolize_names: true
+          )
         )
       end
 
-      def find_comments(card_id)
+      def list_comments(card_id)
         url = "/cards/#{card_id}/actions"
+
         JSON.parse(
           client.get(
             url,
             key: api_key,
             token: api_token,
             filter: "commentCard",
-          ),
-          symbolize_names: true
-        )
+          )
+        ).map do |comment_payload|
+          id, creator_payload = comment_payload.fetch_values("id", "memberCreator")
+          text = comment_payload.dig("data", "text")
+
+          creator_id, creator_username = creator_payload.fetch_values("id", "username")
+          creator = Entities::User.new(creator_id, _creator_shortcut = nil, creator_username)
+
+          Entities::Comment.new(
+            id: id,
+            creator: creator,
+            text: text
+          )
+        end
       end
 
       def comment(card_id, text)
@@ -113,8 +115,7 @@ module Tr3llo
             key: api_key,
             token: api_token,
             text: text
-          ),
-          symbolize_names: true
+          )
         )
       end
 
@@ -125,23 +126,64 @@ module Tr3llo
             url,
             key: api_key,
             token: api_token
-          ),
-          symbolize_names: true
+          )
         )
       end
 
       private
 
+      def make_struct(payload)
+        id, name, description, short_url = payload.fetch_values("id", "name", "desc", "shortUrl")
+        shortcut = Entities.make_shortcut(:card, id)
+
+        members =
+          payload
+          .fetch("members", [])
+          .map do |member_payload|
+            user_id, username = member_payload.fetch_values("id", "username")
+
+            Entities::User.new(user_id, _user_shortcut = nil, username)
+          end
+
+        labels =
+          payload
+          .fetch("labels", [])
+          .map do |label_payload|
+            label_name = label_payload.fetch("name")
+            label_color = label_payload["color"]
+
+            Entities::Label.new(label_name, label_color)
+          end
+
+        card =
+          Entities::Card.new(
+            id: id,
+            shortcut: shortcut,
+            name: name,
+            description: description,
+            short_url: short_url,
+            labels: labels,
+            members: members
+          )
+
+        if list_payload = payload["list"]
+          list_id, list_name = list_payload.fetch_values("id", "name")
+          card.list = Entities::List.new(list_id, _list_shortcut = nil, list_name)
+        end
+
+        card
+      end
+
       def api_key
-        $container.resolve(:configuration).api_key
+        Application.fetch_configuration!().api_key
       end
 
       def api_token
-        $container.resolve(:configuration).api_token
+        Application.fetch_configuration!().api_token
       end
 
       def client
-        $container.resolve(:api_client)
+        Application.fetch_client!()
       end
     end
   end

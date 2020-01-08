@@ -17,7 +17,9 @@ module Tr3llo
         attr_reader :interface
 
         def present_board(board)
-          interface.puts "[#{board[:id].labelize}] - #{board[:name]}"
+          interface.puts(
+            "#{Utils.format_key_tag(board.id, board.shortcut)} - #{board.name}"
+          )
         end
       end
     end

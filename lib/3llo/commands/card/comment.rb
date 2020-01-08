@@ -1,17 +1,18 @@
 module Tr3llo
   module Command
     module Card
-      class CommentCommand
-        def initialize(card_id)
-          @card_id = card_id
-        end
+      module CommentCommand
+        extend self
 
-        def execute
+        def execute(key)
+          card_id = Entities.parse_id(:card, key)
+          assert_card_id!(card_id, key)
+
           interface.print_frame do
             text = interface.input.multiline("Comment (press Ctrl+d to finish):").join("")
 
             interface.puts(
-              create_comment!(text) &&
+              create_comment!(card_id, text) &&
               "Comment created"
             )
           end
@@ -19,14 +20,16 @@ module Tr3llo
 
         private
 
-        attr_reader :card_id
-
-        def create_comment!(text)
-          API::Card.comment(@card_id, text)
+        def create_comment!(card_id, text)
+          API::Card.comment(card_id, text)
         end
 
         def interface
-          $container.resolve(:interface)
+          Application.fetch_interface!()
+        end
+
+        def assert_card_id!(card_id, key)
+          raise InvalidArgumentError.new("#{key.inspect} is not a valid list key") unless card_id
         end
       end
     end

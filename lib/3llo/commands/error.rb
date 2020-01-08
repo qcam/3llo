@@ -11,7 +11,7 @@ module Tr3llo
       private
 
       def interface
-        $container.resolve(:interface)
+        Application.fetch_interface!()
       end
     end
   end

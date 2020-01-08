@@ -20,12 +20,8 @@ module Tr3llo
 
         def present_comment(comment)
           interface.puts(
-            "#{decorate_user(comment[:memberCreator])}: #{comment[:data][:text]}"
+            "#{Utils.format_user(comment.creator)}: #{comment.text}"
           )
-        end
-
-        def decorate_user(user)
-          "@#{user[:username]}".blue
         end
       end
     end

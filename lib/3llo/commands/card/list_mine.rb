@@ -1,28 +1,25 @@
 module Tr3llo
   module Command
     module Card
-      class ListMineCommand
-        def initialize(board_id, user_id)
-          @board_id = board_id
-          @user_id = user_id
-        end
+      module ListMineCommand
+        extend self
 
-        def execute
+        def execute(board_id, user_id)
+          cards = get_cards(board_id, user_id)
+
           Tr3llo::Presenter::Card::ListMinePresenter
             .new(interface)
-            .print!(load_cards)
+            .print!(cards)
         end
 
         private
 
-        attr_reader :board_id, :user_id
-
-        def load_cards
+        def get_cards(board_id, user_id)
           API::Card.find_all_by_user(board_id, user_id)
         end
 
         def interface
-          $container.resolve(:interface)
+          Application.fetch_interface!()
         end
       end
     end

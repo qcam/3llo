@@ -6,13 +6,14 @@ module Tr3llo
       def find(user_id)
         url = "/members/#{user_id}"
 
-        JSON.parse(
-          client.get(
-            url,
-            key: key,
-            token: token
-          ),
-          symbolize_names: true
+        make_struct(
+          JSON.parse(
+            client.get(
+              url,
+              key: key,
+              token: token
+            )
+          )
         )
       end
 
@@ -24,23 +25,31 @@ module Tr3llo
             url,
             key: key,
             token: token
-          ),
-          symbolize_names: true
-        )
+          )
+        ).map do |user_payload|
+          make_struct(user_payload)
+        end
       end
 
       private
 
+      def make_struct(payload)
+        id, username = payload.fetch_values("id", "username")
+        shortcut = Entities.make_shortcut(:user, id)
+
+        Entities::User.new(id, shortcut, username)
+      end
+
       def key
-        $container.resolve(:configuration).api_key
+        Application.fetch_configuration!().api_key
       end
 
       def token
-        $container.resolve(:configuration).api_token
+        Application.fetch_configuration!().api_token
       end
 
       def client
-        $container.resolve(:api_client)
+        Application.fetch_client!()
       end
     end
   end

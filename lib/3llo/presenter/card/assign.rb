@@ -16,7 +16,6 @@ module Tr3llo
         private
 
         attr_reader :interface
-
       end
     end
   end
