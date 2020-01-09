@@ -16,5 +16,11 @@ module Tr3llo
     def format_user(user)
       ("@" + user.username).blue
     end
+
+    def deprecate!(message)
+      interface = Application.fetch_interface!()
+
+      interface.puts("DEPRECATED: #{message}".yellow)
+    end
   end
 end
