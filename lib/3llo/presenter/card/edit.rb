@@ -28,7 +28,7 @@ module Tr3llo
           end
 
           interface.puts(
-            "ID-------->: ".labelize + card[:id] + "\n" +
+            "ID: ".labelize + card[:id] + "\n" +
             "Name: ".labelize + card[:name] + " (#{label_str})" "\n" +
             "Description: ".labelize + card[:desc] + "\n" +
             "List: ".labelize + card[:list][:name] + "\n" +

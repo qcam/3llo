@@ -60,7 +60,7 @@ module Tr3llo
             key: api_key,
             token: api_token,
             name: name,
-            description: description,
+            desc: description,
             card_id: card_id,
           ),
           symbolize_names: true
