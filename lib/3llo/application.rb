@@ -14,6 +14,8 @@ module Tr3llo
         exit
       end
 
+      init_command = options.fetch(:init, "")
+
       print_help!(interface)
 
       register_api_client!()
@@ -22,7 +24,7 @@ module Tr3llo
 
       load_user!(interface)
 
-      Controller.start()
+      Controller.start(init_command)
     end
 
     def print_help!(interface)
@@ -34,10 +36,12 @@ module Tr3llo
 
       OptionParser.new do |parser|
         parser.on("-h", "--help", "Display this help message")
-        parser.on("-b", "--board BOARD", "Set default board")
+        parser.on("-i", "--init=INIT", String, "The init command")
       end.parse!(args, into: options)
 
       options
+    rescue OptionParser::InvalidArgument, OptionParser::InvalidOption => exception
+      {}
     end
 
     def register_api_client!()
@@ -95,7 +99,7 @@ module Tr3llo
 
     def load_user!(interface)
       user = Tr3llo::API::User.find("me")
-      decorated_username = "@#{user.username}".blue
+      decorated_username = "@#{user.username}".yellow
 
       interface.print_frame do
         interface.puts("You're logged in as #{decorated_username}")
