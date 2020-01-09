@@ -11,7 +11,7 @@ module Tr3llo
 
       def menu_text
         %Q{
-    3llo - CLI for Trello
+    3llo v#{Tr3llo::VERSION} - CLI for Trello
 
     Avaiable commands:
 

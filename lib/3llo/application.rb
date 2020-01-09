@@ -70,6 +70,7 @@ module Tr3llo
 
     def build_option_parser()
       OptionParser.new do |parser|
+        parser.program_name = "3llo v#{Tr3llo::VERSION}"
         parser.on("-h", "--help", "show this message")
         parser.on("-i", "--init=INIT", String, "the init command to run when the program starts")
         parser.on("-c", "--config=CONFIG", String, "file path to the config file")
