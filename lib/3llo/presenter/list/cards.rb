@@ -18,7 +18,7 @@ module Tr3llo
 
         def present_card(card)
           if card.labels.any?
-            label_tag = " (" + card[:labels].map { |label| colorize_label(label) }.join(", ") + ")"
+            label_tag = " (" + card[:labels].map { |label| format_label(label) }.join(", ") + ")"
           else
             label_tag = ""
           end
@@ -26,9 +26,9 @@ module Tr3llo
           interface.puts "#{Utils.format_key_tag(card.id, card.shortcut)} #{card.name}#{label_tag}"
         end
 
-        def colorize_label(label)
+        def format_label(label)
           if label.color
-            "##{label.name}".paint(label.color)
+            Utils.paint("##{label.name}", label.color)
           else
             "##{label.name}"
           end

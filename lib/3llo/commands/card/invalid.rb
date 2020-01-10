@@ -6,7 +6,7 @@ module Tr3llo
 
         def execute(message)
           interface.print_frame do
-            interface.puts(message.red)
+            interface.print_error(message)
             interface.puts(menu_text)
           end
         end

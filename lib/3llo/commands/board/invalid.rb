@@ -8,7 +8,7 @@ module Tr3llo
           interface = Application.fetch_interface!()
 
           interface.print_frame do
-            interface.puts(message.red)
+            interface.print_error(message)
             interface.puts(menu_text)
           end
         end

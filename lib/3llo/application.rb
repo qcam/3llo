@@ -51,11 +51,11 @@ module Tr3llo
         file_content = JSON.dump({"key" => key, "token" => token})
         File.write(File.expand_path(DEFAULT_CONFIG_FILE_PATH), file_content)
 
-        message = "Configuration has been saved to" + DEFAULT_CONFIG_FILE_PATH.green + "."
+        message = "Configuration has been saved to" + Utils.paint(DEFAULT_CONFIG_FILE_PATH, "green") + "."
         interface.puts(message)
       else
         error_message = "Either key or token is invalid. Please try again."
-        interface.puts(error_message.red)
+        interface.print_error(error_message)
       end
     end
 
@@ -111,7 +111,7 @@ module Tr3llo
       $container.register(:configuration, configuration)
     rescue KeyError => exception
       command_string = "3llo --configure"
-      abort "#{exception.key.inspect} has not been configured. Please run #{command_string.inspect} to set up configuration.".red
+      abort(Utils.paint("#{exception.key.inspect} has not been configured. Please run #{command_string.inspect} to set up configuration.", "red"))
     end
 
     def get_config_entry(config, key, env_key)
@@ -160,7 +160,7 @@ module Tr3llo
 
     def load_user!(interface)
       user = Tr3llo::API::User.find("me")
-      decorated_username = "@#{user.username}".yellow
+      decorated_username = Utils.format_highlight("@#{user.username}")
 
       interface.print_frame do
         interface.puts("You're logged in as #{decorated_username}")

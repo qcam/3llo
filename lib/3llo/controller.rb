@@ -14,7 +14,7 @@ module Tr3llo
       interface = Application.fetch_interface!()
 
       if init_command && init_command != ""
-        interface.puts("Executing " + init_command.yellow + " command")
+        interface.puts("Executing " + Utils.format_highlight(init_command) + " command")
 
         execute_command!(init_command, interface)
       end
@@ -31,7 +31,7 @@ module Tr3llo
     def execute_command!(command_buffer, interface)
       Tr3llo::CommandFactory.execute(command_buffer.strip())
     rescue Tr3llo::HTTP::Client::RequestError => e
-      interface.print_frame { interface.puts(e.message.red) }
+      interface.print_frame { interface.print_error(e.message) }
     end
   end
 end

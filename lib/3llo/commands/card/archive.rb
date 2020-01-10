@@ -10,7 +10,7 @@ module Tr3llo
 
           interface.print_frame do
             card = archive_card(card_id)
-            interface.puts("Card #{card[:name].labelize} has been archived.")
+            interface.puts("Card #{Utils.format_highlight(card.name)} has been archived.")
           end
         end
 

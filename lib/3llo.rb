@@ -1,4 +1,3 @@
-require "core_ext"
 require "3llo/version"
 require "3llo/http/client"
 require "3llo/presenter"
