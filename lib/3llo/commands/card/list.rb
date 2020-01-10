@@ -5,15 +5,14 @@ module Tr3llo
         extend self
 
         def execute(board_id)
-          lists = get_lists(board_id)
-
-          lists.each do |list|
-            cards = get_cards(list[:id])
-
-            Tr3llo::Presenter::Card::ListPresenter
-              .new(interface)
-              .print!(list, cards)
-          end
+          get_lists(board_id)
+            .map do |list|
+              Thread.new { [list, get_cards(list.id)] }
+            end
+            .map { |thread| thread.join.value }
+            .each do |list, cards|
+              Presenter::Card::ListPresenter.new(interface).print!(list, cards)
+            end
         end
 
         private
