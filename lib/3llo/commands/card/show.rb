@@ -9,16 +9,21 @@ module Tr3llo
           assert_card_id!(card_id, key)
 
           card = get_card(card_id)
+          checklists = get_checklist(card_id)
 
           Tr3llo::Presenter::Card::ShowPresenter
             .new(interface)
-            .print!(card)
+            .print!(card, checklists)
         end
 
         private
 
         def get_card(card_id)
           API::Card.find(card_id)
+        end
+
+        def get_checklist(card_id)
+          API::Checklist.list_by_card_id(card_id)
         end
 
         def interface

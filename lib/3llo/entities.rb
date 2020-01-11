@@ -13,6 +13,8 @@ module Tr3llo
     Card = Struct.new(:id, :shortcut, :name, :description, :short_url, :labels, :members, :list, keyword_init: true)
     Label = Struct.new(:name, :color)
     Comment = Struct.new(:id, :text, :creator, keyword_init: true)
+    Checklist = Struct.new(:id, :name, :items, keyword_init: true)
+    Checklist::Item = Struct.new(:id, :name, :state, keyword_init: true)
 
     def parse_id(type, key)
       if key.start_with?(SHORTCUT_PREFIX)
