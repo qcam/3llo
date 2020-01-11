@@ -6,8 +6,11 @@ module Tr3llo
           @interface = interface
         end
 
-        def print!(card)
-          interface.print_frame { present_card(card) }
+        def print!(card, checklists)
+          interface.print_frame do
+            present_card(card)
+            present_checklists(checklists)
+          end
         end
 
         private
@@ -16,25 +19,49 @@ module Tr3llo
 
         def present_card(card)
           if card.labels.any?
-            label_str = card.labels.map { |label| format_label(label) }.join(", ")
+            label_tag = " [" + card.labels.map { |label| format_label(label) }.join(", ") + "]"
           else
-            label_str = ""
+            label_tag = ""
           end
 
           if card.members.any?
-            member_str = card.members.map { |member| member.username }.join(", ")
+            member_tag = " (" + card.members.map { |member| Utils.format_user(member) }.join(", ") + ")"
           else
-            member_str = ""
+            member_tag = ""
           end
 
+          if card.description && card.description != ""
+            description_string = "\n" + card.description
+          else
+            description_string = ""
+          end
+
+          key_tag = Utils.format_key_tag(card.id, card.shortcut)
+
           interface.puts(
-            Utils.format_highlight("ID: ") + card.id + "\n" +
-            Utils.format_highlight("Name: ") + card.name + "\n" +
-            Utils.format_highlight("Description: ") + card.description + "\n" +
-            Utils.format_highlight("Link: ") + card.short_url + "\n" +
-            Utils.format_highlight("Labes: ") + label_str + "\n" +
-            Utils.format_highlight("Members: ") + member_str + "\n"
+            Utils.format_bold(card.name) + member_tag + label_tag + "\n" +
+            key_tag + "\n" +
+            "Link: " + Utils.paint(card.short_url, "blue") + "\n" +
+            description_string
           )
+        end
+
+        def present_checklists(checklists)
+          checklists.each do |checklist|
+            interface.puts("\n")
+            interface.puts(Utils.format_highlight(Utils.format_bold(checklist.name)))
+            interface.puts("=" * checklist.name.length)
+
+            checklist.items.each do |item|
+              formatted_state =
+                case item.state
+                when "complete" then "[" + Utils.format_bold("x") + "]"
+                when "incomplete" then "[ ]"
+                end
+
+              interface.puts("#{formatted_state} #{item.name}")
+            end
+          end
         end
 
         def format_label(label)

@@ -44,6 +44,10 @@ module Tr3llo
       "\e[#{code}m#{string}\e[0m"
     end
 
+    def format_bold(string)
+      "\e[1m#{string}\e[0m"
+    end
+
     def format_highlight(string)
       paint(string, "yellow")
     end
