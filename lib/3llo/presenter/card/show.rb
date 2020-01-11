@@ -16,7 +16,7 @@ module Tr3llo
 
         def present_card(card)
           if card.labels.any?
-            label_str = card.labels.map { |label| colorize_label(label) }.join(", ")
+            label_str = card.labels.map { |label| format_label(label) }.join(", ")
           else
             label_str = ""
           end
@@ -28,21 +28,18 @@ module Tr3llo
           end
 
           interface.puts(
-            "ID: ".labelize + card.id + "\n" +
-            "Name: ".labelize + card.name + "\n" +
-            "Description: ".labelize + card.description + "\n" +
-            # "List: ".labelize + card[:list][:name] + "\n" +
-            # "Comments: ".labelize + card[:badges][:comments].to_s + "\n" +
-            # "Attachments: ".labelize + card[:badges][:attachments].to_s + "\n" +
-            "Link: ".labelize + card.short_url + "\n" +
-            "Labes: ".labelize + label_str + "\n" +
-            "Members: ".labelize + member_str + "\n"
+            Utils.format_highlight("ID: ") + card.id + "\n" +
+            Utils.format_highlight("Name: ") + card.name + "\n" +
+            Utils.format_highlight("Description: ") + card.description + "\n" +
+            Utils.format_highlight("Link: ") + card.short_url + "\n" +
+            Utils.format_highlight("Labes: ") + label_str + "\n" +
+            Utils.format_highlight("Members: ") + member_str + "\n"
           )
         end
 
-        def colorize_label(label)
+        def format_label(label)
           if label.color
-            "##{label.name}".paint(label.color)
+            Utils.paint("##{label.name}", label.color)
           else
             "##{label.name}"
           end

@@ -13,7 +13,7 @@ module Tr3llo
           $container.register(:board, board)
 
           interface.print_frame do
-            interface.puts("Board #{board.name.labelize} selected")
+            interface.puts("Board #{Utils.format_highlight(board.name)} selected")
           end
         end
 

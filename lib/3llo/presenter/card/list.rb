@@ -8,7 +8,7 @@ module Tr3llo
 
         def print!(list, cards)
           interface.print_frame do
-            interface.puts("##{list[:name]}".purple)
+            interface.puts(Utils.paint("##{list[:name]}", "purple"))
             interface.puts("=" * list[:name].length)
             cards.each { |card| present_card(card) }
           end
@@ -22,7 +22,7 @@ module Tr3llo
           key_tag = Utils.format_key_tag(card.id, card.shortcut)
 
           if card.labels.any?
-            label_tag = " [" + card.labels.map { |label| colorize_label(label) }.join(", ") + "]"
+            label_tag = " [" + card.labels.map { |label| format_label(label) }.join(", ") + "]"
           else
             label_tag = ""
           end
@@ -37,9 +37,9 @@ module Tr3llo
           interface.puts "#{key_tag} #{card.name}#{label_tag}#{member_tag}"
         end
 
-        def colorize_label(label)
+        def format_label(label)
           if label.color
-            "##{label.name}".paint(label.color)
+            Utils.paint("##{label.name}", label.color)
           else
             "##{label.name}"
           end

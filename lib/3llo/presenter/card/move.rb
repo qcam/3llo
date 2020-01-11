@@ -16,10 +16,6 @@ module Tr3llo
         private
 
         attr_reader :interface
-
-        def present_list(list)
-          interface.puts "[#{list[:id].labelize}] - #{list[:name]}"
-        end
       end
     end
   end
