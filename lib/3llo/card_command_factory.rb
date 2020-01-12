@@ -9,6 +9,14 @@ require '3llo/commands/card/comments'
 require '3llo/commands/card/comment'
 require '3llo/commands/card/add'
 require '3llo/commands/card/archive'
+require '3llo/commands/card/add_checklist'
+require '3llo/commands/card/edit_checklist'
+require '3llo/commands/card/remove_checklist'
+require '3llo/commands/card/add_item'
+require '3llo/commands/card/check_item'
+require '3llo/commands/card/uncheck_item'
+require '3llo/commands/card/edit_item'
+require '3llo/commands/card/remove_item'
 
 module Tr3llo
   module CardCommandFactory
@@ -70,6 +78,50 @@ module Tr3llo
         Utils.assert_string!(card_key, "card key is missing")
 
         Command::Card::ArchiveCommand.execute(card_key)
+      when "add-checklist"
+        card_key, _ = args
+        Utils.assert_string!(card_key, "card key is missing")
+
+        Command::Card::AddChecklistCommand.execute(card_key)
+      when "edit-checklist"
+        checklist_key, _ = args
+        Utils.assert_string!(checklist_key, "checklist key is missing")
+
+        Command::Card::EditChecklistCommand.execute(checklist_key)
+      when "remove-checklist"
+        checklist_key, _ = args
+        Utils.assert_string!(checklist_key, "checklist key is missing")
+
+        Command::Card::RemoveChecklistCommand.execute(checklist_key)
+      when "add-item"
+        checklist_key, _ = args
+        Utils.assert_string!(checklist_key, "checklist key is missing")
+
+        Command::Card::AddItemCommand.execute(checklist_key)
+      when "check-item"
+        card_key, check_item_key, _ = args
+        Utils.assert_string!(card_key, "card key is missing")
+        Utils.assert_string!(check_item_key, "item key is missing")
+
+        Command::Card::CheckItemCommand.execute(card_key, check_item_key)
+      when "uncheck-item"
+        card_key, check_item_key, _ = args
+        Utils.assert_string!(card_key, "card key is missing")
+        Utils.assert_string!(check_item_key, "item key is missing")
+
+        Command::Card::UncheckItemCommand.execute(card_key, check_item_key)
+      when "edit-item"
+        card_key, check_item_key, _ = args
+        Utils.assert_string!(card_key, "card key is missing")
+        Utils.assert_string!(check_item_key, "item key is missing")
+
+        Command::Card::EditItemCommand.execute(card_key, check_item_key)
+      when "remove-item"
+        card_key, check_item_key, _ = args
+        Utils.assert_string!(card_key, "card key is missing")
+        Utils.assert_string!(check_item_key, "item key is missing")
+
+        Command::Card::RemoveItemCommand.execute(card_key, check_item_key)
       else
         handle_invalid_subcommand(subcommand, args)
       end

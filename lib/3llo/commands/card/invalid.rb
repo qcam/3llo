@@ -15,7 +15,7 @@ module Tr3llo
 
         def menu_text
           %q{
-    Available `card` commands:
+    # Available `card` commands:
 
     card list               - Show list of cards grouped by list
     card list mine          - Show list of my cards
@@ -27,6 +27,17 @@ module Tr3llo
     card comments <key>     - Load recent comments of a card
     card comment <key>      - Add a comment to a card
     card archive <key>      - Archive a card
+
+    # Available checklists related commands:
+
+    card add-checklist <card_key>             - Create a checklist on a card
+    card edit-checklist <checklist_key>       - Edit a checklist
+    card remove-checklist <checklist_key>     - Remove a checklist
+    card add-item <checklist_key>             - Add an item to a checklist
+    card edit-item <card_key> <item_key>      - Edit an item
+    card check-item <card_key> <item_key>     - Mark an item as complete
+    card uncheck-item <card_key> <item_key>   - Mark an item as incomplete
+    card remove-item <card_key> <item_key>    - Remove an item
           }
         end
 
