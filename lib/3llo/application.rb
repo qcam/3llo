@@ -79,7 +79,9 @@ module Tr3llo
     end
 
     def print_help!(interface)
-      Presenter::HelpPresenter.print!(interface)
+      interface.print_frame do
+        interface.puts(Presenter::HelpPresenter.render())
+      end
     end
 
     def register_api_client!()

@@ -4,7 +4,11 @@ module Tr3llo
       extend self
 
       def execute
-        Presenter::HelpPresenter.print!(Application.fetch_interface!())
+        interface = Application.fetch_interface!()
+
+        interface.print_frame do
+          interface.puts(Presenter::HelpPresenter.render())
+        end
       end
     end
   end

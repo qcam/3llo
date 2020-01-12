@@ -32,7 +32,7 @@ module Tr3llo
         Command::ExitCommand.execute()
       else
         if command
-          raise InvalidCommandError.new("#{command} is not a valid command")
+          raise InvalidCommandError.new("#{command.inspect} is not a valid command. Run #{"help".inspect} to display the document.")
         else
           raise InvalidCommandError.new("command is missing")
         end

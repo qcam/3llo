@@ -4,24 +4,13 @@ module Tr3llo
       module InvalidCommand
         extend self
 
-        def execute(message = "invalid command")
+        def execute(message)
           interface = Application.fetch_interface!()
 
           interface.print_frame do
             interface.print_error(message)
-            interface.puts(menu_text)
+            interface.puts(Presenter::Board::Help.render())
           end
-        end
-
-        private
-
-        def menu_text
-          %q{
-    Available `board` commands:
-
-    board list         - Show list of boards
-    board select <key> - Select board
-          }
         end
       end
     end

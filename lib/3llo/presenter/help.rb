@@ -3,36 +3,28 @@ module Tr3llo
     module HelpPresenter
       extend self
 
-      def print!(interface)
-        interface.print_frame do
-          interface.puts(menu_text)
-        end
+      def render()
+        <<~TEMPLATE.strip
+        #{Utils.format_bold(Utils.paint("3llo v#{Tr3llo::VERSION} - Interactive CLI application for Trello", "blue"))}
+
+
+        #{Presenter::Board::Help.render()}
+
+        #{Presenter::Card::Help.render()}
+
+        #{Presenter::List::Help.render()}
+
+        #{miscellaneous_help()}
+        TEMPLATE
       end
 
-      def menu_text
-        %Q{
-    3llo v#{Tr3llo::VERSION} - CLI for Trello
+      def miscellaneous_help()
+        <<~TEMPLATE.strip
+        #{Utils.format_bold("# Miscellaneous commands:")}
 
-    Avaiable commands:
-
-    board list               - Show list of board
-    board select             - Select board
-    card list                - Show list of cards grouped by list
-    card list mine           - Show list of my cards
-    card add                 - Create a card
-    card show <key>          - Show card information
-    card move <key>          - Move card to a list
-    card self-assign <key>   - Self-assign a card
-    card assign <key>        - Assign a user to a card
-    card comments <key>      - Load recent comments of a card
-    card comment <key>       - Add a comment to a card
-    card archive <key>       - Archive a card
-    list list                - Show all lists
-    list cards <key>         - Show all cards in list
-    list archive-cards <key> - Archive all cards in list
-    help                     - Show help menu
-    exit                     - Exit program
-        }
+        help  - Display this help message
+        exit  - Exit the program
+        TEMPLATE
       end
     end
   end

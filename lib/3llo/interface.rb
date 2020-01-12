@@ -22,7 +22,8 @@ module Tr3llo
     end
 
     def print_error(message)
-      self.print_line(Utils.paint(message, "red"))
+      print_line(Utils.paint(message, "red"))
+      print_line("")
     end
 
     attr_reader :input, :output

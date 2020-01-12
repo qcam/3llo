@@ -8,7 +8,6 @@ module Tr3llo
 
         interface.print_frame do
           interface.print_error(message)
-          Presenter::HelpPresenter.print!(interface)
         end
       end
     end
