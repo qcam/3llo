@@ -49,7 +49,10 @@ module Tr3llo
         def present_checklists(checklists)
           checklists.each do |checklist|
             interface.puts("\n")
-            interface.puts(Utils.format_highlight(Utils.format_bold(checklist.name)))
+
+            formatted_key_tag = Utils.format_key_tag(checklist.id, checklist.shortcut)
+            formatted_name = Utils.format_highlight(Utils.format_bold(checklist.name))
+            interface.puts("#{formatted_name} #{formatted_key_tag}")
             interface.puts("=" * checklist.name.length)
 
             checklist.items.each do |item|
@@ -59,7 +62,8 @@ module Tr3llo
                 when "incomplete" then "[ ]"
                 end
 
-              interface.puts("#{formatted_state} #{item.name}")
+              item_key_tag = Utils.format_key_tag(item.id, item.shortcut)
+              interface.puts("#{formatted_state} #{item.name} #{item_key_tag}")
             end
           end
         end

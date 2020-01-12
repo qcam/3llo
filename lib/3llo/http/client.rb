@@ -65,6 +65,26 @@ module Tr3llo
         end
       end
 
+      def delete(path, params)
+        uri = URI("#{BASE_URL}#{path}")
+
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+        req_headers = {
+          'Accept' => 'application/json',
+          'Content-Type' => 'application/json',
+        }
+        request = Net::HTTP::Delete.new(uri.request_uri, req_headers)
+        request.body = JSON.dump(params)
+
+        res = http.request(request)
+
+        case res
+        when Net::HTTPOK then res.body
+        else raise(RequestError.new(res.body))
+        end
+      end
+
       private
 
       def query_string(params)
