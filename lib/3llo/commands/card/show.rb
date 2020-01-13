@@ -11,9 +11,9 @@ module Tr3llo
           card = get_card(card_id)
           checklists = get_checklist(card_id)
 
-          Tr3llo::Presenter::Card::ShowPresenter
-            .new(interface)
-            .print!(card, checklists)
+          interface.print_frame do
+            interface.puts(Presenter::Card::ShowPresenter.render(card, checklists))
+          end
         end
 
         private

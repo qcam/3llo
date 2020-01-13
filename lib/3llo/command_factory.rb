@@ -4,7 +4,6 @@ require '3llo/list_command_factory'
 require '3llo/commands/help'
 require '3llo/commands/exit'
 require '3llo/commands/invalid'
-require '3llo/commands/error'
 
 module Tr3llo
   module CommandFactory

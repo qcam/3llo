@@ -8,11 +8,15 @@ module Tr3llo
           card_id = Entities.parse_id(:card, key)
           assert_card_id!(card_id, key)
 
-          interface.print_frame do
-            user_id = prompt_for_user_id!(board_id)
+          card = API::Card.find(card_id)
 
-            assign_card(card_id, user_id)
-            interface.puts("Card has been assigned")
+          interface = Application.fetch_interface!()
+
+          interface.print_frame do
+            member_ids = select_user(interface, card, board_id)
+
+            assign_card(card_id, member_ids)
+            interface.puts("Chosen members have been assigned to the card.")
           end
         end
 
@@ -22,22 +26,29 @@ module Tr3llo
           raise InvalidArgumentError.new("#{key.inspect} is not a valid list key") unless card_id
         end
 
-        def assign_card(card_id, user_id)
-          card = API::Card.find(card_id)
-          members = card.members.map { |member| member.id } + [user_id]
-          API::Card.assign_members(card_id, members)
+        def assign_card(card_id, member_ids)
+          API::Card.assign_members(card_id, member_ids)
         end
 
-        def prompt_for_user_id!(board_id)
-          users = Tr3llo::API::User.find_all_by_board(board_id)
+        def select_user(interface, card, board_id)
+          user_options =
+            API::User.find_all_by_board(board_id)
+            .map { |user| [user.username, user.id] }
+            .to_h()
 
-          Tr3llo::Presenter::Card::AssignPresenter
-            .new(interface)
-            .prompt_for_user_id(users)
-        end
+          member_ids =
+            card.members.flat_map do |member|
+              index = user_options.find_index { |_username, user_id| user_id == member.id }
 
-        def interface
-          Application.fetch_interface!()
+              if index then [index + 1] else [] end
+            end
+
+          interface.input.multi_select(
+            "Choose the users to assign this card to:",
+            user_options,
+            default: member_ids,
+            enum: "."
+          )
         end
       end
     end

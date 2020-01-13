@@ -1,29 +1,24 @@
 module Tr3llo
   module Presenter
     module List
-      class CardsPresenter
-        def initialize(interface)
-          @interface = interface
-        end
+      module CardsPresenter
+        extend self
 
-        def print!(cards)
-          interface.print_frame do
-            cards.each { |card| present_card(card) }
-          end
+        def render(cards)
+          cards.map { |card| render_card(card) }.join("\n")
         end
 
         private
 
-        attr_reader :interface
+        def render_card(card)
+          label_tag =
+            if card.labels.any?
+              " (" + card[:labels].map { |label| format_label(label) }.join(", ") + ")"
+            else
+              ""
+            end
 
-        def present_card(card)
-          if card.labels.any?
-            label_tag = " (" + card[:labels].map { |label| format_label(label) }.join(", ") + ")"
-          else
-            label_tag = ""
-          end
-
-          interface.puts "#{Utils.format_key_tag(card.id, card.shortcut)} #{card.name}#{label_tag}"
+          "#{Utils.format_key_tag(card.id, card.shortcut)} #{card.name}#{label_tag}"
         end
 
         def format_label(label)

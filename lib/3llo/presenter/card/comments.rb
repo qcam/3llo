@@ -1,27 +1,23 @@
 module Tr3llo
   module Presenter
     module Card
-      class CommentsPresenter
-        def initialize(interface)
-          @interface = interface
-        end
+      module CommentsPresenter
+        extend self
 
-        def print!(comments)
-          interface.print_frame do
-            comments.each do |comment|
-              present_comment(comment)
-            end
+        def render(comments)
+          if comments.any?
+            comments
+              .map { |comment| render_comment(comment) }
+              .join("\n")
+          else
+            "No comments on this card yet. Use #{Utils.format_highlight("card comment")} to write the first comment."
           end
         end
 
         private
 
-        attr_reader :interface
-
-        def present_comment(comment)
-          interface.puts(
-            "#{Utils.format_user(comment.creator)}: #{comment.text}"
-          )
+        def render_comment(comment)
+          "#{Utils.format_user(comment.creator)}: #{comment.text}"
         end
       end
     end

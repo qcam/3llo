@@ -1,23 +1,23 @@
 module Tr3llo
   module Presenter
     module Card
-      class ListMinePresenter
-        def initialize(interface)
-          @interface = interface
-        end
+      module ListMinePresenter
+        extend self
 
-        def print!(cards)
-          interface.print_frame do
-            cards.each { |card| present_card(card) }
+        def render(cards)
+          if cards.any?
+            cards
+              .map { |card| render_card(card) }
+              .join("\n")
+          else
+            "You are currently assigned to no cards"
           end
         end
 
         private
 
-        attr_reader :interface
-
-        def present_card(card)
-          interface.puts "#{Utils.format_key_tag(card.id, card.shortcut)} (#{Utils.paint(card.list.name, "purple")}) #{card.name}"
+        def render_card(card)
+          "#{Utils.format_key_tag(card.id, card.shortcut)} (#{Utils.paint(card.list.name, "purple")}) #{card.name}"
         end
       end
     end

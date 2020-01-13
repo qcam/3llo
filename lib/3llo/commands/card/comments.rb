@@ -8,25 +8,19 @@ module Tr3llo
           card_id = Entities.parse_id(:card, key)
           assert_card_id!(card_id, key)
 
-          comments = list_comments(card_id)
+          comments = API::Card.list_comments(card_id)
 
-          Tr3llo::Presenter::Card::CommentsPresenter
-            .new(interface)
-            .print!(comments)
+          interface = Application.fetch_interface!()
+
+          interface.print_frame do
+            interface.puts(Presenter::Card::CommentsPresenter.render(comments))
+          end
         end
 
         private
 
-        def list_comments(card_id)
-          API::Card.list_comments(card_id)
-        end
-
-        def interface
-          Application.fetch_interface!()
-        end
-
         def assert_card_id!(card_id, key)
-          raise InvalidArgumentError.new("#{key.inspect} is not a valid list key") unless card_id
+          raise InvalidArgumentError.new("#{key.inspect} is not a valid card key") unless card_id
         end
       end
     end

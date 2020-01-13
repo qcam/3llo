@@ -8,30 +8,33 @@ module Tr3llo
           card_id = Entities.parse_id(:card, key)
           assert_card_id!(card_id, key)
 
-          interface.print_frame do
-            list_id = prompt_for_list_id!(board_id)
+          interface = Application.fetch_interface!()
 
-            move_card!(card_id, list_id)
+          interface.print_frame do
+            selected_list_id = select_list(interface, board_id)
+
+            API::Card.move_to_list(card_id, selected_list_id)
             interface.puts("Card has been moved.")
           end
         end
 
         private
 
-        def prompt_for_list_id!(board_id)
-          lists = Tr3llo::API::List.find_all_by_board(board_id)
+        def select_list(interface, board_id)
+          list_options =
+            API::List
+            .find_all_by_board(board_id)
+            .map { |list| [list.name, list.id] }
+            .to_h()
 
-          Tr3llo::Presenter::Card::MovePresenter
-            .new(interface)
-            .prompt_for_list_id(lists)
+          interface.input.select(
+            "Choose the list to be moved to",
+            list_options
+          )
         end
 
         def move_card!(card_id, list_id)
           API::Card.move_to_list(card_id, list_id)
-        end
-
-        def interface
-          Application.fetch_interface!()
         end
 
         def assert_card_id!(card_id, key)

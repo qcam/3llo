@@ -1,40 +1,47 @@
 module Tr3llo
   module Presenter
     module Card
-      class ListPresenter
-        def initialize(interface)
-          @interface = interface
-        end
+      module ListPresenter
+        extend self
 
-        def print!(list, cards)
-          interface.print_frame do
-            interface.puts(Utils.paint("##{list[:name]}", "purple"))
-            interface.puts("=" * list[:name].length)
-            cards.each { |card| present_card(card) }
-          end
+        def render(list, cards)
+          <<~TEMPLATE.strip
+          #{Utils.paint("##{list.name}", "purple")}
+          #{"=" * (list.name.length + 1)}
+          #{render_cards(cards)}
+          TEMPLATE
         end
 
         private
 
-        attr_reader :interface
+        def render_cards(cards)
+          if cards.any?
+            cards
+              .map do |card|
+                key_tag = Utils.format_key_tag(card.id, card.shortcut)
 
-        def present_card(card)
-          key_tag = Utils.format_key_tag(card.id, card.shortcut)
-
-          if card.labels.any?
-            label_tag = " [" + card.labels.map { |label| format_label(label) }.join(", ") + "]"
+                "#{key_tag} #{card.name}#{render_labels(card.labels)}#{render_members(card.members)}"
+              end
+              .join("\n")
           else
-            label_tag = ""
+            "(No cards)"
           end
+        end
 
-          if card.members.any?
-            member_tag = card.members.map { |member| Utils.format_user(member) }.join(", ")
-            member_tag = " [" + member_tag + "]"
+        def render_labels(labels)
+          if labels.any?
+            " [" + labels.map { |label| format_label(label) }.join(", ") + "]"
           else
-            member_tag = ""
+            ""
           end
+        end
 
-          interface.puts "#{key_tag} #{card.name}#{label_tag}#{member_tag}"
+        def render_members(members)
+          if members.any?
+            " [" + members.map { |member| Utils.format_user(member) }.join(", ") + "]"
+          else
+            ""
+          end
         end
 
         def format_label(label)

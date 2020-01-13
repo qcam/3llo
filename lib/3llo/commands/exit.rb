@@ -4,7 +4,12 @@ module Tr3llo
       extend self
 
       def execute
-        Application.fetch_interface!().puts("Bye bye")
+        interface = Application.fetch_interface!()
+
+        interface.print_frame do
+          interface.puts("Bye bye")
+        end
+        
         exit
       end
     end

@@ -5,21 +5,18 @@ module Tr3llo
         extend self
 
         def execute(user_id)
+          interface = Application.fetch_interface!()
           boards = get_boards(user_id)
 
-          Tr3llo::Presenter::Board::ListPresenter
-            .new(interface)
-            .print!(boards)
+          interface.print_frame do
+            interface.puts(Tr3llo::Presenter::Board::ListPresenter.render(boards))
+          end
         end
 
         private
 
         def get_boards(user_id)
           API::Board.find_all_by_user(user_id)
-        end
-
-        def interface
-          Application.fetch_interface!()
         end
       end
     end

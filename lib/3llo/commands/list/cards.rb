@@ -10,9 +10,9 @@ module Tr3llo
 
           cards = list_cards(list_id)
 
-          Tr3llo::Presenter::List::CardsPresenter
-            .new(interface)
-            .print!(cards)
+          interface.print_frame do
+            interface.puts(Presenter::List::CardsPresenter.render(cards))
+          end
         end
 
         private

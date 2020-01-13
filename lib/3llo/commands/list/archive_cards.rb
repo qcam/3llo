@@ -6,13 +6,14 @@ module Tr3llo
 
         def execute(key)
           list_id = Entities.parse_id(:list, key)
+          interface = Application.fetch_interface!()
 
           interface.print_frame do
-            approved = prompt_for_approvement!
+            is_approved = interface.input.yes?("Are you sure you want to archive all cards?")
 
-            if approved
+            if is_approved
               archive_cards(list_id)
-              interface.puts("Cards have been archived.")
+              interface.puts("All cards on the list have been archived.")
             end
           end
         end
@@ -22,7 +23,7 @@ module Tr3llo
         def prompt_for_approvement!
           Tr3llo::Presenter::ConfirmationPresenter
             .new(interface)
-            .prompt_for_confirmation('Are you sure you want to archive all cards?')
+            .prompt_for_confirmation('')
         end
 
         def archive_cards(list_id)

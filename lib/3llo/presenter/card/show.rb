@@ -1,70 +1,43 @@
 module Tr3llo
   module Presenter
     module Card
-      class ShowPresenter
-        def initialize(interface)
-          @interface = interface
-        end
+      module ShowPresenter
+        extend self
 
-        def print!(card, checklists)
-          interface.print_frame do
-            present_card(card)
-            present_checklists(checklists)
-          end
+        def render(card, checklists)
+          <<~TEMPLATE.strip
+          #{Utils.format_bold(card.name)}#{render_members(card.members)}#{render_labels(card.labels)}
+          #{Utils.format_key_tag(card.id, card.shortcut)}
+          Link: #{Utils.paint(card.short_url, "blue")}
+          #{render_description(card.description)}
+
+          #{render_checklists(checklists)}
+          TEMPLATE
         end
 
         private
 
-        attr_reader :interface
-
-        def present_card(card)
-          if card.labels.any?
-            label_tag = " [" + card.labels.map { |label| format_label(label) }.join(", ") + "]"
+        def render_description(description)
+          if description && description != ""
+            "\n" + description
           else
-            label_tag = ""
+            ""
           end
-
-          if card.members.any?
-            member_tag = " (" + card.members.map { |member| Utils.format_user(member) }.join(", ") + ")"
-          else
-            member_tag = ""
-          end
-
-          if card.description && card.description != ""
-            description_string = "\n" + card.description
-          else
-            description_string = ""
-          end
-
-          key_tag = Utils.format_key_tag(card.id, card.shortcut)
-
-          interface.puts(
-            Utils.format_bold(card.name) + member_tag + label_tag + "\n" +
-            key_tag + "\n" +
-            "Link: " + Utils.paint(card.short_url, "blue") + "\n" +
-            description_string
-          )
         end
 
-        def present_checklists(checklists)
-          checklists.each do |checklist|
-            interface.puts("\n")
+        def render_members(members)
+          if members.any?
+            " (" + members.map { |member| Utils.format_user(member) }.join(", ") + ")"
+          else
+            ""
+          end
+        end
 
-            formatted_key_tag = Utils.format_key_tag(checklist.id, checklist.shortcut)
-            formatted_name = Utils.format_highlight(Utils.format_bold(checklist.name))
-            interface.puts("#{formatted_name} #{formatted_key_tag}")
-            interface.puts("=" * checklist.name.length)
-
-            checklist.items.each do |item|
-              formatted_state =
-                case item.state
-                when "complete" then "[" + Utils.format_bold("x") + "]"
-                when "incomplete" then "[ ]"
-                end
-
-              item_key_tag = Utils.format_key_tag(item.id, item.shortcut)
-              interface.puts("#{formatted_state} #{item.name} #{item_key_tag}")
-            end
+        def render_labels(labels)
+          if labels.any?
+            " [" + labels.map { |label| format_label(label) }.join(", ") + "]"
+          else
+            ""
           end
         end
 
@@ -74,6 +47,30 @@ module Tr3llo
           else
             "##{label.name}"
           end
+        end
+
+        def render_checklists(checklists)
+          checklists.map do |checklist|
+            formatted_key_tag = Utils.format_key_tag(checklist.id, checklist.shortcut)
+            formatted_name = Utils.format_highlight(Utils.format_bold(checklist.name))
+
+            rendered_items =
+              checklist.items.map do |item|
+                formatted_state =
+                  case item.state
+                  when "complete" then "[" + Utils.format_bold("x") + "]"
+                  when "incomplete" then "[ ]"
+                  end
+
+                item_key_tag = Utils.format_key_tag(item.id, item.shortcut)
+                "#{formatted_state} #{item.name} #{item_key_tag}"
+              end.join("\n")
+
+            <<~TEMPLATE.strip
+            #{formatted_name} #{formatted_key_tag}
+            #{rendered_items}
+            TEMPLATE
+          end.join("\n\n")
         end
       end
     end

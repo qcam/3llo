@@ -1,25 +1,19 @@
 module Tr3llo
   module Presenter
     module List
-      class ListPresenter
-        def initialize(interface)
-          @interface = interface
-        end
+      module ListPresenter
+        extend self
 
-        def print!(lists)
-          interface.print_frame do
-            lists.each { |list| present_list(list) }
-          end
+        def render(lists)
+          lists
+            .map { |list| render_list(list) }
+            .join("\n")
         end
 
         private
 
-        attr_reader :interface
-
-        def present_list(list)
-          interface.puts(
-            "#{Utils.format_key_tag(list.id, list.shortcut)} #{list.name}"
-          )
+        def render_list(list)
+          "#{Utils.format_key_tag(list.id, list.shortcut)} #{list.name}"
         end
       end
     end
