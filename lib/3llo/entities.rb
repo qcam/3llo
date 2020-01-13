@@ -12,7 +12,7 @@ module Tr3llo
     List = Struct.new(:id, :shortcut, :name)
     Card = Struct.new(:id, :shortcut, :name, :description, :short_url, :labels, :members, :list, keyword_init: true)
     Label = Struct.new(:name, :color)
-    Comment = Struct.new(:id, :text, :creator, keyword_init: true)
+    Comment = Struct.new(:id, :text, :creator, :created_at, keyword_init: true)
     Checklist = Struct.new(:id, :shortcut, :name, :items, keyword_init: true)
     Checklist::Item = Struct.new(:id, :shortcut, :name, :state, keyword_init: true)
 

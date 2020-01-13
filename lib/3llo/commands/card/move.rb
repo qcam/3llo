@@ -38,7 +38,7 @@ module Tr3llo
         end
 
         def assert_card_id!(card_id, key)
-          raise InvalidArgumentError.new("#{key.inspect} is not a valid list key") unless card_id
+          raise InvalidArgumentError.new("#{key.inspect} is not a valid card key") unless card_id
         end
       end
     end

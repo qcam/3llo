@@ -8,6 +8,8 @@ module Tr3llo
           card_id = Entities.parse_id(:card, key)
           assert_card_id!(card_id, key)
 
+          interface = Application.fetch_interface!()
+
           interface.print_frame do
             should_proceed = interface.input.yes?("Are you sure you want to archive this card?")
 
@@ -24,10 +26,6 @@ module Tr3llo
           card = API::Card.find(card_id)
           API::Card.archive(card_id)
           card
-        end
-
-        def interface
-          Application.fetch_interface!()
         end
 
         def assert_card_id!(card_id, key)

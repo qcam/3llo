@@ -134,6 +134,10 @@ module Tr3llo
       $container.register(:registry, Tr3llo::Registry.new)
     end
 
+    def register_board!(board)
+      $container.register(:board, board)
+    end
+
     def fetch_board!()
       $container.resolve(:board)
     rescue ::Container::KeyNotFoundError

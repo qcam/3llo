@@ -10,6 +10,8 @@ module Tr3llo
 
           card = assign_card(card_id, user_id)
 
+          interface = Application.fetch_interface!()
+
           interface.print_frame do
             interface.puts("Card has been assigned to yourself")
           end
@@ -24,12 +26,8 @@ module Tr3llo
           API::Card.assign_members(card_id, members)
         end
 
-        def interface
-          Application.fetch_interface!()
-        end
-
         def assert_card_id!(card_id, key)
-          raise InvalidArgumentError.new("#{key.inspect} is not a valid list key") unless card_id
+          raise InvalidArgumentError.new("#{key.inspect} is not a valid card key") unless card_id
         end
       end
     end

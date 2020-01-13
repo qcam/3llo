@@ -93,8 +93,10 @@ module Tr3llo
             filter: "commentCard",
           )
         ).map do |comment_payload|
-          id, creator_payload = comment_payload.fetch_values("id", "memberCreator")
+          id, creator_payload, date = comment_payload.fetch_values("id", "memberCreator", "date")
           text = comment_payload.dig("data", "text")
+
+          created_at = DateTime.iso8601(date)
 
           creator_id, creator_username = creator_payload.fetch_values("id", "username")
           creator = Entities::User.new(creator_id, _creator_shortcut = nil, creator_username)
@@ -102,6 +104,7 @@ module Tr3llo
           Entities::Comment.new(
             id: id,
             creator: creator,
+            created_at: created_at,
             text: text
           )
         end

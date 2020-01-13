@@ -34,10 +34,6 @@ module Tr3llo
         def get_cards(list_id)
           API::Card.find_all_by_list(list_id)
         end
-
-        def interface
-          Application.fetch_interface!()
-        end
       end
     end
   end

@@ -48,6 +48,10 @@ module Tr3llo
       "\e[1m#{string}\e[0m"
     end
 
+    def format_dim(string)
+      "\e[2m#{string}\e[0m"
+    end
+
     def format_highlight(string)
       paint(string, "yellow")
     end
