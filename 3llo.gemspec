@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors = ["Cẩm Huỳnh"]
   spec.email = ["huynhquancam@gmail.com"]
 
-  spec.summary = %q{Trello CLI}
-  spec.description = %q{CLI for Trello}
+  spec.summary = %q{Trello CLI app}
+  spec.description = %q{Interactive CLI application for Trello}
   spec.homepage = "https://github.com/qcam/3llo"
   spec.license = "MIT"
 
@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^bin/}) { |filename| File.basename(filename) }
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = '~> 2.0'
+  spec.required_ruby_version = '~> 2.5'
 
   spec.add_runtime_dependency 'tty-prompt', '~> 0.20'
 

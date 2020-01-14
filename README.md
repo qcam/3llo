@@ -1,17 +1,13 @@
-# 3llo - Interactive CLI for Trello
+3llo - The interactive CLI application for Trello
+================
 
-3llo is the terminal client for Trello, which helps you manage Trello cards without
-leaving your awesome terminal.
+3llo allows you to work with Trello without exiting your favorite terminal.
 
-[![video](intro.gif)](https://asciinema.org/a/0z3l05hwph3vdq91gu7n1m3o4)
+![video](intro.gif)
 
 3llo was inspired by the awesome
 [rainbowstream](https://github.com/DTVD/rainbowstream) and
 [facy](https://github.com/huydx/facy).
-
-## Why this named 3llo?
-
-Good to know that `3 == "tre"` in Swedish.
 
 ## Installation
 
@@ -19,49 +15,132 @@ Good to know that `3 == "tre"` in Swedish.
 gem install 3llo
 ```
 
-You also need to have these environment variables set in your shell.
-
-```
-export TRELLO_USER=your_username
-export TRELLO_KEY=your_key
-export TRELLO_TOKEN=your_token
-```
-
-### Obtain Trello API key and token
-
-1. Ensure you're logged into your Trello account at [trello.com](https://trello.com)
-1. Visit [trello.com/app-key](https://trello.com/app-key), accept the Trello Developer Terms (if you're happy to do so) and press **Generate API Key**
-1. Copy the `Key` that's displayed at the top of the page and set this as an environment variable (`TRELLO_KEY`).
-1. Further down the page, follow the `Manually generate a token` link to generate a new API Token. Again, set this as an environment variable (`TRELLO_TOKEN`)
+Run `3llo --configure` and follow the instructions to complete the set up.
 
 ## Usage
 
-There are a couple of commands available in 3llo.
+### "board" command family
 
-* `board list`: List your board
-* `board select <board_id>`: Select the active board.
-* `card list`: List all cards of the active board.
-* `card list mine`: List all your cards of the active board.
-* `card add`: Create a card.
-* `card show <card_id>`: Show card information.
-* `card move <card_id> <list_id>`: Move card to a specified list.
-* `card self-assign <card_id>`: Self-assign a card.
-* `card comments <card_id>`: Show recent comments of a card.
-* `card comment <card_id>`: Add a comment to a card.
-* `card archive <card_id>`: Archive a card.
-* `list list`: List all the lists of the active board.
-* `list archive-cards <list_id>`: Archives all the cards on the specified list.
-* `help`: Show help menu.
-* `exit`: Exit.
+Just like the web version of Trello, you need to select a board:
+
+```
+3llo  > board list
+
+[123abc000000000000000001 #1] - Weekend TODOs
+[123abc000000000000000002 #2] - 3llo project
+[123abc000000000000000003 #3] - Grocery list
+
+3llo > board select #2
+
+Board Work stuff selected
+```
+
+Please note that you can also access any entities with their Trello ID.
+
+```
+3llo > board select 123abc000000000000000002
+
+Board Work stuff selected
+```
+
+### "list" command family
+
+Executing `list list` will list all the lists in the board.
+
+```
+3llo > list list
+
+[123abc000000000000000001 #1] To Do
+[123abc000000000000000002 #2] Doing
+[123abc000000000000000003 #3] Pending
+[123abc000000000000000004 #4] Done
+```
+
+`list cards <list_key>` will list all the cards.
+
+```
+3llo > list cards #1
+
+[123abc000000000000000001 #1] Merge card editing command
+[123abc000000000000000002 #2] Refactor code
+...
+```
+
+### "card" command family
+
+"card" command family comes with many commands to work with cards.
+
+To list all the cards in the board, run `card list`.
+
+```
+3llo > card list
+
+#To Do
+======
+[123abc000000000000000001 #1] Merge card editing command [#small]
+[123abc000000000000000002 #2] Refactor code [#medium] [@qcam]
+
+
+#Doing
+======
+[123abc000000000000000003 #3] Release v1.0 [#release] [@qcam]
+
+#Pending
+...
+```
+
+You can also list cards that have been assigned to you with `card list mine`.
+
+```
+3llo > card list mine
+
+[123abc000000000000000002 #2] (To Do) Refactor code
+[123abc000000000000000003 #3] (Doing) Release v1.0
+```
+
+To view a card in detail, `card show <card_key>` is your friend.
+
+```
+3llo > card show #2
+
+Refactor code
+[123abc000000000000000002 #2]
+Link: https://trello.com/c/AbCdEfG
+
+Things to do [123abc000000000000000001 #1]
+[ ] Item 1 [123abc000000000000000001 #1]
+[ ] Item 2 [123abc000000000000000002 #2]
+[ ] Item 3 [123abc000000000000000003 #3]
+[ ] Item 4 ...
+```
+
+Want to comment on a card? Run `card comment <card_key>`.
+
+```
+3llo > card comment #2
+
+Comment: (Press CTRL-D or CTRL-Z to finish)
+What else should we refactor more?<enter>
+
+Comment has been posted
+
+3llo > card comments #2
+
+@just_another_person_on_the_internet on <Jan 01, 2020 00:55:55> wrote:
+This card is awesome!
+
+@qcam on <Jan 01, 2020 00:55:55> wrote:
+What else should we refactor more?
+```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/qcam/3llo. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/qcam/3llo.
 
-### Development Roadmap
+### "3llo" sounds odd to me. Where did the name come from?
 
-View in [Issues](https://github.com/qcam/3llo/issues)
+It might be interesting to know that `3 == "tre"` in Swedish 🇸🇪.
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+MIT
