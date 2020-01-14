@@ -25,11 +25,11 @@ module Tr3llo
         execute_command!(command_buffer, interface)
       end
     rescue Interrupt
-      Command::ExitCommand.execute()
+      Command::Exit.execute()
     end
 
     def execute_command!(command_buffer, interface)
-      Tr3llo::CommandFactory.execute(command_buffer.strip())
+      Tr3llo::Command.execute(command_buffer.strip())
     rescue Tr3llo::HTTP::Client::RequestError => e
       interface.print_frame { interface.print_error(e.message) }
     end
