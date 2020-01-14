@@ -19,7 +19,7 @@ module Tr3llo
               list_options
             )
 
-            name = interface.input.ask("Name:")
+            name = interface.input.ask("Name:", required: true)
             description = interface.input.ask("Description:")
 
             API::Card.create(name, description, list_id)

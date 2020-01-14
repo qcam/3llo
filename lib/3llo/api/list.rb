@@ -6,7 +6,7 @@ module Tr3llo
       def find_all_by_board(board_id)
         JSON.parse(
           client.get(
-            "/boards/#{board_id}/lists/",
+            "/boards/#{board_id}/lists",
             list: true,
             key: api_key,
             token: api_token

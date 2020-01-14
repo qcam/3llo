@@ -31,15 +31,13 @@ module Tr3llo
       end
 
       def create(name, description, list_id)
-        JSON.parse(
-          client.post(
-            "/cards",
-            key: api_key,
-            token: api_token,
-            name: name,
-            desc: description,
-            idList: list_id
-          )
+        client.post(
+          "/cards",
+          key: api_key,
+          token: api_token,
+          name: name,
+          desc: description,
+          idList: list_id
         )
       end
 

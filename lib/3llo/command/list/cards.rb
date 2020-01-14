@@ -4,9 +4,9 @@ module Tr3llo
       module Cards
         extend self
 
-        def execute(key)
-          list_id = Entities.parse_id(:list, key)
-          assert_list_id!(list_id, key)
+        def execute(list_key)
+          list_id = Entities.parse_id(:list, list_key)
+          assert_list_id!(list_id, list_key)
 
           cards = list_cards(list_id)
 
@@ -25,8 +25,8 @@ module Tr3llo
           Application.fetch_interface!()
         end
 
-        def assert_list_id!(list_id, key)
-          raise InvalidArgumentError.new("#{key.inspect} is not a valid list key") unless list_id
+        def assert_list_id!(list_id, list_key)
+          raise InvalidArgumentError.new("#{list_key.inspect} is not a valid list key") unless list_id
         end
       end
     end

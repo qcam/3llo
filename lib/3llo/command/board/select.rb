@@ -4,9 +4,9 @@ module Tr3llo
       module Select
         extend self
 
-        def execute(key)
-          board_id = Entities.parse_id(:board, key)
-          assert_board_id!(board_id, key)
+        def execute(board_key)
+          board_id = Entities.parse_id(:board, board_key)
+          assert_board_id!(board_id, board_key)
 
           board = API::Board.find(board_id)
           Application.register_board!(board)
@@ -20,8 +20,8 @@ module Tr3llo
 
         private
 
-        def assert_board_id!(board_id, key)
-          raise InvalidArgumentError.new("#{key.inspect} is not a valid board key") unless board_id
+        def assert_board_id!(board_id, board_key)
+          raise InvalidArgumentError.new("#{board_key.inspect} is not a valid board key") unless board_id
         end
       end
     end

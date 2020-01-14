@@ -28,9 +28,9 @@ module Tr3llo
         when 'list'
           is_mine, _ = *args
           board = Application.fetch_board!()
-          user = Application.fetch_user!()
 
           if is_mine == 'mine'
+            user = Application.fetch_user!()
             Command::Card::ListMine.execute(board[:id], user[:id])
           elsif is_mine.nil?
             Command::Card::List.execute(board[:id])
