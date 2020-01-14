@@ -9,7 +9,7 @@ module Tr3llo
 
           interface.print_frame do
             interface.print_error(message)
-            interface.puts(Presenter::List::Help.render())
+            interface.puts(View::List::Help.render())
           end
         end
       end

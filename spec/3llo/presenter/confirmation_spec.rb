@@ -1,12 +1,12 @@
-require '3llo/presenter/confirmation'
+require '3llo/View/confirmation'
 
-RSpec.describe Tr3llo::Presenter::ConfirmationPresenter do
+RSpec.describe Tr3llo::View::ConfirmationView do
   describe '#promt_for_confirmation' do
     let(:message) { 'message' }
     let(:input) { double('Input') }
     let(:interface) { double('Interface', input: input) }
-    let(:presenter) { described_class.new(interface) }
-    subject { presenter.prompt_for_confirmation(message) }
+    let(:View) { described_class.new(interface) }
+    subject { View.prompt_for_confirmation(message) }
 
     before do
       expect(input).to receive(:select)

@@ -10,7 +10,7 @@ module Tr3llo
           interface = Application.fetch_interface!()
 
           interface.print_frame do
-            interface.puts(Presenter::Card::ListMinePresenter.render(cards))
+            interface.puts(View::Card::ListMine.render(cards))
           end
         end
       end

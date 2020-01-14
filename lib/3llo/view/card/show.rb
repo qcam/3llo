@@ -1,7 +1,7 @@
 module Tr3llo
-  module Presenter
+  module View
     module Card
-      module ShowPresenter
+      module Show
         extend self
 
         def render(card, checklists)

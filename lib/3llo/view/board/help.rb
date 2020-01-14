@@ -1,5 +1,5 @@
 module Tr3llo
-  module Presenter
+  module View
     module Board
       module Help
         extend self

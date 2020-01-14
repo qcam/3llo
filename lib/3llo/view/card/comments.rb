@@ -1,7 +1,7 @@
 module Tr3llo
-  module Presenter
+  module View
     module Card
-      module CommentsPresenter
+      module Comments
         extend self
 
         def render(comments)

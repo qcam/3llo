@@ -13,7 +13,7 @@ module Tr3llo
           interface = Application.fetch_interface!()
 
           interface.print_frame do
-            interface.puts(Presenter::Card::CommentsPresenter.render(comments))
+            interface.puts(View::Card::Comments.render(comments))
           end
         end
 

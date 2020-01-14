@@ -14,7 +14,7 @@ module Tr3llo
           interface = Application.fetch_interface!()
 
           interface.print_frame do
-            interface.puts(Presenter::Card::ShowPresenter.render(card, checklists))
+            interface.puts(View::Card::Show.render(card, checklists))
           end
         end
 

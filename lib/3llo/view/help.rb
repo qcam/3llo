@@ -1,6 +1,6 @@
 module Tr3llo
-  module Presenter
-    module HelpPresenter
+  module View
+    module Help
       extend self
 
       def render()
@@ -8,11 +8,11 @@ module Tr3llo
         #{Utils.format_bold(Utils.paint("3llo v#{Tr3llo::VERSION} - Interactive CLI application for Trello", "blue"))}
 
 
-        #{Presenter::Board::Help.render()}
+        #{View::Board::Help.render()}
 
-        #{Presenter::Card::Help.render()}
+        #{View::Card::Help.render()}
 
-        #{Presenter::List::Help.render()}
+        #{View::List::Help.render()}
 
         #{miscellaneous_help()}
         TEMPLATE

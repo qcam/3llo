@@ -9,7 +9,7 @@ module Tr3llo
           lists = API::List.find_all_by_board(board_id)
 
           interface.print_frame do
-            interface.puts(Presenter::List::ListPresenter.render(lists))
+            interface.puts(View::List::List.render(lists))
           end
         end
       end

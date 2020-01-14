@@ -20,12 +20,6 @@ module Tr3llo
 
         private
 
-        def prompt_for_approvement!
-          Tr3llo::Presenter::ConfirmationPresenter
-            .new(interface)
-            .prompt_for_confirmation('')
-        end
-
         def archive_cards(list_id)
           API::List.archive_cards(list_id)
         end

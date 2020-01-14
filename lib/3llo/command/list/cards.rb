@@ -11,7 +11,7 @@ module Tr3llo
           cards = list_cards(list_id)
 
           interface.print_frame do
-            interface.puts(Presenter::List::CardsPresenter.render(cards))
+            interface.puts(View::List::Cards.render(cards))
           end
         end
 

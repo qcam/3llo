@@ -7,7 +7,7 @@ module Tr3llo
         interface = Application.fetch_interface!()
 
         interface.print_frame do
-          interface.puts(Presenter::HelpPresenter.render())
+          interface.puts(View::Help.render())
         end
       end
     end

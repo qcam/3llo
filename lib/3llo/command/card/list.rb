@@ -17,7 +17,7 @@ module Tr3llo
           interface.print_frame do
             interface.puts(
               lists_cards.map do |list, cards|
-                Presenter::Card::ListPresenter.render(list, cards)
+                View::Card::List.render(list, cards)
               end.join("\n\n\n")
             )
           end

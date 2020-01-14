@@ -80,7 +80,7 @@ module Tr3llo
 
     def print_help!(interface)
       interface.print_frame do
-        interface.puts(Presenter::HelpPresenter.render())
+        interface.puts(View::Help.render())
       end
     end
 
