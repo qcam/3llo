@@ -1,3 +1,3 @@
 module Tr3llo
-  VERSION = "0.3.1"
+  VERSION = "1.0.0-rc.0"
 end
