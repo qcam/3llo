@@ -41,6 +41,12 @@ module Tr3llo
         )
       end
 
+      def update(card_id, data)
+        params = data.merge({key: api_key, token: api_token})
+
+        client.put("/cards/#{card_id}", params)
+      end
+
       def find(card_id)
         card_payload =
           JSON.parse(

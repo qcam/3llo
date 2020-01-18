@@ -1,5 +1,6 @@
 require "3llo/command/card/list"
 require "3llo/command/card/list_mine"
+require "3llo/command/card/edit"
 require "3llo/command/card/show"
 require "3llo/command/card/move"
 require "3llo/command/card/self_assign"
@@ -46,6 +47,11 @@ module Tr3llo
           Utils.assert_string!(card_key, "card key is missing")
 
           Command::Card::Show.execute(card_key)
+        when "edit"
+          card_key, = args
+          Utils.assert_string!(card_key, "card key is missing")
+
+          Command::Card::Edit.execute(card_key)
         when "comments"
           card_key, = args
           Utils.assert_string!(card_key, "card key is missing")
