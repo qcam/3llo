@@ -8,7 +8,7 @@ module Tr3llo
           card_id = Entities.parse_id(:card, key)
           assert_card_id!(card_id, key)
 
-          card = assign_card(card_id, user_id)
+          assign_card(card_id, user_id)
 
           interface = Application.fetch_interface!()
 
@@ -21,7 +21,7 @@ module Tr3llo
 
         def assign_card(card_id, user_id)
           card = API::Card.find(card_id)
-          members = card.members.map { |member| member.id } + [user_id]
+          members = card.members.map(&:id) + [user_id]
 
           API::Card.assign_members(card_id, members)
         end

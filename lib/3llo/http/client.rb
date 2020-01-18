@@ -1,14 +1,14 @@
-require 'uri'
-require 'net/http'
-require 'openssl'
-require '3llo/http/request_error'
+require "uri"
+require "net/http"
+require "openssl"
+require "3llo/http/request_error"
 
 module Tr3llo
   module HTTP
     module Client
       extend self
 
-      BASE_URL = "https://api.trello.com/1"
+      BASE_URL = "https://api.trello.com/1".freeze
 
       def get(path, params = {})
         uri = URI("#{BASE_URL}#{path}?#{query_string(params)}")
@@ -31,8 +31,8 @@ module Tr3llo
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
         req_headers = {
-          'Accept' => 'application/json',
-          'Content-Type' => 'application/json',
+          "Accept" => "application/json",
+          "Content-Type" => "application/json"
         }
         request = Net::HTTP::Post.new(uri.request_uri, req_headers)
         request.body = JSON.dump(params)
@@ -51,8 +51,8 @@ module Tr3llo
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
         req_headers = {
-          'Accept' => 'application/json',
-          'Content-Type' => 'application/json',
+          "Accept" => "application/json",
+          "Content-Type" => "application/json"
         }
         request = Net::HTTP::Put.new(uri.request_uri, req_headers)
         request.body = JSON.dump(params)
@@ -71,8 +71,8 @@ module Tr3llo
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
         req_headers = {
-          'Accept' => 'application/json',
-          'Content-Type' => 'application/json',
+          "Accept" => "application/json",
+          "Content-Type" => "application/json"
         }
         request = Net::HTTP::Delete.new(uri.request_uri, req_headers)
         request.body = JSON.dump(params)

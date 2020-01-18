@@ -6,8 +6,8 @@ module Tr3llo
 
         def render(boards)
           boards
-          .map { |board| render_board(board) }
-          .join("\n")
+            .map { |board| render_board(board) }
+            .join("\n")
         end
 
         private

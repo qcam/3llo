@@ -1,12 +1,12 @@
-require 'readline'
+require "readline"
 
 module Tr3llo
   module Controller
     extend self
 
     def start(init_command)
-      list = %w(board card help list mine move select self-assign show)
-      auto_completion = proc { |s| list.grep( /^#{Regexp.escape(s)}/ ) }
+      list = %w[board card help list mine move select self-assign show]
+      auto_completion = proc { |s| list.grep(/^#{Regexp.escape(s)}/) }
 
       Readline.completion_append_character = " "
       Readline.completion_proc = auto_completion

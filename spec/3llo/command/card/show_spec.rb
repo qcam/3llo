@@ -18,8 +18,8 @@ describe "card show <card_key>", type: :integration do
       })
 
       expect(client_mock).to(
-        receive(:get).
-          with(
+        receive(:get)
+          .with(
             "/cards/#{card_id}",
             {list: true, members: true, key: "foo", token: "bar"}
           )
@@ -37,8 +37,8 @@ describe "card show <card_key>", type: :integration do
       }])
 
       expect(client_mock).to(
-        receive(:get).
-          with(
+        receive(:get)
+          .with(
             "/cards/#{card_id}/checklists",
             {key: "foo", token: "bar"}
           )
@@ -76,8 +76,8 @@ describe "card show <card_key>", type: :integration do
       })
 
       expect(client_mock).to(
-        receive(:get).
-          with(
+        receive(:get)
+          .with(
             "/cards/#{card_id}",
             {list: true, members: true, key: "foo", token: "bar"}
           )
@@ -92,8 +92,8 @@ describe "card show <card_key>", type: :integration do
       }])
 
       expect(client_mock).to(
-        receive(:get).
-          with(
+        receive(:get)
+          .with(
             "/cards/#{card_id}/checklists",
             {key: "foo", token: "bar"}
           )
@@ -102,7 +102,7 @@ describe "card show <card_key>", type: :integration do
       )
     end
 
-    interface = make_interface($container)
+    make_interface($container)
 
     execute_command("card show #" + card_shortcut)
   end

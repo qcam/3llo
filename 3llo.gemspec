@@ -1,7 +1,6 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path("lib", __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require '3llo/version'
+require "3llo/version"
 
 Gem::Specification.new do |spec|
   spec.name = "3llo"
@@ -9,13 +8,13 @@ Gem::Specification.new do |spec|
   spec.authors = ["Cẩm Huỳnh"]
   spec.email = ["huynhquancam@gmail.com"]
 
-  spec.summary = %q{Trello CLI app}
-  spec.description = %q{Interactive CLI application for Trello}
+  spec.summary = "Trello CLI app"
+  spec.description = "Interactive CLI application for Trello"
   spec.homepage = "https://github.com/qcam/3llo"
   spec.license = "MIT"
 
   if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "https://rubygems.org"
+    spec.metadata["allowed_push_host"] = "https://rubygems.org"
   else
     raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
   end
@@ -25,9 +24,10 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^bin/}) { |filename| File.basename(filename) }
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = '~> 2.5'
+  spec.required_ruby_version = "~> 2.5"
 
-  spec.add_runtime_dependency 'tty-prompt', '~> 0.20'
+  spec.add_runtime_dependency "tty-prompt", "~> 0.20"
 
-  spec.add_development_dependency 'rspec', '~> 3.0'
+  spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "rubocop", "~> 0.79"
 end

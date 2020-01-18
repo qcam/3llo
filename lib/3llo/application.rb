@@ -2,7 +2,7 @@ module Tr3llo
   module Application
     extend self
 
-    DEFAULT_CONFIG_FILE_PATH = "~/.3llo.config.json"
+    DEFAULT_CONFIG_FILE_PATH = "~/.3llo.config.json".freeze
 
     def start(args)
       $container = Container.new()
@@ -13,12 +13,12 @@ module Tr3llo
 
       options = parse_cli_args!(option_parser, args)
 
-      if options.key?(:help)
+      if options.has_key?(:help)
         execute_help!(option_parser, interface)
         exit
       end
 
-      if options.key?(:configure)
+      if options.has_key?(:configure)
         execute_configure!(interface)
         exit
       end
@@ -28,7 +28,7 @@ module Tr3llo
 
       print_help!(interface)
 
-      load_configuration!(config_file, interface)
+      load_configuration!(config_file)
       register_registry!()
 
       load_user!(interface)
@@ -64,7 +64,7 @@ module Tr3llo
       parser.parse!(args, into: options)
 
       options
-    rescue OptionParser::InvalidArgument, OptionParser::InvalidOption => exception
+    rescue OptionParser::InvalidArgument, OptionParser::InvalidOption
       {}
     end
 
@@ -93,11 +93,11 @@ module Tr3llo
       $container.register(:interface, Tr3llo::Interface.new(prompt, $stdout))
     end
 
-    def load_configuration!(config_file, interface)
+    def load_configuration!(config_file)
       config_path = File.expand_path(config_file)
 
       config =
-        if File.exists?(config_path)
+        if File.exist?(config_path)
           JSON.load(File.read(config_path))
         else
           {}
@@ -113,14 +113,22 @@ module Tr3llo
       $container.register(:configuration, configuration)
     rescue KeyError => exception
       command_string = "3llo --configure"
-      abort(Utils.paint("#{exception.key.inspect} has not been configured. Please run #{command_string.inspect} to set up configuration.", "red"))
+
+      abort(
+        Utils.paint(
+          "#{exception.key.inspect} has not been configured. " \
+            "Please run #{command_string.inspect} to set up configuration.",
+          "red"
+        )
+      )
     end
 
     def get_config_entry(config, key, env_key)
       config.fetch(key) do
         if ENV.has_key?(env_key)
           Utils.deprecate!(
-            "Setting #{env_key.inspect} as an environment variable is deprecated. It will be removed in the future versions of 3llo. Please use config file instead."
+            "Setting #{env_key.inspect} as an environment variable is deprecated. " \
+              "It will be removed in the future versions of 3llo. Please use config file instead."
           )
 
           ENV.fetch(env_key)

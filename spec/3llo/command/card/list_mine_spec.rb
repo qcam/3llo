@@ -4,7 +4,7 @@ describe "card list mine", type: :integration do
   include IntegrationSpecHelper
 
   before { $container = build_container() }
-  after { $container = nil}
+  after { $container = nil }
 
   it "requires board to be selected" do
     interface = make_interface($container)
