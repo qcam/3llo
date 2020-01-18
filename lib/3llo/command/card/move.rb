@@ -23,9 +23,9 @@ module Tr3llo
         def select_list(interface, board_id)
           list_options =
             API::List
-            .find_all_by_board(board_id)
-            .map { |list| [list.name, list.id] }
-            .to_h()
+              .find_all_by_board(board_id)
+              .map { |list| [list.name, list.id] }
+              .to_h()
 
           interface.input.select(
             "Choose the list to be moved to",

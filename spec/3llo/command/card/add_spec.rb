@@ -53,7 +53,6 @@ describe "card add", type: :integration do
 
       expect(input).to receive(:ask).with("Name:", required: true).and_return("Card 1")
       expect(input).to receive(:ask).with("Description:").and_return("The first card")
-
     end
 
     execute_command("card add")

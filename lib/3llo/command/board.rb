@@ -1,6 +1,6 @@
-require '3llo/command/board/list'
-require '3llo/command/board/select'
-require '3llo/command/board/invalid'
+require "3llo/command/board/list"
+require "3llo/command/board/select"
+require "3llo/command/board/invalid"
 
 module Tr3llo
   module Command
@@ -9,12 +9,12 @@ module Tr3llo
 
       def execute(subcommand, args)
         case subcommand
-        when 'list'
+        when "list"
           user = Application.fetch_user!()
 
           Command::Board::List.execute(user[:id])
-        when 'select'
-          board_key, _ = args
+        when "select"
+          board_key, = args
           Utils.assert_string!(board_key, "board key is missing")
 
           Command::Board::Select.execute(board_key)

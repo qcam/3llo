@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
-$:.unshift File.expand_path("../../lib", __FILE__)
+$LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "3llo"
-require 'container'
-require 'tty-prompt'
-require 'optparse'
+require "container"
+require "tty-prompt"
+require "optparse"
 
 Tr3llo::Application.start(ARGV)

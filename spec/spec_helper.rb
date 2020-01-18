@@ -24,8 +24,6 @@ module IntegrationSpecHelper
   end
 
   def make_interface(container, input: double(:input), output: StringIO.new())
-    input = double(:input)
-    output = StringIO.new()
     interface = Tr3llo::Interface.new(input, output)
 
     yield(input, output) if block_given?()

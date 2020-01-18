@@ -68,7 +68,6 @@ describe "card assign <card_key>", type: :integration do
           .and_return(card_json)
           .once()
       )
-
     end
 
     execute_command("card assign " + card_id)

@@ -1,7 +1,8 @@
 module Tr3llo
   class Interface
     def initialize(input, output)
-      @input, @output = input, output
+      @input = input
+      @output = output
     end
 
     def print_frame
@@ -15,7 +16,7 @@ module Tr3llo
       output.puts(str)
     end
 
-    alias :puts :print_line
+    alias puts print_line
 
     def print(str)
       output.print(str)

@@ -1,7 +1,7 @@
-require '3llo/command/list/list'
-require '3llo/command/list/cards'
-require '3llo/command/list/invalid'
-require '3llo/command/list/archive_cards'
+require "3llo/command/list/list"
+require "3llo/command/list/cards"
+require "3llo/command/list/invalid"
+require "3llo/command/list/archive_cards"
 
 module Tr3llo
   module Command
@@ -10,17 +10,17 @@ module Tr3llo
 
       def execute(subcommand, args)
         case subcommand
-        when 'list'
+        when "list"
           board = Application.fetch_board!()
 
           Command::List::List.execute(board[:id])
-        when 'cards'
-          list_key, _ = args
+        when "cards"
+          list_key, = args
           Utils.assert_string!(list_key, "list key is missing")
 
           Command::List::Cards.execute(list_key)
-        when 'archive-cards'
-          list_key, _ = args
+        when "archive-cards"
+          list_key, = args
           Utils.assert_string!(list_key, "list key is missing")
 
           Command::List::ArchiveCards.execute(list_key)

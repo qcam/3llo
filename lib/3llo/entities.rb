@@ -2,7 +2,7 @@ module Tr3llo
   module Entities
     extend self
 
-    SHORTCUT_PREFIX = "#"
+    SHORTCUT_PREFIX = "#".freeze
 
     InvalidKeyError = Class.new(ArgumentError)
     InvalidIDError = Class.new(ArgumentError)

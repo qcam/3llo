@@ -19,11 +19,9 @@ describe "board select <board_key>", type: :integration do
       )
     end
 
-    interface = make_interface($container)
+    make_interface($container)
 
     execute_command("board select #{board_id}")
-
-    output_string = interface.output.string
 
     selected_board = Tr3llo::Application.fetch_board!()
     expect(selected_board.id).to eq(board_id)
@@ -44,7 +42,7 @@ describe "board select <board_key>", type: :integration do
       )
     end
 
-    interface = make_interface($container)
+    make_interface($container)
 
     execute_command("board select #" + board_key)
 

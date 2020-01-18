@@ -16,11 +16,10 @@ module Tr3llo
             shortcut_to_id: {}
           })
 
-        id_to_key = data[:id_to_shortcut]
-        key_to_id = data[:shortcut_to_id]
+        id_to_shortcut = data[:id_to_shortcut]
 
-        if id_to_key.key?(id)
-          id_to_key.fetch(id)
+        if id_to_shortcut.has_key?(id)
+          id_to_shortcut.fetch(id)
         else
           counter = data[:counter] + 1
           shortcut = counter.to_s

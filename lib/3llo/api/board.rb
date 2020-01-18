@@ -22,7 +22,7 @@ module Tr3llo
             client.get(
               "/boards/#{board_id}",
               key: api_key,
-              token: api_token,
+              token: api_token
             )
           )
 

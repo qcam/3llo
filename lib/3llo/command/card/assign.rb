@@ -33,14 +33,14 @@ module Tr3llo
         def select_user(interface, card, board_id)
           user_options =
             API::User.find_all_by_board(board_id)
-            .map { |user| [user.username, user.id] }
-            .to_h()
+              .map { |user| [user.username, user.id] }
+              .to_h()
 
           member_ids =
             card.members.flat_map do |member|
               index = user_options.find_index { |_username, user_id| user_id == member.id }
 
-              if index then [index + 1] else [] end
+              index ? [index + 1] : []
             end
 
           interface.input.multi_select(

@@ -56,8 +56,8 @@ module Tr3llo
 
           items =
             checklist_payload
-            .fetch("checkItems", [])
-            .map do |item_payload|
+              .fetch("checkItems", [])
+              .map do |item_payload|
               item_id, item_name, item_state = item_payload.fetch_values("id", "name", "state")
               item_shortcut = Entities.make_shortcut(:check_item, item_id)
 

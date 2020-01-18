@@ -9,7 +9,7 @@ module Tr3llo
             "/lists/#{list_id}/cards",
             key: api_key,
             token: api_token,
-            members: 'true',
+            members: "true",
             member_fields: "id,username"
           )
         ).map do |card_payload|
@@ -75,7 +75,7 @@ module Tr3llo
             url,
             key: api_key,
             token: api_token,
-            value: members.join(',')
+            value: members.join(",")
           )
         )
       end
@@ -88,7 +88,7 @@ module Tr3llo
             url,
             key: api_key,
             token: api_token,
-            filter: "commentCard",
+            filter: "commentCard"
           )
         ).map do |comment_payload|
           id, creator_payload, date = comment_payload.fetch_values("id", "memberCreator", "date")
@@ -139,8 +139,8 @@ module Tr3llo
 
         members =
           payload
-          .fetch("members", [])
-          .map do |member_payload|
+            .fetch("members", [])
+            .map do |member_payload|
             user_id, username = member_payload.fetch_values("id", "username")
 
             Entities::User.new(user_id, _user_shortcut = nil, username)
@@ -148,8 +148,8 @@ module Tr3llo
 
         labels =
           payload
-          .fetch("labels", [])
-          .map do |label_payload|
+            .fetch("labels", [])
+            .map do |label_payload|
             label_name = label_payload.fetch("name")
             label_color = label_payload["color"]
 

@@ -1,0 +1,113 @@
+# The behavior of RuboCop can be controlled via the .rubocop.yml
+# configuration file. It makes it possible to enable/disable
+# certain cops (checks) and to alter their behavior if they accept
+# any parameters. The file can be placed either in your home
+# directory or in some project directory.
+#
+# RuboCop will start looking for the configuration file in the directory
+# where the inspected file is and continue its way up to the root directory.
+#
+# See https://github.com/rubocop-hq/rubocop/blob/master/manual/configuration.md
+
+AllCops:
+  TargetRubyVersion: 2.5
+
+Layout/LineLength:
+  Max: 120
+
+Layout/DotPosition:
+  EnforcedStyle: leading
+
+Layout/EmptyLinesAroundBlockBody:
+  EnforcedStyle: no_empty_lines
+
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/HeredocIndentation:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Layout/SpaceInsideBlockBraces:
+  EnforcedStyle: space
+
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+
+Layout/SpaceInsideParens:
+  EnforcedStyle: no_space
+
+Lint/AssignmentInCondition:
+  Enabled: false
+
+Metrics:
+  Enabled: false
+
+Naming/RescuedExceptionsVariableName:
+  Enabled: false
+
+Security/JSONLoad:
+  Enabled: false
+
+Style/Alias:
+  EnforcedStyle: prefer_alias
+
+Style/BracesAroundHashParameters:
+  Enabled: false
+
+Style/DefWithParentheses:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/GlobalVars:
+  AllowedVariables: ['$container']
+
+Style/GuardClause:
+  Enabled: false
+
+Style/HashSyntax:
+  EnforcedStyle: ruby19
+
+Style/MethodCallWithoutArgsParentheses:
+  Enabled: false
+
+Style/ModuleFunction:
+  Enabled: false
+
+Style/MultilineBlockChain:
+  Enabled: false
+
+Style/PreferredHashMethods:
+  EnforcedStyle: verbose
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: no_comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: no_comma
+
+Style/WordArray:
+  EnforcedStyle: percent
+  MinSize: 3
+
+Style/SpecialGlobalVars:
+  EnforcedStyle: use_english_names
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+
+Style/RaiseArgs:
+  EnforcedStyle: compact
