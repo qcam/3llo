@@ -13,10 +13,10 @@ module Tr3llo
           interface = Application.fetch_interface!()
 
           interface.print_frame do
-            name = interface.input.ask("Name: ", required: true, default: card.name)
-            description = interface.input.ask("Description: ", default: card.description)
+            name = interface.input.ask("Name:", required: true, value: card.name)
+            description = interface.input.ask("Description:", value: card.description)
 
-            API::Card.update(card_id, name: name, description: description)
+            API::Card.update(card_id, name: name, desc: description)
 
             interface.puts("Card has been updated.")
           end
