@@ -30,7 +30,7 @@ module Tr3llo
 
     def execute_command!(command_buffer, interface)
       Tr3llo::Command.execute(command_buffer.strip())
-    rescue Tr3llo::HTTP::Client::RequestError => e
+    rescue RemoteServer::RequestError => e
       interface.print_frame { interface.print_error(e.message) }
     end
   end

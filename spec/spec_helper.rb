@@ -46,4 +46,8 @@ module IntegrationSpecHelper
   def make_user(user_id)
     Tr3llo::Entities::User.new(user_id)
   end
+
+  def req_path(path, extras = {})
+    Tr3llo::Utils.build_req_path(path, extras)
+  end
 end

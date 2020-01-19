@@ -10,7 +10,7 @@ describe "list cards", type: :integration do
     list_id = "list:1"
 
     make_client_mock($container) do |client_mock|
-      json = JSON.dump([
+      payload = [
         {
           "id" => "card:1",
           "name" => "Card 1",
@@ -23,15 +23,15 @@ describe "list cards", type: :integration do
           "desc" => "second card",
           "shortUrl" => "https://example.com/cards/2"
         }
-      ])
+      ]
 
       expect(client_mock).to(
         receive(:get)
         .with(
-          "/lists/#{list_id}/cards",
-          {key: "foo", token: "bar", member_fields: "id,username", members: "true"}
+          req_path("/lists/#{list_id}/cards", members: "true", member_fields: "id,username"),
+          {}
         )
-        .and_return(json)
+        .and_return(payload)
       )
     end
 

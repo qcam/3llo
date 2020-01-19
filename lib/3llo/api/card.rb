@@ -4,137 +4,116 @@ module Tr3llo
       extend self
 
       def find_all_by_list(list_id)
-        JSON.parse(
-          client.get(
+        req_path =
+          Utils.build_req_path(
             "/lists/#{list_id}/cards",
-            key: api_key,
-            token: api_token,
-            members: "true",
-            member_fields: "id,username"
+            {"members" => "true", "member_fields" => "id,username"}
           )
-        ).map do |card_payload|
-          make_struct(card_payload)
-        end
+
+        client
+          .get(req_path, {})
+          .map do |card_payload|
+            make_struct(card_payload)
+          end
       end
 
       def find_all_by_user(board_id, user_id)
-        JSON.parse(
-          client.get(
+        req_path =
+          Utils.build_req_path(
             "/boards/#{board_id}/members/#{user_id}/cards",
-            list: true,
-            key: api_key,
-            token: api_token
+            {"list" => "true"}
           )
-        ).map do |card_payload|
-          make_struct(card_payload)
-        end
+
+        client
+          .get(req_path, {})
+          .map do |card_payload|
+            make_struct(card_payload)
+          end
       end
 
       def create(name, description, list_id)
-        client.post(
-          "/cards",
-          key: api_key,
-          token: api_token,
-          name: name,
-          desc: description,
-          idList: list_id
-        )
+        req_path = Utils.build_req_path("/cards", {})
+        payload = {
+          "name" => name,
+          "desc" => description,
+          "idList" => list_id
+        }
+
+        client.post(req_path, {}, payload)
       end
 
       def update(card_id, data)
-        params = data.merge({key: api_key, token: api_token})
+        req_path = Utils.build_req_path("/cards/#{card_id}")
 
-        client.put("/cards/#{card_id}", params)
+        client.put(req_path, {}, data)
       end
 
       def find(card_id)
-        card_payload =
-          JSON.parse(
-            client.get(
-              "/cards/#{card_id}",
-              list: true,
-              members: true,
-              key: api_key,
-              token: api_token
-            )
+        req_path =
+          Utils.build_req_path(
+            "/cards/#{card_id}",
+            {"list" => "true", "members" => "true"}
           )
+
+        card_payload = client.get(req_path, {})
 
         make_struct(card_payload)
       end
 
+      #TODO: Use ".update".
       def move_to_list(card_id, list_id)
-        url = "/cards/#{card_id}/idList"
-        JSON.parse(
-          client.put(
-            url,
-            key: api_key,
-            token: api_token,
-            value: list_id
-          )
-        )
+        req_path = Utils.build_req_path("/cards/#{card_id}/idList")
+
+        client.put(req_path, {}, {"value" => list_id})
       end
 
+      #TODO: Use ".update".
       def assign_members(card_id, members)
-        url = "/cards/#{card_id}/idMembers"
-        JSON.parse(
-          client.put(
-            url,
-            key: api_key,
-            token: api_token,
-            value: members.join(",")
-          )
-        )
+        req_path = Utils.build_req_path("/cards/#{card_id}/idMembers")
+
+        client.put(req_path, {}, {"value" => members.join(",")})
       end
 
       def list_comments(card_id)
-        url = "/cards/#{card_id}/actions"
-
-        JSON.parse(
-          client.get(
-            url,
-            key: api_key,
-            token: api_token,
-            filter: "commentCard"
+        req_path =
+          Utils.build_req_path(
+            "/cards/#{card_id}/actions",
+            {"filter" => "commentCard"}
           )
-        ).map do |comment_payload|
-          id, creator_payload, date = comment_payload.fetch_values("id", "memberCreator", "date")
-          text = comment_payload.dig("data", "text")
 
-          created_at = DateTime.iso8601(date)
+        client
+          .get(req_path, {})
+          .map do |comment_payload|
+            id, creator_payload, date = comment_payload.fetch_values("id", "memberCreator", "date")
+            text = comment_payload.dig("data", "text")
 
-          creator_id, creator_username = creator_payload.fetch_values("id", "username")
-          creator = Entities::User.new(creator_id, _creator_shortcut = nil, creator_username)
+            created_at = DateTime.iso8601(date)
 
-          Entities::Comment.new(
-            id: id,
-            creator: creator,
-            created_at: created_at,
-            text: text
-          )
-        end
+            creator_id, creator_username = creator_payload.fetch_values("id", "username")
+            creator = Entities::User.new(creator_id, _creator_shortcut = nil, creator_username)
+
+            Entities::Comment.new(
+              id: id,
+              creator: creator,
+              created_at: created_at,
+              text: text
+            )
+          end
       end
 
       def comment(card_id, text)
-        url = "/cards/#{card_id}/actions/comments"
-        JSON.parse(
-          client.post(
-            url,
-            key: api_key,
-            token: api_token,
-            text: text
-          )
-        )
+        req_path = Utils.build_req_path("/cards/#{card_id}/actions/comments")
+        payload = {"text" => text}
+
+        client.post(req_path, {}, payload)
       end
 
+      #TODO: Use ".update".
       def archive(card_id)
-        url = "/cards/#{card_id}?closed=true"
-        JSON.parse(
-          client.put(
-            url,
-            key: api_key,
-            token: api_token
-          )
-        )
+        req_path = Utils.build_req_path("/cards/#{card_id}")
+        payload = {"closed" => "true"}
+
+        client.put(req_path, {}, payload)
       end
 
       private
@@ -179,14 +158,6 @@ module Tr3llo
         end
 
         card
-      end
-
-      def api_key
-        Application.fetch_configuration!().api_key
-      end
-
-      def api_token
-        Application.fetch_configuration!().api_token
       end
 
       def client

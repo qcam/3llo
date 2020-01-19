@@ -16,7 +16,7 @@ module Tr3llo
             name = interface.input.ask("Name:", required: true, value: card.name)
             description = interface.input.ask("Description:", value: card.description)
 
-            API::Card.update(card_id, name: name, desc: description)
+            API::Card.update(card_id, {"name" => name, "desc" => description})
 
             interface.puts("Card has been updated.")
           end

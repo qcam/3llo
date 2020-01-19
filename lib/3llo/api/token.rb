@@ -4,10 +4,10 @@ module Tr3llo
       extend self
 
       def verify(key, token)
-        client.get("/tokens/#{token}", key: key)
+        client.get("/tokens/#{token}?key=#{key}", {})
 
         true
-      rescue HTTP::Client::RequestError
+      rescue RemoteServer::RequestError
         false
       end
 

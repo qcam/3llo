@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - test-http
   pull_request:
 
 jobs:
@@ -25,6 +26,8 @@ jobs:
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 3
+    - name: Start httpbin container
+      run: docker run -d -p 8080:80 kennethreitz/httpbin
     - name: Run Rubocop
       run: bundle exec rubocop
     - name: Run test

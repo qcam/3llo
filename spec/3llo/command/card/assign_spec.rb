@@ -25,7 +25,7 @@ describe "card assign <card_key>", type: :integration do
     end
 
     make_client_mock($container) do |client_mock|
-      card_json = JSON.dump({
+      card_payload = {
         "id" => card_id,
         "name" => "Card 1",
         "desc" => "The first card",
@@ -33,39 +33,41 @@ describe "card assign <card_key>", type: :integration do
         "members" => [
           {"id" => "user:2", "username" => "user2"}
         ]
-      })
+      }
+
       expect(client_mock).to(
         receive(:get)
           .with(
-            "/cards/#{card_id}",
-            {key: "foo", token: "bar", list: true, members: true}
+            req_path("/cards/#{card_id}", list: true, members: true),
+            {}
           )
-          .and_return(card_json)
+          .and_return(card_payload)
           .once()
       )
 
-      members_json = JSON.dump([
+      members_payload = [
         {"id" => "user:1", "username" => "user1"},
         {"id" => "user:2", "username" => "user2"}
-      ])
+      ]
 
       expect(client_mock).to(
         receive(:get)
           .with(
-            "/board/#{board_id}/members",
-            {key: "foo", token: "bar"}
+            req_path("/board/#{board_id}/members"),
+            {}
           )
-          .and_return(members_json)
+          .and_return(members_payload)
           .once()
       )
 
       expect(client_mock).to(
         receive(:put)
           .with(
-            "/cards/#{card_id}/idMembers",
-            {key: "foo", token: "bar", value: "user1,user2"}
+            req_path("/cards/#{card_id}/idMembers"),
+            {},
+            {"value" => "user1,user2"}
           )
-          .and_return(card_json)
+          .and_return(card_payload)
           .once()
       )
     end

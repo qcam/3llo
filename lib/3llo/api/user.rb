@@ -4,31 +4,19 @@ module Tr3llo
       extend self
 
       def find(user_id)
-        url = "/members/#{user_id}"
+        client = Application.fetch_client!()
+        req_path = Utils.build_req_path("/members/#{user_id}")
 
-        make_struct(
-          JSON.parse(
-            client.get(
-              url,
-              key: key,
-              token: token
-            )
-          )
-        )
+        make_struct(client.get(req_path, {}))
       end
 
       def find_all_by_board(board_id)
-        url = "/board/#{board_id}/members"
+        client = Application.fetch_client!()
+        req_path = Utils.build_req_path("/board/#{board_id}/members")
 
-        JSON.parse(
-          client.get(
-            url,
-            key: key,
-            token: token
-          )
-        ).map do |user_payload|
-          make_struct(user_payload)
-        end
+        client
+          .get(req_path, {})
+          .map { |user_payload| make_struct(user_payload) }
       end
 
       private
@@ -38,18 +26,6 @@ module Tr3llo
         shortcut = Entities.make_shortcut(:user, id)
 
         Entities::User.new(id, shortcut, username)
-      end
-
-      def key
-        Application.fetch_configuration!().api_key
-      end
-
-      def token
-        Application.fetch_configuration!().api_token
-      end
-
-      def client
-        Application.fetch_client!()
       end
     end
   end

@@ -22,7 +22,7 @@ describe "card list mine", type: :integration do
     sign_in($container, make_user("user:1"))
 
     make_client_mock($container) do |client_mock|
-      card_json = JSON.dump([
+      card_payload = [
         {
           "id" => "card:1",
           "name" => "Card 1",
@@ -33,12 +33,15 @@ describe "card list mine", type: :integration do
             "name" => "List 1"
           }
         }
-      ])
+      ]
 
       expect(client_mock).to(
         receive(:get)
-          .with("/boards/board:1/members/user:1/cards", {key: "foo", token: "bar", list: true})
-          .and_return(card_json)
+          .with(
+            req_path("/boards/board:1/members/user:1/cards", {list: true}),
+            {}
+          )
+          .and_return(card_payload)
           .once()
       )
     end

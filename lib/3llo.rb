@@ -1,5 +1,5 @@
 require "3llo/version"
-require "3llo/http/client"
+require "3llo/remote_server"
 require "3llo/interface"
 require "container"
 require "json"

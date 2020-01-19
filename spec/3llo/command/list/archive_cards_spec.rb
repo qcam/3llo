@@ -10,7 +10,7 @@ describe "list archive-cards <list_key>", type: :integration do
     list_id = "list:1"
 
     make_client_mock($container) do |client_mock|
-      json = JSON.dump([
+      payload = [
         {
           "id" => "card:1",
           "name" => "Card 1",
@@ -23,12 +23,12 @@ describe "list archive-cards <list_key>", type: :integration do
           "desc" => "second card",
           "shortUrl" => "https://example.com/cards/2"
         }
-      ])
+      ]
 
       expect(client_mock).to(
         receive(:post)
-        .with("/lists/#{list_id}/archiveAllCards", {key: "foo", token: "bar"})
-        .and_return(json)
+        .with(req_path("/lists/#{list_id}/archiveAllCards"), {}, {})
+        .and_return(payload)
       )
     end
 

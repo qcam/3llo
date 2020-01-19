@@ -4,44 +4,28 @@ module Tr3llo
       extend self
 
       def find_all_by_user(user_id)
-        JSON.parse(
-          client.get(
+        client = Application.fetch_client!()
+        req_path =
+          Utils.build_req_path(
             "/members/#{user_id}/boards",
-            key: api_key,
-            token: api_token,
-            filter: "open"
+            {"filter" => "open"}
           )
-        ).map do |board_payload|
-          make_struct(board_payload)
-        end
+
+        client
+          .get(req_path, {})
+          .map do |board_payload|
+            make_struct(board_payload)
+          end
       end
 
       def find(board_id)
-        payload =
-          JSON.parse(
-            client.get(
-              "/boards/#{board_id}",
-              key: api_key,
-              token: api_token
-            )
-          )
+        client = Application.fetch_client!()
+        req_path = Utils.build_req_path("/boards/#{board_id}")
 
-        make_struct(payload)
+        make_struct(client.get(req_path, {}))
       end
 
       private
-
-      def client
-        Application.fetch_client!()
-      end
-
-      def api_key
-        Application.fetch_configuration!().api_key
-      end
-
-      def api_token
-        Application.fetch_configuration!().api_token
-      end
 
       def make_struct(payload)
         id, name = payload.fetch_values("id", "name")

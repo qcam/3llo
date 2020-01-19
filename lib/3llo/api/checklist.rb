@@ -4,20 +4,14 @@ module Tr3llo
       extend self
 
       def create(card_id, data)
-        params = data.merge(key: api_key, token: api_token)
+        req_path = Utils.build_req_path("/cards/#{card_id}/checklists")
 
-        client.post("/cards/#{card_id}/checklists", params)
+        client.post(req_path, {}, data)
       end
 
       def get(checklist_id)
-        payload =
-          JSON.parse(
-            client.get(
-              "/checklists/#{checklist_id}",
-              key: api_key,
-              token: api_token
-            )
-          )
+        req_path = Utils.build_req_path("/checklists/#{checklist_id}")
+        payload = client.get(req_path, {})
 
         checklist_id, checklist_name = payload.fetch_values("id", "name")
         checklist_shortcut = Entities.make_shortcut(:checklist, checklist_id)
@@ -31,24 +25,20 @@ module Tr3llo
       end
 
       def update(checklist_id, data)
-        params = data.merge(key: api_key, token: api_token)
+        req_path = Utils.build_req_path("/checklists/#{checklist_id}")
 
-        client.put("/checklists/#{checklist_id}", params)
+        client.put(req_path, {}, data)
       end
 
       def delete(checklist_id)
-        client.delete("/checklists/#{checklist_id}", token: api_token, key: api_key)
+        req_path = Utils.build_req_path("/checklists/#{checklist_id}")
+
+        client.delete(req_path, {}, {})
       end
 
       def list_by_card_id(card_id)
-        payload =
-          JSON.parse(
-            client.get(
-              "/cards/#{card_id}/checklists",
-              key: api_key,
-              token: api_token
-            )
-          )
+        req_path = Utils.build_req_path("/cards/#{card_id}/checklists")
+        payload = client.get(req_path, {})
 
         payload.map do |checklist_payload|
           checklist_id, checklist_name = checklist_payload.fetch_values("id", "name")
@@ -74,14 +64,8 @@ module Tr3llo
       end
 
       def get_item(card_id, item_id)
-        item_payload =
-          JSON.parse(
-            client.get(
-              "/cards/#{card_id}/checkItem/#{item_id}",
-              key: api_key,
-              token: api_token
-            )
-          )
+        req_path = Utils.build_req_path("/cards/#{card_id}/checkItem/#{item_id}")
+        item_payload = client.get(req_path, {})
 
         item_id, item_name, item_state = item_payload.fetch_values("id", "name", "state")
         item_shortcut = Entities.make_shortcut(:check_item, item_id)
@@ -90,35 +74,29 @@ module Tr3llo
       end
 
       def create_item(checklist_id, name)
-        client.post(
-          "/checklists/#{checklist_id}/checkItems",
-          key: api_key,
-          token: api_token,
+        req_path = Utils.build_req_path("/checklists/#{checklist_id}/checkItems")
+        payload = {
           name: name,
           pos: "bottom",
-          state: false
-        )
+          state: "false"
+        }
+
+        client.post(req_path, {}, payload)
       end
 
       def update_item(card_id, check_item_id, data)
-        params = data.merge(key: api_key, token: api_token)
+        req_path = Utils.build_req_path("/cards/#{card_id}/checkItem/#{check_item_id}")
 
-        client.put("/cards/#{card_id}/checkItem/#{check_item_id}", params)
+        client.put(req_path, {}, data)
       end
 
       def delete_item(card_id, item_id)
-        client.delete("/cards/#{card_id}/checkItem/#{item_id}", token: api_token, key: api_key)
+        req_path = Utils.build_req_path("/cards/#{card_id}/checkItem/#{item_id}")
+
+        client.delete(req_path, {}, {})
       end
 
       private
-
-      def api_key
-        Application.fetch_configuration!().api_key
-      end
-
-      def api_token
-        Application.fetch_configuration!().api_token
-      end
 
       def client
         Application.fetch_client!()

@@ -85,7 +85,9 @@ module Tr3llo
     end
 
     def register_api_client!()
-      $container.register(:api_client, Tr3llo::HTTP::Client)
+      remote_server = Tr3llo::RemoteServer.new("https://api.trello.com/1")
+
+      $container.register(:api_client, remote_server)
     end
 
     def register_interface!()

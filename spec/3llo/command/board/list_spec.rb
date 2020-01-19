@@ -11,15 +11,21 @@ describe "board list", type: :integration do
 
     # Mock HTTP request.
     make_client_mock($container) do |client_mock|
-      json = JSON.dump([
+      payload = [
         {"id" => "board:1", "name" => "Board 1"},
         {"id" => "board:2", "name" => "Board 2"}
-      ])
+      ]
 
       expect(client_mock).to(
         receive(:get)
-        .with("/members/#{user_id}/boards", {filter: "open", key: "foo", token: "bar"})
-        .and_return(json)
+        .with(
+          Tr3llo::Utils.build_req_path(
+            "/members/#{user_id}/boards",
+            {filter: "open"}
+          ),
+          {}
+        )
+        .and_return(payload)
       )
     end
 

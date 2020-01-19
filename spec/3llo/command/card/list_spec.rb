@@ -21,55 +21,56 @@ describe "card list", type: :integration do
     select_board($container, make_board("board:1"))
 
     make_client_mock($container) do |client_mock|
-      lists_json = JSON.dump([
+      lists_payload = [
         {"id" => "list:1", "name" => "List 1"},
         {"id" => "list:2", "name" => "List 2"}
-      ])
+      ]
 
       expect(client_mock).to(
         receive(:get)
-          .with("/boards/board:1/lists", {key: "foo", token: "bar", list: true})
-          .and_return(lists_json)
+          .with(
+            req_path("/boards/board:1/lists", {list: true}),
+            {}
+          )
+          .and_return(lists_payload)
           .once()
       )
 
-      list1_card_json = JSON.dump([
+      list1_card_payload = [
         {
           "id" => "card:1",
           "name" => "Card 1",
           "desc" => "first card",
           "shortUrl" => "https://example.com/cards/1"
         }
-      ])
+      ]
 
       expect(client_mock).to(
         receive(:get)
-          .with("/lists/list:1/cards", {key: "foo", token: "bar", member_fields: "id,username", members: "true"})
-          .and_return(list1_card_json)
+          .with(
+            req_path("/lists/list:1/cards", {members: "true", member_fields: "id,username"}),
+            {}
+          )
+          .and_return(list1_card_payload)
           .once()
       )
 
-      list2_card_json = JSON.dump([
+      list2_card_payload = [
         {
           "id" => "card:2",
           "name" => "Card 2",
           "desc" => "second card",
           "shortUrl" => "https://example.com/cards/2"
         }
-      ])
+      ]
 
       expect(client_mock).to(
         receive(:get)
           .with(
-            "/lists/list:2/cards",
-            {
-              key: "foo",
-              token: "bar",
-              member_fields: "id,username",
-              members: "true"
-            }
+            req_path("/lists/list:2/cards", {members: "true", member_fields: "id,username"}),
+            {}
           )
-          .and_return(list2_card_json)
+          .and_return(list2_card_payload)
           .once()
       )
     end

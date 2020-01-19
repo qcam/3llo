@@ -10,39 +10,39 @@ describe "card show <card_key>", type: :integration do
     card_id = "card:1"
 
     make_client_mock($container) do |client_mock|
-      card_json = JSON.dump({
+      card_payload = {
         "id" => card_id,
         "name" => "Card 1",
         "desc" => "description",
         "shortUrl" => "http://example.com/cards/1"
-      })
+      }
 
       expect(client_mock).to(
         receive(:get)
           .with(
-            "/cards/#{card_id}",
-            {list: true, members: true, key: "foo", token: "bar"}
+            req_path("/cards/#{card_id}", {list: true, members: true}),
+            {}
           )
-          .and_return(card_json)
+          .and_return(card_payload)
           .once()
       )
 
-      checklist_json = JSON.dump([{
+      checklist_payload = [{
         "id" => "checklist:1",
         "name" => "Checklist 1",
         "checkItems" => [
           {"id" => "item:1", "name" => "Item 1", "state" => "incomplete"},
           {"id" => "item:2", "name" => "Item 2", "state" => "complete"}
         ]
-      }])
+      }]
 
       expect(client_mock).to(
         receive(:get)
           .with(
-            "/cards/#{card_id}/checklists",
-            {key: "foo", token: "bar"}
+            req_path("/cards/#{card_id}/checklists"),
+            {}
           )
-          .and_return(checklist_json)
+          .and_return(checklist_payload)
           .once()
       )
     end
@@ -68,36 +68,36 @@ describe "card show <card_key>", type: :integration do
     card_shortcut = Tr3llo::Application.fetch_registry!().register(:card, card_id)
 
     make_client_mock($container) do |client_mock|
-      card_json = JSON.dump({
+      card_payload = {
         "id" => card_id,
         "name" => "Card 1",
         "desc" => "description",
         "shortUrl" => "http://example.com/cards/1"
-      })
+      }
 
       expect(client_mock).to(
         receive(:get)
           .with(
-            "/cards/#{card_id}",
-            {list: true, members: true, key: "foo", token: "bar"}
+            req_path("/cards/#{card_id}", {"list" => "true", "members" => "true"}),
+            {}
           )
-          .and_return(card_json)
+          .and_return(card_payload)
           .once()
       )
 
-      checklist_json = JSON.dump([{
+      checklist_payload = [{
         "id" => "checklist:1",
         "name" => "Checklist 1",
         "checkItems" => []
-      }])
+      }]
 
       expect(client_mock).to(
         receive(:get)
           .with(
-            "/cards/#{card_id}/checklists",
-            {key: "foo", token: "bar"}
+            req_path("/cards/#{card_id}/checklists"),
+            {}
           )
-          .and_return(checklist_json)
+          .and_return(checklist_payload)
           .once()
       )
     end

@@ -55,5 +55,15 @@ module Tr3llo
     def format_highlight(string)
       paint(string, "yellow")
     end
+
+    def build_req_path(path, extra_params = {})
+      params =
+        {
+          "key" => Application.fetch_configuration!().api_key,
+          "token" => Application.fetch_configuration!().api_token
+        }.merge(extra_params)
+
+      [path, URI.encode_www_form(params)].join("?")
+    end
   end
 end

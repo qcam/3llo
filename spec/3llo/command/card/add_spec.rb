@@ -13,30 +13,32 @@ describe "card add", type: :integration do
     select_board($container, make_board(board_id))
 
     make_client_mock($container) do |client_mock|
-      lists_json = JSON.dump([
+      lists_payload = [
         {"id" => "list:1", "name" => "List 1"},
         {"id" => "list:2", "name" => "List 2"}
-      ])
+      ]
 
       expect(client_mock).to(
         receive(:get)
-          .with("/boards/#{board_id}/lists", {key: "foo", token: "bar", list: true})
-          .and_return(lists_json)
+          .with(
+            req_path("/boards/#{board_id}/lists", {list: true}),
+            {}
+          )
+          .and_return(lists_payload)
       )
 
       expect(client_mock).to(
         receive(:post)
           .with(
-            "/cards",
-            {
-              key: "foo",
-              token: "bar",
-              name: "Card 1",
-              desc: "The first card",
-              idList: list_id
+            req_path("/cards"),
+            _headers = {},
+            _payload = {
+              "name" => "Card 1",
+              "desc" => "The first card",
+              "idList" => list_id
             }
           )
-          .and_return("{}")
+          .and_return({})
       )
     end
 

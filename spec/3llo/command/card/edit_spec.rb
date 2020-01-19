@@ -18,7 +18,7 @@ describe "card edit <card_key>", type: :integration do
     end
 
     make_client_mock($container) do |client_mock|
-      card_json = JSON.dump({
+      card_payload = {
         "id" => card_id,
         "name" => "Card 1",
         "desc" => "The first card",
@@ -26,27 +26,26 @@ describe "card edit <card_key>", type: :integration do
         "members" => [
           {"id" => "user:2", "username" => "user2"}
         ]
-      })
+      }
 
       expect(client_mock).to(
         receive(:get)
           .with(
-            "/cards/#{card_id}",
-            {key: "foo", token: "bar", list: true, members: true}
+            req_path("/cards/#{card_id}", {list: true, members: true}),
+            {}
           )
-          .and_return(card_json)
+          .and_return(card_payload)
           .once()
       )
 
       expect(client_mock).to(
         receive(:put)
           .with(
-            "/cards/#{card_id}",
+            req_path("/cards/#{card_id}"),
+            {},
             {
-              key: "foo",
-              token: "bar",
-              name: "Card 2",
-              desc: "The second card"
+              "name" => "Card 2",
+              "desc" => "The second card"
             }
           )
           .and_return("{}")

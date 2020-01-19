@@ -13,15 +13,18 @@ describe Tr3llo::Command::List::List, type: :integration do
       interface = make_interface($container)
 
       make_client_mock($container) do |client_mock|
-        json = JSON.dump([
+        payload = [
           {"id" => "list:1", "name" => "List 1"},
           {"id" => "list:2", "name" => "List 2"}
-        ])
+        ]
 
         expect(client_mock).to(
           receive(:get)
-          .with("/boards/#{board_id}/lists", {key: "foo", list: true, token: "bar"})
-          .and_return(json)
+          .with(
+            req_path("/boards/#{board_id}/lists", list: true),
+            {}
+          )
+          .and_return(payload)
         )
       end
 
