@@ -15,7 +15,9 @@ module Tr3llo
       end
 
       def message
-        "Request error: #{response}"
+        formatted_response = "status: " + response.code.inspect() + ", body: " + response.body.inspect()
+
+        "Received unexpected response from remote server: " + formatted_response
       end
     end
 

@@ -16,22 +16,20 @@ module Tr3llo
       if init_command && init_command != ""
         interface.puts("Executing " + Utils.format_highlight(init_command) + " command")
 
-        execute_command!(init_command, interface)
+        execute_command!(init_command)
       end
 
       loop do
         command_buffer = Readline.readline("\e[15;48;5;27m 3llo \e[0m > ", true)
 
-        execute_command!(command_buffer, interface)
+        execute_command!(command_buffer)
       end
     rescue Interrupt
       Command::Exit.execute()
     end
 
-    def execute_command!(command_buffer, interface)
+    def execute_command!(command_buffer)
       Tr3llo::Command.execute(command_buffer.strip())
-    rescue RemoteServer::RequestError => e
-      interface.print_frame { interface.print_error(e.message) }
     end
   end
 end
