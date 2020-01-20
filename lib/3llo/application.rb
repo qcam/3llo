@@ -5,7 +5,7 @@ module Tr3llo
     DEFAULT_CONFIG_FILE_PATH = "~/.3llo.config.json".freeze
 
     def start(args)
-      $container = Container.new()
+      $application = Container.new()
 
       interface = register_interface!()
       option_parser = build_option_parser()
@@ -87,12 +87,12 @@ module Tr3llo
     def register_api_client!()
       remote_server = Tr3llo::RemoteServer.new("https://api.trello.com/1")
 
-      $container.register(:api_client, remote_server)
+      $application.register(:api_client, remote_server)
     end
 
     def register_interface!()
       prompt = TTY::Prompt.new()
-      $container.register(:interface, Tr3llo::Interface.new(prompt, $stdout))
+      $application.register(:interface, Tr3llo::Interface.new(prompt, $stdout))
     end
 
     def load_configuration!(config_file)
@@ -112,7 +112,7 @@ module Tr3llo
 
       configuration.finalize!()
 
-      $container.register(:configuration, configuration)
+      $application.register(:configuration, configuration)
     rescue KeyError => exception
       command_string = "3llo --configure"
 
@@ -141,37 +141,37 @@ module Tr3llo
     end
 
     def register_registry!()
-      $container.register(:registry, Tr3llo::Registry.new)
+      $application.register(:registry, Tr3llo::Registry.new)
     end
 
     def register_board!(board)
-      $container.register(:board, board)
+      $application.register(:board, board)
     end
 
     def fetch_board!()
-      $container.resolve(:board)
+      $application.resolve(:board)
     rescue ::Container::KeyNotFoundError
       raise BoardNotSelectedError
     end
 
     def fetch_user!()
-      $container.resolve(:user)
+      $application.resolve(:user)
     end
 
     def fetch_configuration!()
-      $container.resolve(:configuration)
+      $application.resolve(:configuration)
     end
 
     def fetch_interface!()
-      $container.resolve(:interface)
+      $application.resolve(:interface)
     end
 
     def fetch_client!()
-      $container.resolve(:api_client)
+      $application.resolve(:api_client)
     end
 
     def fetch_registry!()
-      $container.resolve(:registry)
+      $application.resolve(:registry)
     end
 
     def load_user!(interface)
@@ -182,7 +182,7 @@ module Tr3llo
         interface.puts("You're logged in as #{decorated_username}")
       end
 
-      $container.register(:user, user)
+      $application.register(:user, user)
     end
   end
 end

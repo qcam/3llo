@@ -3,21 +3,21 @@ require "spec_helper"
 describe "card edit <card_key>", type: :integration do
   include IntegrationSpecHelper
 
-  before { $container = build_container() }
-  after { $container = nil }
+  before { $application = build_container() }
+  after { $application = nil }
 
   it "updates the card" do
     card_id = "card:1"
     board_id = "board:1"
 
-    select_board($container, make_board(board_id))
+    select_board($application, make_board(board_id))
 
-    interface = make_interface($container) do |input, _output|
+    interface = make_interface($application) do |input, _output|
       expect(input).to receive(:ask).with("Name:", required: true, value: "Card 1").and_return("Card 2")
       expect(input).to receive(:ask).with("Description:", value: "The first card").and_return("The second card")
     end
 
-    make_client_mock($container) do |client_mock|
+    make_client_mock($application) do |client_mock|
       card_payload = {
         "id" => card_id,
         "name" => "Card 1",

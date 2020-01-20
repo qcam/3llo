@@ -3,16 +3,16 @@ require "spec_helper"
 describe "card add", type: :integration do
   include IntegrationSpecHelper
 
-  before { $container = build_container() }
-  after { $container = nil }
+  before { $application = build_container() }
+  after { $application = nil }
 
   it "creates a new card" do
     board_id = "board:1"
     list_id = "list:1"
 
-    select_board($container, make_board(board_id))
+    select_board($application, make_board(board_id))
 
-    make_client_mock($container) do |client_mock|
+    make_client_mock($application) do |client_mock|
       lists_payload = [
         {"id" => "list:1", "name" => "List 1"},
         {"id" => "list:2", "name" => "List 2"}
@@ -42,7 +42,7 @@ describe "card add", type: :integration do
       )
     end
 
-    interface = make_interface($container) do |input, _output|
+    interface = make_interface($application) do |input, _output|
       expect(input).to(
         receive(:select)
           .with(

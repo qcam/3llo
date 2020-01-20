@@ -3,13 +3,13 @@ require "spec_helper"
 describe "board select <board_key>", type: :integration do
   include IntegrationSpecHelper
 
-  before { $container = build_container() }
-  after { $container = nil }
+  before { $application = build_container() }
+  after { $application = nil }
 
   it "selects the given board" do
     board_id = "board:1"
 
-    make_client_mock($container) do |client_mock|
+    make_client_mock($application) do |client_mock|
       payload = {"id" => "board:1", "name" => "Board 1"}
 
       expect(client_mock).to(
@@ -22,7 +22,7 @@ describe "board select <board_key>", type: :integration do
       )
     end
 
-    make_interface($container)
+    make_interface($application)
 
     execute_command("board select #{board_id}")
 
@@ -35,7 +35,7 @@ describe "board select <board_key>", type: :integration do
 
     board_key = Tr3llo::Application.fetch_registry!().register(:board, board_id)
 
-    make_client_mock($container) do |client_mock|
+    make_client_mock($application) do |client_mock|
       payload = {"id" => "board:1", "name" => "Board 1"}
 
       expect(client_mock).to(
@@ -48,7 +48,7 @@ describe "board select <board_key>", type: :integration do
       )
     end
 
-    make_interface($container)
+    make_interface($application)
 
     execute_command("board select #" + board_key)
 
@@ -57,7 +57,7 @@ describe "board select <board_key>", type: :integration do
   end
 
   it "handles invalid board key" do
-    interface = make_interface($container)
+    interface = make_interface($application)
     execute_command("board select #does_not_exist")
 
     output_string = interface.output.string

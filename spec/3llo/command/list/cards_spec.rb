@@ -3,13 +3,13 @@ require "spec_helper"
 describe "list cards", type: :integration do
   include IntegrationSpecHelper
 
-  before { $container = build_container() }
-  after { $container = nil }
+  before { $application = build_container() }
+  after { $application = nil }
 
   it "lists all cards that belong to the list" do
     list_id = "list:1"
 
-    make_client_mock($container) do |client_mock|
+    make_client_mock($application) do |client_mock|
       payload = [
         {
           "id" => "card:1",
@@ -35,7 +35,7 @@ describe "list cards", type: :integration do
       )
     end
 
-    interface = make_interface($container)
+    interface = make_interface($application)
 
     execute_command("list cards " + list_id)
 

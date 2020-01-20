@@ -3,16 +3,16 @@ require "spec_helper"
 describe "card assign <card_key>", type: :integration do
   include IntegrationSpecHelper
 
-  before { $container = build_container() }
-  after { $container = nil }
+  before { $application = build_container() }
+  after { $application = nil }
 
   it "assigns users to the card" do
     card_id = "card:1"
     board_id = "board:1"
 
-    select_board($container, make_board(board_id))
+    select_board($application, make_board(board_id))
 
-    interface = make_interface($container) do |input, _output|
+    interface = make_interface($application) do |input, _output|
       expect(input).to(
         receive(:multi_select)
           .with(
@@ -24,7 +24,7 @@ describe "card assign <card_key>", type: :integration do
       )
     end
 
-    make_client_mock($container) do |client_mock|
+    make_client_mock($application) do |client_mock|
       card_payload = {
         "id" => card_id,
         "name" => "Card 1",

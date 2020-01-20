@@ -70,7 +70,7 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 
 Style/GlobalVars:
-  AllowedVariables: ['$container']
+  AllowedVariables: ['$application']
 
 Style/GuardClause:
   Enabled: false

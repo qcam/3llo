@@ -3,11 +3,11 @@ require "spec_helper"
 describe "card list", type: :integration do
   include IntegrationSpecHelper
 
-  before { $container = build_container() }
-  after { $container = nil }
+  before { $application = build_container() }
+  after { $application = nil }
 
   it "requires board to be selected" do
-    interface = make_interface($container)
+    interface = make_interface($application)
 
     execute_command("card list")
 
@@ -16,11 +16,11 @@ describe "card list", type: :integration do
   end
 
   it "lists all cards in the selected board" do
-    interface = make_interface($container)
+    interface = make_interface($application)
 
-    select_board($container, make_board("board:1"))
+    select_board($application, make_board("board:1"))
 
-    make_client_mock($container) do |client_mock|
+    make_client_mock($application) do |client_mock|
       lists_payload = [
         {"id" => "list:1", "name" => "List 1"},
         {"id" => "list:2", "name" => "List 2"}

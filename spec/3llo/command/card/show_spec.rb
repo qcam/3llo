@@ -3,13 +3,13 @@ require "spec_helper"
 describe "card show <card_key>", type: :integration do
   include IntegrationSpecHelper
 
-  before { $container = build_container() }
-  after { $container = nil }
+  before { $application = build_container() }
+  after { $application = nil }
 
   it "shows the information of the given cards" do
     card_id = "card:1"
 
-    make_client_mock($container) do |client_mock|
+    make_client_mock($application) do |client_mock|
       card_payload = {
         "id" => card_id,
         "name" => "Card 1",
@@ -47,7 +47,7 @@ describe "card show <card_key>", type: :integration do
       )
     end
 
-    interface = make_interface($container)
+    interface = make_interface($application)
 
     execute_command("card show " + card_id)
 
@@ -67,7 +67,7 @@ describe "card show <card_key>", type: :integration do
     card_id = "card:1"
     card_shortcut = Tr3llo::Application.fetch_registry!().register(:card, card_id)
 
-    make_client_mock($container) do |client_mock|
+    make_client_mock($application) do |client_mock|
       card_payload = {
         "id" => card_id,
         "name" => "Card 1",
@@ -102,13 +102,13 @@ describe "card show <card_key>", type: :integration do
       )
     end
 
-    make_interface($container)
+    make_interface($application)
 
     execute_command("card show #" + card_shortcut)
   end
 
   it "handles invalid card key" do
-    interface = make_interface($container)
+    interface = make_interface($application)
 
     execute_command("card show #random")
 

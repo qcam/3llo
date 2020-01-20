@@ -3,13 +3,13 @@ require "spec_helper"
 describe "list archive-cards <list_key>", type: :integration do
   include IntegrationSpecHelper
 
-  before { $container = build_container() }
-  after { $container = nil }
+  before { $application = build_container() }
+  after { $application = nil }
 
   it "lists all cards that belong to the list" do
     list_id = "list:1"
 
-    make_client_mock($container) do |client_mock|
+    make_client_mock($application) do |client_mock|
       payload = [
         {
           "id" => "card:1",
@@ -32,7 +32,7 @@ describe "list archive-cards <list_key>", type: :integration do
       )
     end
 
-    interface = make_interface($container) do |input, _output|
+    interface = make_interface($application) do |input, _output|
       expect(input).to(
         receive(:yes?)
           .with("Are you sure you want to archive all cards?")

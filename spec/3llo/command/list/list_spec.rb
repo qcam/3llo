@@ -4,15 +4,15 @@ describe Tr3llo::Command::List::List, type: :integration do
   include IntegrationSpecHelper
 
   describe ".execute" do
-    before { $container = build_container() }
-    after { $container = nil }
+    before { $application = build_container() }
+    after { $application = nil }
 
     it "lists all lists in the selected board" do
       board_id = "board:1"
 
-      interface = make_interface($container)
+      interface = make_interface($application)
 
-      make_client_mock($container) do |client_mock|
+      make_client_mock($application) do |client_mock|
         payload = [
           {"id" => "list:1", "name" => "List 1"},
           {"id" => "list:2", "name" => "List 2"}
@@ -28,12 +28,12 @@ describe Tr3llo::Command::List::List, type: :integration do
         )
       end
 
-      select_board($container, make_board(board_id))
+      select_board($application, make_board(board_id))
 
       execute_command("list list")
 
-      list1_key = $container.resolve(:registry).register(:list, "list:1")
-      list2_key = $container.resolve(:registry).register(:list, "list:2")
+      list1_key = $application.resolve(:registry).register(:list, "list:1")
+      list2_key = $application.resolve(:registry).register(:list, "list:2")
 
       output_string = interface.output.string
 
