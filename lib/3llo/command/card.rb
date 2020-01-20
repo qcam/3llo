@@ -27,18 +27,14 @@ module Tr3llo
       def execute(subcommand, args)
         case subcommand
         when "list"
-          is_mine, = *args
           board = Application.fetch_board!()
 
-          if is_mine == "mine"
-            user = Application.fetch_user!()
-            Command::Card::ListMine.execute(board[:id], user[:id])
-          elsif is_mine.nil?
-            Command::Card::List.execute(board[:id])
-          else
-            command_string = "card list #{is_mine}"
-            raise InvalidArgumentError.new("#{command_string.inspect} is not a valid command")
-          end
+          Command::Card::List.execute(board.id)
+        when "list-mine"
+          board = Application.fetch_board!()
+          user = Application.fetch_user!()
+
+          Command::Card::ListMine.execute(board.id, user.id)
         when "add"
           board = Application.fetch_board!()
           Command::Card::Add.execute(board[:id])

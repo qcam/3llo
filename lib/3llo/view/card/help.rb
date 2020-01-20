@@ -9,7 +9,7 @@ module Tr3llo
           #{Utils.format_bold("# Available card commands:")}
 
           card list               - Show list of cards grouped by list
-          card list mine          - Show list of my cards
+          card list-mine          - Show list of my cards
           card add                - Create a card
           card show <key>         - Show card information
           card move <key>         - Move card to a list

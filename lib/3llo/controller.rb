@@ -5,11 +5,10 @@ module Tr3llo
     extend self
 
     def start(init_command)
-      list = %w[board card help list mine move select self-assign show]
-      auto_completion = proc { |s| list.grep(/^#{Regexp.escape(s)}/) }
-
-      Readline.completion_append_character = " "
-      Readline.completion_proc = auto_completion
+      Readline.completion_append_character = "   "
+      Readline.completion_proc = lambda { |buffer|
+        Command.generate_suggestions(buffer, Readline.line_buffer)
+      }
 
       interface = Application.fetch_interface!()
 
@@ -27,6 +26,8 @@ module Tr3llo
     rescue Interrupt
       Command::Exit.execute()
     end
+
+    private
 
     def execute_command!(command_buffer)
       Tr3llo::Command.execute(command_buffer.strip())
