@@ -60,14 +60,14 @@ module Tr3llo
         make_struct(card_payload)
       end
 
-      #TODO: Use ".update".
+      # TODO: Use ".update".
       def move_to_list(card_id, list_id)
         req_path = Utils.build_req_path("/cards/#{card_id}/idList")
 
         client.put(req_path, {}, {"value" => list_id})
       end
 
-      #TODO: Use ".update".
+      # TODO: Use ".update".
       def assign_members(card_id, members)
         req_path = Utils.build_req_path("/cards/#{card_id}/idMembers")
 
@@ -108,7 +108,7 @@ module Tr3llo
         client.post(req_path, {}, payload)
       end
 
-      #TODO: Use ".update".
+      # TODO: Use ".update".
       def archive(card_id)
         req_path = Utils.build_req_path("/cards/#{card_id}")
         payload = {"closed" => "true"}
