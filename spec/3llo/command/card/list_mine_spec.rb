@@ -9,7 +9,7 @@ describe "card list mine", type: :integration do
   it "requires board to be selected" do
     interface = make_interface($application)
 
-    execute_command("card list mine")
+    execute_command("card list-mine")
 
     output_string = interface.output.string
     expect(output_string).to match("Board has not been selected.")
@@ -46,7 +46,7 @@ describe "card list mine", type: :integration do
       )
     end
 
-    execute_command("card list mine")
+    execute_command("card list-mine")
 
     output_string = interface.output.string
 

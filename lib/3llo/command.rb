@@ -13,6 +13,33 @@ module Tr3llo
       build_command(command_buffer)
     end
 
+    def generate_suggestions(buffer, command_buffer)
+      commands = {
+        "board" => ["list", "select"],
+        "list" => %w[list cards archive-cards],
+        "card" => %w[
+          list show add edit archive list-mine move
+          comment comments self-assign assign
+          add-checklist edit-checklist remove-checklist
+          add-item edit-item remote-item check-item uncheck-item
+        ],
+        "help" => [],
+        "exit" => []
+      }
+
+      command, _subcommand, _args = parse_command(command_buffer)
+
+      if commands.has_key?(command)
+        subcommands = commands.fetch(command)
+
+        subcommands
+          .grep(/^#{Regexp.escape(buffer)}/)
+          .reject { |suggestion| suggestion == buffer }
+      else
+        commands.keys.grep(/^#{Regexp.escape(buffer)}/)
+      end
+    end
+
     private
 
     def build_command(command_string)
@@ -43,7 +70,7 @@ module Tr3llo
     end
 
     def parse_command(command_string)
-      command_string.strip.split(" ")
+      command_string.strip.split(" ").map(&:strip)
     end
   end
 end
