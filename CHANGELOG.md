@@ -10,6 +10,8 @@
 * Improve performance of several commands.
 * Support checklist related commands.
 * Support Ruby 2.5+.
+* Introduce `card edit` command.
+* Improve command auto completion.
 
 ## v0.3.1
 
