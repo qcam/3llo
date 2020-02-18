@@ -5,7 +5,7 @@ module Tr3llo
     extend self
 
     def start(init_command)
-      Readline.completion_append_character = "   "
+      Readline.completion_append_character = " "
       Readline.completion_proc = lambda { |buffer|
         Command.generate_suggestions(buffer, Readline.line_buffer)
       }
