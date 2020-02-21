@@ -21,9 +21,7 @@ module Tr3llo
         else
           handle_invalid_subcommand(subcommand, args)
         end
-      rescue InvalidCommandError => exception
-        Command::Board::Invalid.execute(exception.message)
-      rescue InvalidArgumentError => exception
+      rescue InvalidCommandError, InvalidArgumentError, URI::InvalidURIError => exception
         Command::Board::Invalid.execute(exception.message)
       end
 
