@@ -65,7 +65,7 @@ module Tr3llo
           raise InvalidCommandError.new("command is missing")
         end
       end
-    rescue InvalidCommandError, RemoteServer::RequestError => exception
+    rescue InvalidCommandError, RemoteServer::RequestError, URI::InvalidURIError => exception
       Command::Invalid.execute(exception.message)
     end
 
