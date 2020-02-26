@@ -78,6 +78,8 @@ module Tr3llo
 
     def build_request_uri(req_path)
       URI.parse(endpoint_url + req_path)
+    rescue URI::Error
+      raise InvalidArgumentError.new("invalid command arguments")
     end
 
     def dispatch(request, expected_status_codes)
