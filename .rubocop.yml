@@ -58,7 +58,7 @@ Style/Alias:
   EnforcedStyle: prefer_alias
 
 Style/BracesAroundHashParameters:
-  Enabled: true
+  Enabled: false
 
 Style/DefWithParentheses:
   Enabled: false
