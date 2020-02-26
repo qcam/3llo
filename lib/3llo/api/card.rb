@@ -138,7 +138,7 @@ module Tr3llo
             label_name = label_payload.fetch("name")
             label_color = label_payload["color"]
 
-            Entities::Label.new(label_name, label_color)
+            Entities::Label.new(nil, nil, label_name, label_color)
           end
 
         card =
