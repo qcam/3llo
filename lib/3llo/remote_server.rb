@@ -77,11 +77,9 @@ module Tr3llo
     private
 
     def build_request_uri(req_path)
-      req_uri = endpoint_url + req_path
-      invalid_uri = (req_uri =~ /\A#{URI::DEFAULT_PARSER.make_regexp}\z/).nil?
-      raise InvalidCommandError.new("Invalid command.") if invalid_uri
-
       URI.parse(endpoint_url + req_path)
+    rescue URI::Error
+      raise InvalidArgumentError.new("invalid command arguments")
     end
 
     def dispatch(request, expected_status_codes)
