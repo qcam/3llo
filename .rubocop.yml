@@ -57,13 +57,7 @@ Security/JSONLoad:
 Style/Alias:
   EnforcedStyle: prefer_alias
 
-Style/HashEachMethods:
-  Enabled: true
-
-Style/HashTransformKeys:
-  Enabled: true
-
-Style/HashTransformValues:
+Style/BracesAroundHashParameters:
   Enabled: true
 
 Style/DefWithParentheses:
