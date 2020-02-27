@@ -1,7 +1,8 @@
 require "3llo/command/label/list"
-require "3llo/command/label/invalid"
+require "3llo/command/label/add"
 require "3llo/command/label/edit"
 require "3llo/command/label/remove"
+require "3llo/command/label/invalid"
 
 module Tr3llo
   module Command
@@ -14,6 +15,10 @@ module Tr3llo
           board = Application.fetch_board!()
 
           Command::Label::List.execute(board[:id])
+        when "add"
+          board = Application.fetch_board!()
+
+          Command::Label::Add.execute(board[:id])
         when "edit"
           label_key, = args
           Utils.assert_string!(label_key, "label key is missing")

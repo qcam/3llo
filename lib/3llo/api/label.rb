@@ -24,6 +24,17 @@ module Tr3llo
         make_struct(label_payload)
       end
 
+      def create(name, color, board_id)
+        req_path = Utils.build_req_path("/labels")
+        payload = {
+          "name" => name,
+          "color" => color,
+          "idBoard" => board_id
+        }
+
+        client.post(req_path, {}, payload)
+      end
+
       def update(label_id, data)
         req_path = Utils.build_req_path("/labels/#{label_id}")
 
