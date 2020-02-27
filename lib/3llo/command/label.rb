@@ -1,6 +1,7 @@
 require "3llo/command/label/list"
 require "3llo/command/label/invalid"
 require "3llo/command/label/edit"
+require "3llo/command/label/remove"
 
 module Tr3llo
   module Command
@@ -18,11 +19,11 @@ module Tr3llo
           Utils.assert_string!(label_key, "label key is missing")
 
           Command::Label::Edit.execute(label_key)
-        # when "archive-cards"
-        #   list_key, = args
-        #   Utils.assert_string!(list_key, "list key is missing")
+        when "remove"
+          label_key, = args
+          Utils.assert_string!(label_key, "label key is missing")
 
-        #   Command::List::ArchiveCards.execute(list_key)
+          Command::Label::Remove.execute(label_key)
         else
           handle_invalid_subcommand(subcommand, args)
         end

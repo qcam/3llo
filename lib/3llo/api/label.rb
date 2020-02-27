@@ -30,6 +30,12 @@ module Tr3llo
         client.put(req_path, {}, data)
       end
 
+      def delete(label_id)
+        req_path = Utils.build_req_path("/labels/#{label_id}")
+
+        client.delete(req_path, {}, {})
+      end
+
       private
 
       def make_struct(payload)
