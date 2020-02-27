@@ -1,4 +1,6 @@
 require "3llo/command/label/list"
+require "3llo/command/label/invalid"
+require "3llo/command/label/edit"
 
 module Tr3llo
   module Command
@@ -11,11 +13,11 @@ module Tr3llo
           board = Application.fetch_board!()
 
           Command::Label::List.execute(board[:id])
-        # when "cards"
-        #   list_key, = args
-        #   Utils.assert_string!(list_key, "list key is missing")
+        when "edit"
+          label_key, = args
+          Utils.assert_string!(label_key, "label key is missing")
 
-        #   Command::List::Cards.execute(list_key)
+          Command::Label::Edit.execute(label_key)
         # when "archive-cards"
         #   list_key, = args
         #   Utils.assert_string!(list_key, "list key is missing")
@@ -24,12 +26,8 @@ module Tr3llo
         else
           handle_invalid_subcommand(subcommand, args)
         end
-      rescue InvalidArgumentError => exception
-        Command::List::Invalid.execute(exception.message)
-      rescue InvalidCommandError => exception
-        Command::List::Invalid.execute(exception.message)
-      rescue BoardNotSelectedError => exception
-        Command::List::Invalid.execute(exception.message)
+      rescue InvalidArgumentError, InvalidCommandError, BoardNotSelectedError => exception
+        Command::Label::Invalid.execute(exception.message)
       end
 
       private

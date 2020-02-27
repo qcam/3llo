@@ -17,6 +17,19 @@ module Tr3llo
           end
       end
 
+      def find(label_id)
+        req_path = Utils.build_req_path("/labels/#{label_id}")
+        label_payload = client.get(req_path, {})
+
+        make_struct(label_payload)
+      end
+
+      def update(label_id, data)
+        req_path = Utils.build_req_path("/labels/#{label_id}")
+
+        client.put(req_path, {}, data)
+      end
+
       private
 
       def make_struct(payload)
