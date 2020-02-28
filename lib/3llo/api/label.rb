@@ -11,7 +11,7 @@ module Tr3llo
 
         client
           .get(req_path, {})
-          .reject! { |label| label["name"].empty? }
+          .reject { |label| label["name"].empty? }
           .map do |label_payload|
             make_struct(label_payload)
           end

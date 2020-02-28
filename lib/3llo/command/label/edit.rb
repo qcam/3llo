@@ -14,15 +14,13 @@ module Tr3llo
 
           interface.print_frame do
             name = interface.input.ask("Name:", required: true, value: label.name)
-            color = interface.input.select("Choose the color:") do |color_option|
-              color_option.default Utils::TRELLO_LABEL_COLOR[label.color]
+            color = interface.input.select(
+              "Choose the color:",
+              Utils::TRELLO_LABEL_COLOR,
+              default: Utils::TRELLO_LABEL_COLOR.index(label.color)
+            )
 
-              Utils::TRELLO_LABEL_COLOR.each do |label_color, color_key|
-                color_option.choice(label_color, color_key)
-              end
-            end
-
-            API::Label.update(label_id, {"name" => name, "color" => Utils::TRELLO_LABEL_COLOR.key(color)})
+            API::Label.update(label_id, {"name" => name, "color" => color})
 
             interface.puts("Label has been updated.")
           end

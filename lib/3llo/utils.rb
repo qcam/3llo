@@ -17,17 +17,7 @@ module Tr3llo
       "sky" => 36
     }.freeze()
 
-    TRELLO_LABEL_COLOR = {
-      "red" => 1,
-      "pink" => 2,
-      "blue" => 3,
-      "green" => 4,
-      "purple" => 5,
-      "yellow" => 6,
-      "orange" => 7,
-      "cyan" => 8,
-      "sky" => 9
-    }.freeze()
+    TRELLO_LABEL_COLOR = %w[red pink blue green purple yellow orange sky].freeze()
 
     def format_key_tag(id, shortcut)
       formatted_shortcut = Utils.format_highlight(Entities::SHORTCUT_PREFIX + shortcut)
