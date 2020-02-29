@@ -24,7 +24,7 @@ module Tr3llo
         make_struct(label_payload)
       end
 
-      def create(name, color, board_id)
+      def create(name:, color:, board_id:)
         req_path = Utils.build_req_path("/labels")
         payload = {
           "name" => name,
