@@ -11,7 +11,7 @@ module Tr3llo
             name = interface.input.ask("Name:", required: true)
             color = interface.input.select("Choose the color:", Utils::TRELLO_LABEL_COLOR)
 
-            API::Label.create(name, color, board_id)
+            API::Label.create(name: name, color: color, board_id: board_id)
 
             interface.puts("Label has been created.")
           end
