@@ -17,6 +17,8 @@ module Tr3llo
       "sky" => 36
     }.freeze()
 
+    TRELLO_LABEL_COLOR = %w[red pink blue green purple yellow orange sky].freeze()
+
     def format_key_tag(id, shortcut)
       formatted_shortcut = Utils.format_highlight(Entities::SHORTCUT_PREFIX + shortcut)
       formatted_id = Utils.paint(id, "blue")

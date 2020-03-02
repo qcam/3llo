@@ -14,6 +14,8 @@ module Tr3llo
 
         #{View::List::Help.render()}
 
+        #{View::Label::Help.render()}
+
         #{miscellaneous_help()}
         TEMPLATE
       end
