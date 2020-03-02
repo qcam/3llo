@@ -53,7 +53,7 @@ module Tr3llo
         id, name, color = payload.fetch_values("id", "name", "color")
         shortcut = Entities.make_shortcut(:label, id)
 
-        Entities::Label.new(id, shortcut, name, color)
+        Entities::Label.new(id: id, shortcut: shortcut, name: name, color: color)
       end
 
       def client
