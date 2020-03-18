@@ -21,6 +21,8 @@ module Tr3llo
       loop do
         command_buffer = Readline.readline("\e[15;48;5;27m 3llo \e[0m > ", true)
 
+        Command::Exit.execute() if command_buffer.nil?
+
         execute_command!(command_buffer)
       end
     rescue Interrupt
