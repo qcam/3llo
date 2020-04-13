@@ -9,6 +9,7 @@ module Tr3llo
           #{Utils.format_bold("# Available list commands:")}
 
           list list                 - Show all lists
+          list add                  - Create a list
           list cards <key>          - Show all cards in list
           list archive-cards <key>  - Archive all cards in list
           TEMPLATE
