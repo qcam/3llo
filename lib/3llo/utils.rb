@@ -30,6 +30,10 @@ module Tr3llo
       raise InvalidArgumentError.new(message) unless data.is_a?(String)
     end
 
+    def assert_list!(list)
+      raise EmptyListError if list.size.zero?
+    end
+
     def format_user(user)
       Utils.paint("@" + user.username, "blue")
     end

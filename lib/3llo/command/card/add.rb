@@ -11,6 +11,8 @@ module Tr3llo
               .map { |list| [list.name, list.id] }
               .to_h()
 
+          Utils.assert_list!(list_options)
+
           interface = Application.fetch_interface!()
 
           interface.print_frame do
