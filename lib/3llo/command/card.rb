@@ -134,8 +134,6 @@ module Tr3llo
         Command::Card::Invalid.execute(exception.message)
       rescue BoardNotSelectedError => exception
         Command::Card::Invalid.execute(exception.message)
-      rescue EmptyListError => exception
-        Command::Card::Invalid.execute(exception.message)
       end
 
       private

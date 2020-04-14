@@ -5,12 +5,6 @@ module Tr3llo
     end
   end
 
-  class EmptyListError < ::RuntimeError
-    def message
-      "There is no list. Run 'list add' to create one"
-    end
-  end
-
   class InvalidCommandError < ::ArgumentError; end
 
   class InvalidArgumentError < ::ArgumentError; end
