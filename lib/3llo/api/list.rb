@@ -23,6 +23,16 @@ module Tr3llo
         client.post(req_path, {}, {})
       end
 
+      def create(name, board_id)
+        req_path = Utils.build_req_path("/lists")
+        payload = {
+          "name" => name,
+          "idBoard" => board_id
+        }
+
+        client.post(req_path, {}, payload)
+      end
+
       private
 
       def make_struct(payload)

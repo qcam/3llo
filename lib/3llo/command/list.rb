@@ -1,4 +1,5 @@
 require "3llo/command/list/list"
+require "3llo/command/list/add"
 require "3llo/command/list/cards"
 require "3llo/command/list/invalid"
 require "3llo/command/list/archive_cards"
@@ -14,6 +15,10 @@ module Tr3llo
           board = Application.fetch_board!()
 
           Command::List::List.execute(board[:id])
+        when "add"
+          board = Application.fetch_board!()
+
+          Command::List::Add.execute(board[:id])
         when "cards"
           list_key, = args
           Utils.assert_string!(list_key, "list key is missing")

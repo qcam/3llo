@@ -11,8 +11,8 @@ describe Tr3llo::Command do
       assert_suggestions("l", "board l", ["list"])
 
       assert_suggestions("l", "l", ["list", "label"])
-      assert_suggestions("", "list ", %w[list cards archive-cards])
-      assert_suggestions("a", "list a", ["archive-cards"])
+      assert_suggestions("", "list ", %w[list add cards archive-cards])
+      assert_suggestions("a", "list a", ["add", "archive-cards"])
       assert_suggestions("ca", "list ca", ["cards"])
       assert_suggestions("l", "list l", ["list"])
 

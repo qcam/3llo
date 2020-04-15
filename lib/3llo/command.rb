@@ -17,7 +17,7 @@ module Tr3llo
     def generate_suggestions(buffer, command_buffer)
       commands = {
         "board" => ["list", "select"],
-        "list" => %w[list cards archive-cards],
+        "list" => %w[list add cards archive-cards],
         "card" => %w[
           list show add edit archive list-mine move
           comment comments self-assign assign
