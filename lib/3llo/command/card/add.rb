@@ -14,17 +14,21 @@ module Tr3llo
           interface = Application.fetch_interface!()
 
           interface.print_frame do
-            list_id = interface.input.select(
-              "Choose the list this card should belong to:",
-              list_options
-            )
+            if list_options.any?
+              list_id = interface.input.select(
+                "Choose the list this card should belong to:",
+                list_options
+              )
 
-            name = interface.input.ask("Name:", required: true)
-            description = interface.input.ask("Description:")
+              name = interface.input.ask("Name:", required: true)
+              description = interface.input.ask("Description:")
 
-            API::Card.create(name, description, list_id)
+              API::Card.create(name, description, list_id)
 
-            interface.puts("Card has been created.")
+              interface.puts("Card has been created.")
+            else
+              interface.puts("There is no list on board.")
+            end
           end
         end
       end
