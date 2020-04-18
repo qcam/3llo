@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v1.1.0
+
+* Introduce "list add" command.
+* Introduce "board add" command.
+* Introduce label related command.
+* Support exiting with Ctrl+D.
+
 ## v1.0.0
 
 * Support using shortcuts to access entities.
