@@ -6,7 +6,7 @@ describe Tr3llo::Command do
       assert_suggestions("", "", %w[board list card label help exit])
 
       assert_suggestions("b", "b", ["board"])
-      assert_suggestions("", "board ", ["list", "select"])
+      assert_suggestions("", "board ", %w[add list select])
       assert_suggestions("se", "board se", ["select"])
       assert_suggestions("l", "board l", ["list"])
 
