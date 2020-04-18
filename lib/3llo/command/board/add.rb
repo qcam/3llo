@@ -13,8 +13,8 @@ module Tr3llo
 
             default_lists = interface.input.yes?("Create a default lists (To Do, Doing, Done) on this board?") do |q|
               q.default false
-              q.positive 'Y'
-              q.negative 'N'
+              q.positive "Y"
+              q.negative "N"
             end
 
             API::Board.create(name: name, desc: desc, default_lists: default_lists)
