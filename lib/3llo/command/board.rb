@@ -1,6 +1,7 @@
 require "3llo/command/board/list"
 require "3llo/command/board/select"
 require "3llo/command/board/invalid"
+require "3llo/command/board/add"
 
 module Tr3llo
   module Command
@@ -18,6 +19,8 @@ module Tr3llo
           Utils.assert_string!(board_key, "board key is missing")
 
           Command::Board::Select.execute(board_key)
+        when "add"
+          Command::Board::Add.execute()
         else
           handle_invalid_subcommand(subcommand, args)
         end

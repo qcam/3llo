@@ -25,6 +25,18 @@ module Tr3llo
         make_struct(client.get(req_path, {}))
       end
 
+      def create(name:, desc:, default_lists: true)
+        client = Application.fetch_client!()
+        req_path = Utils.build_req_path("/boards", {})
+        payload = {
+          "name" => name,
+          "desc" => desc,
+          "defaultLists" => default_lists
+        }
+
+        client.post(req_path, {}, payload)
+      end
+
       private
 
       def make_struct(payload)

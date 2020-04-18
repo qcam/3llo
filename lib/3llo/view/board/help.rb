@@ -10,6 +10,7 @@ module Tr3llo
 
           board list                - Show list of boards
           board select <board_key>  - Select board
+          board add                 - Create a board
           TEMPLATE
         end
       end
