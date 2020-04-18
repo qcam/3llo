@@ -16,7 +16,7 @@ describe "board add", type: :integration do
             _payload = {
               "name" => "Board 1",
               "desc" => "Board description",
-              "defaultLists" => "true"
+              "defaultLists" => true
             }
           )
           .and_return("{}")
@@ -26,8 +26,8 @@ describe "board add", type: :integration do
     interface = make_interface($application) do |input, _output|
       expect(input).to(
         receive(:yes?)
-          .with("Create a default lists (To Do, Doing, Done) on this board?")
-          .and_return("true")
+          .with("With default set of lists to the board (To Do, Doing, Done)?")
+          .and_return(true)
       )
 
       expect(input).to receive(:ask).with("Name:", required: true).and_return("Board 1")

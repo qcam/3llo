@@ -11,11 +11,12 @@ module Tr3llo
             name = interface.input.ask("Name:", required: true)
             desc = interface.input.ask("Description:")
 
-            default_lists = interface.input.yes?("Create a default lists (To Do, Doing, Done) on this board?") do |q|
-              q.default false
-              q.positive "Y"
-              q.negative "N"
-            end
+            default_lists =
+              interface.input.yes?("With default set of lists to the board (To Do, Doing, Done)?") do |question|
+                question.default false
+                question.positive "Y"
+                question.negative "N"
+              end
 
             API::Board.create(name: name, desc: desc, default_lists: default_lists)
 
