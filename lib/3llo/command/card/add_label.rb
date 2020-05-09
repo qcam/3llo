@@ -13,7 +13,7 @@ module Tr3llo
           interface = Application.fetch_interface!()
 
           interface.print_frame do
-            label_ids = select_label(interface, card, board_id)
+            label_ids = select_labels(interface, card, board_id)
 
             add_labels(card_id, label_ids)
             interface.puts("Chosen labels have been added to the card.")
@@ -30,7 +30,7 @@ module Tr3llo
           API::Card.add_labels(card_id, label_ids)
         end
 
-        def select_label(interface, card, board_id)
+        def select_labels(interface, card, board_id)
           label_options =
             API::Label.find_all_by_board(board_id)
               .map { |label| [label.name, label.id] }
