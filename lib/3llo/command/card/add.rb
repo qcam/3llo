@@ -21,7 +21,7 @@ module Tr3llo
               )
 
               name = interface.input.ask("Name:", required: true)
-              description = interface.input.ask("Description:")
+              description = interface.input.multiline("Description:").join("")
 
               API::Card.create(name, description, list_id)
 
