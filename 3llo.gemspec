@@ -5,8 +5,8 @@ require "3llo/version"
 Gem::Specification.new do |spec|
   spec.name = "3llo"
   spec.version = Tr3llo::VERSION
-  spec.authors = ["Cẩm Huỳnh"]
-  spec.email = ["huynhquancam@gmail.com"]
+  spec.authors = ["Cẩm Huỳnh", "Diệp Sở Hùng"]
+  spec.email = ["huynhquancam@gmail.com", "diepsohung@gmail.com"]
 
   spec.summary = "Trello CLI app"
   spec.description = "Interactive CLI application for Trello"
