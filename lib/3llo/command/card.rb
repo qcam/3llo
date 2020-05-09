@@ -18,6 +18,7 @@ require "3llo/command/card/check_item"
 require "3llo/command/card/uncheck_item"
 require "3llo/command/card/edit_item"
 require "3llo/command/card/remove_item"
+require "3llo/command/card/add_label"
 
 module Tr3llo
   module Command
@@ -125,6 +126,12 @@ module Tr3llo
           Utils.assert_string!(check_item_key, "item key is missing")
 
           Command::Card::RemoveItem.execute(card_key, check_item_key)
+        when "add-label"
+          board = Application.fetch_board!()
+          card_key, = args
+          Utils.assert_string!(card_key, "card key is missing")
+
+          Command::Card::AddLabel.execute(card_key, board[:id])
         else
           handle_invalid_subcommand(subcommand, args)
         end

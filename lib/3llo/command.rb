@@ -22,7 +22,7 @@ module Tr3llo
           list show add edit archive list-mine move
           comment comments self-assign assign
           add-checklist edit-checklist remove-checklist
-          add-item edit-item remote-item check-item uncheck-item
+          add-item edit-item remote-item check-item uncheck-item add-label
         ],
         "label" => %w[list add edit remove],
         "help" => [],

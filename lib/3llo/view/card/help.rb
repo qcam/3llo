@@ -18,6 +18,7 @@ module Tr3llo
           card comments <key>     - Load recent comments of a card
           card comment <key>      - Add a comment to a card
           card archive <key>      - Archive a card
+          card add-label <key>    - Label a card
 
           #{Utils.format_bold("# Available checklist commands:")}
 
