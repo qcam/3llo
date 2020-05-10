@@ -1,7 +1,4 @@
-require "3llo/command/board/list"
-require "3llo/command/board/select"
-require "3llo/command/board/invalid"
-require "3llo/command/board/add"
+Tr3llo::Utils.require_folder_files(__FILE__, "/board/*.rb")
 
 module Tr3llo
   module Command

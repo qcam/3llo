@@ -1,8 +1,4 @@
-require "3llo/command/list/list"
-require "3llo/command/list/add"
-require "3llo/command/list/cards"
-require "3llo/command/list/invalid"
-require "3llo/command/list/archive_cards"
+Tr3llo::Utils.require_folder_files(__FILE__, "/list/*.rb")
 
 module Tr3llo
   module Command
