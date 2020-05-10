@@ -24,11 +24,11 @@ describe Tr3llo::Command do
           list show add edit archive list-mine move
           comment comments self-assign assign
           add-checklist edit-checklist remove-checklist
-          add-item edit-item remote-item check-item uncheck-item
+          add-item edit-item remote-item check-item uncheck-item add-label
         ]
       )
       assert_suggestions("l", "card l", ["list", "list-mine"])
-      assert_suggestions("a", "card a", %w[add archive assign add-checklist add-item])
+      assert_suggestions("a", "card a", %w[add archive assign add-checklist add-item add-label])
       assert_suggestions("e", "card e", %w[edit edit-checklist edit-item])
       assert_suggestions("l", "label l", ["list"])
       assert_suggestions("a", "label a", ["add"])

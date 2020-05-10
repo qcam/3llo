@@ -116,6 +116,12 @@ module Tr3llo
         client.put(req_path, {}, payload)
       end
 
+      def add_labels(card_id, labels)
+        req_path = Utils.build_req_path("/cards/#{card_id}/idLabels")
+
+        client.put(req_path, {}, {"value" => labels.join(",")})
+      end
+
       private
 
       def make_struct(payload)
@@ -135,10 +141,11 @@ module Tr3llo
           payload
             .fetch("labels", [])
             .map do |label_payload|
+            label_id = label_payload.fetch("id")
             label_name = label_payload.fetch("name")
             label_color = label_payload["color"]
 
-            Entities::Label.new(id: nil, shortcut: nil, name: label_name, color: label_color)
+            Entities::Label.new(id: label_id, shortcut: nil, name: label_name, color: label_color)
           end
 
         card =
