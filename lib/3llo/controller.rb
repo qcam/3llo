@@ -19,8 +19,8 @@ module Tr3llo
       end
 
       loop do
-        command_buffer = Readline.readline("\e[15;48;5;27m 3llo \e[0m > ", true)
-
+        status_line = determine_status_line()
+        command_buffer = Readline.readline(status_line, true)
         Command::Exit.execute() if command_buffer.nil?
 
         execute_command!(command_buffer)
@@ -30,6 +30,18 @@ module Tr3llo
     end
 
     private
+
+    def determine_status_line()
+      program_name = ["\e[15;48;5;27m 3llo \e[0m"]
+      board_name =
+        begin
+          ["\e[45m #{Application.fetch_board!().name} \e[0m"]
+        rescue BoardNotSelectedError
+          []
+        end
+
+      (program_name + board_name + [""]).join(" > ")
+    end
 
     def execute_command!(command_buffer)
       Tr3llo::Command.execute(command_buffer.strip())
