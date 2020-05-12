@@ -3,7 +3,6 @@ require "3llo/remote_server"
 require "3llo/interface"
 require "container"
 require "json"
-require "erb"
 
 require "3llo/application"
 require "3llo/configuration"
