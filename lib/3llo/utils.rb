@@ -67,5 +67,11 @@ module Tr3llo
 
       [path, URI.encode_www_form(params)].join("?")
     end
+
+    def require_directory(glob)
+      Dir.glob(glob).each do |file|
+        require file
+      end
+    end
   end
 end

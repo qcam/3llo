@@ -117,3 +117,6 @@ Style/StringLiteralsInInterpolation:
 
 Style/RaiseArgs:
   EnforcedStyle: compact
+
+Lint/NonDeterministicRequireOrder:
+  Enabled: false

@@ -1,24 +1,4 @@
-require "3llo/command/card/list"
-require "3llo/command/card/list_mine"
-require "3llo/command/card/edit"
-require "3llo/command/card/show"
-require "3llo/command/card/move"
-require "3llo/command/card/self_assign"
-require "3llo/command/card/assign"
-require "3llo/command/card/invalid"
-require "3llo/command/card/comments"
-require "3llo/command/card/comment"
-require "3llo/command/card/add"
-require "3llo/command/card/archive"
-require "3llo/command/card/add_checklist"
-require "3llo/command/card/edit_checklist"
-require "3llo/command/card/remove_checklist"
-require "3llo/command/card/add_item"
-require "3llo/command/card/check_item"
-require "3llo/command/card/uncheck_item"
-require "3llo/command/card/edit_item"
-require "3llo/command/card/remove_item"
-require "3llo/command/card/add_label"
+Tr3llo::Utils.require_directory(File.dirname(__FILE__) + "/card/*.rb")
 
 module Tr3llo
   module Command

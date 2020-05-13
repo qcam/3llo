@@ -1,8 +1,4 @@
-require "3llo/command/label/list"
-require "3llo/command/label/add"
-require "3llo/command/label/edit"
-require "3llo/command/label/remove"
-require "3llo/command/label/invalid"
+Tr3llo::Utils.require_directory(File.dirname(__FILE__) + "/label/*.rb")
 
 module Tr3llo
   module Command
