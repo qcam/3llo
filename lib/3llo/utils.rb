@@ -68,8 +68,8 @@ module Tr3llo
       [path, URI.encode_www_form(params)].join("?")
     end
 
-    def require_folder_files(current_file, suffix)
-      Dir[File.dirname(current_file) + suffix].sort.each do |file|
+    def require_directory(glob)
+      Dir.glob(glob).each do |file|
         require file
       end
     end

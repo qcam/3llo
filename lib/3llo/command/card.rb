@@ -1,4 +1,4 @@
-Tr3llo::Utils.require_folder_files(__FILE__, "/card/*.rb")
+Tr3llo::Utils.require_directory(File.dirname(__FILE__) + "/card/*.rb")
 
 module Tr3llo
   module Command

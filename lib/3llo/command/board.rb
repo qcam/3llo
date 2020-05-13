@@ -1,4 +1,4 @@
-Tr3llo::Utils.require_folder_files(__FILE__, "/board/*.rb")
+Tr3llo::Utils.require_directory(File.dirname(__FILE__) + "/board/*.rb")
 
 module Tr3llo
   module Command
