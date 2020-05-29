@@ -33,10 +33,6 @@ module Tr3llo
           )
         end
 
-        def move_card!(card_id, list_id)
-          API::Card.move_to_list(card_id, list_id)
-        end
-
         def assert_card_id!(card_id, key)
           raise InvalidArgumentError.new("#{key.inspect} is not a valid card key") unless card_id
         end
