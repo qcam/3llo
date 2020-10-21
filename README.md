@@ -1,7 +1,7 @@
 3llo - The interactive CLI application for Trello
 ================
 
-3llo allows you to work with Trello without exiting your favorite terminal.
+3llo allows you to work with Trello without exiting your favourite terminal.
 
 ![video](intro.gif)
 
