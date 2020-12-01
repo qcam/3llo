@@ -13,9 +13,11 @@ module Tr3llo
       interface = Application.fetch_interface!()
 
       if init_command && init_command != ""
-        interface.puts("Executing " + Utils.format_highlight(init_command) + " command")
-
-        execute_command!(init_command)
+        init_commands = init_command.split(";")
+        init_commands.each do |cmd|
+          interface.puts("Executing " + Utils.format_highlight(cmd) + " command")
+          execute_command!(cmd)
+        end
       end
 
       loop do
