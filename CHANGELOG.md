@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v1.2.0
+
+* Support running multiple commands with `--init` switch (#83)
+* Include current board name to status line (#77)
+* Introduce `card add-label` command (#74)
+* Support multiline card description (#72)
+
 ## v1.1.0
 
 * Introduce "list add" command.
