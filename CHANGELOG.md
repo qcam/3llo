@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v1.3.0
+
+* Support Ruby version 3
+* Fix comment listing (#86)
+
 ## v1.2.0
 
 * Support running multiple commands with `--init` switch (#83)
