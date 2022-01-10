@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^bin/}) { |filename| File.basename(filename) }
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = "~> 2.5"
+  spec.required_ruby_version = "~> 2.5", "~> 3.0"
 
   spec.add_runtime_dependency "tty-prompt", "~> 0.20"
 
