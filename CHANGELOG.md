@@ -1,6 +1,10 @@
 # CHANGELOG
 
-## v1.3.0
+## v1.3.1
+
+* Require Ruby version 3
+
+## v1.3.0 (yanked)
 
 * Support Ruby version 3
 * Fix comment listing (#86)
