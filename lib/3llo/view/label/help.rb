@@ -11,7 +11,7 @@ module Tr3llo
           label list                - Show all labels
           label add                 - Create a label
           label edit <key>          - Edit a label
-          list remove <key>         - Remove a label
+          label remove <key>        - Remove a label
           TEMPLATE
         end
       end
